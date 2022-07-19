@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Renderer</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin\</OutDir>
+    <IntDir>bin-int\Debug\</IntDir>
+    <TargetName>Renderer</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin\</OutDir>
+    <IntDir>bin-int\Release\</IntDir>
+    <TargetName>Renderer</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;C:\VulkanSDK\1.3.204.1\Include;..\vendor\GLM\glm\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\VulkanSDK\1.3.204.1\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;C:\VulkanSDK\1.3.204.1\Include;..\vendor\GLM\glm\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\VulkanSDK\1.3.204.1\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Manager.h" />
+    <ClInclude Include="src\Vulkan\Mesh.h" />
+    <ClInclude Include="src\Vulkan\DeviceContext.h" />
+    <ClInclude Include="src\Vulkan\VulkanCore.h" />
+    <ClInclude Include="src\Vulkan\MeshFactory.h" />
+    <ClInclude Include="src\Vulkan\Buffer.h" />
+    <ClInclude Include="src\Vulkan\CommandPool.h" />
+    <ClInclude Include="src\Vulkan\GPU.h" />
+    <ClInclude Include="src\Vulkan\GPUHandle.h" />
+    <ClInclude Include="src\Vulkan\GraphicPipeline.h" />
+    <ClInclude Include="src\GraphicsAPI.h" />
+    <ClInclude Include="src\Vulkan\RenderPass.h" />
+    <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Vulkan\Swapchain.h" />
+    <ClInclude Include="src\Vulkan\UI\Core\GUI.h" />
+    <ClInclude Include="src\Vulkan\UI\Core\GUIElement.h" />
+    <ClInclude Include="src\Vulkan\UI\Elements\TestWindow.h" />
+    <ClInclude Include="src\Vulkan\Vertex.h" />
+    <ClInclude Include="src\Vulkan\VulkanAPI.h" />
+    <ClInclude Include="src\Vulkan\VulkanDebugger.h" />
+    <ClInclude Include="src\Vulkan\VulkanInstance.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Vulkan\Mesh.cpp" />
+    <ClCompile Include="src\Vulkan\MeshFactory.cpp" />
+    <ClCompile Include="src\Vulkan\Buffer.cpp" />
+    <ClCompile Include="src\Vulkan\CommandPool.cpp" />
+    <ClCompile Include="src\Vulkan\GPU.cpp" />
+    <ClCompile Include="src\Vulkan\GPUHandle.cpp" />
+    <ClCompile Include="src\Vulkan\GraphicPipeline.cpp" />
+    <ClCompile Include="src\Vulkan\RenderPass.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Vulkan\Swapchain.cpp" />
+    <ClCompile Include="src\Vulkan\UI\Core\GUI.cpp" />
+    <ClCompile Include="src\Vulkan\UI\Core\GUIElement.cpp" />
+    <ClCompile Include="src\Vulkan\UI\Elements\TestWindow.cpp" />
+    <ClCompile Include="src\Vulkan\VulkanAPI.cpp" />
+    <ClCompile Include="src\Vulkan\VulkanDebugger.cpp" />
+    <ClCompile Include="src\Vulkan\main.cpp" />
+    <ClCompile Include="src\Vulkan\VulkanInstance.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\vendor\GLFW\GLFW.vcxproj">
+      <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

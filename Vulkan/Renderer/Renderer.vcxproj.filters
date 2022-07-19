@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="UI">
+      <UniqueIdentifier>{83755900-6F01-880B-D8AF-880BC45A880B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Core">
+      <UniqueIdentifier>{BB839740-2763-16DC-307B-A1B29CD97C3D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Elements">
+      <UniqueIdentifier>{2FD6E4D7-9B8B-5DCD-2480-57A4903454D1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Vulkan\CommandPool.h" />
+    <ClInclude Include="src\Vulkan\GPU.h" />
+    <ClInclude Include="src\Vulkan\GPUHandle.h" />
+    <ClInclude Include="src\Vulkan\GraphicPipeline.h" />
+    <ClInclude Include="src\GraphicsAPI.h" />
+    <ClInclude Include="src\Vulkan\RenderPass.h" />
+    <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Vulkan\Swapchain.h" />
+    <ClInclude Include="src\Vulkan\UI\Core\GUI.h">
+      <Filter>UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vulkan\UI\Core\GUIElement.h">
+      <Filter>UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vulkan\UI\Elements\TestWindow.h">
+      <Filter>UI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vulkan\Vertex.h" />
+    <ClInclude Include="src\Vulkan\VulkanAPI.h" />
+    <ClInclude Include="src\Vulkan\VulkanDebugger.h" />
+    <ClInclude Include="src\Vulkan\VulkanInstance.h" />
+    <ClInclude Include="src\Vulkan\Buffer.h" />
+    <ClInclude Include="src\Vulkan\MeshFactory.h" />
+    <ClInclude Include="src\Vulkan\VulkanCore.h" />
+    <ClInclude Include="src\Vulkan\DeviceContext.h" />
+    <ClInclude Include="src\Vulkan\Mesh.h" />
+    <ClInclude Include="src\Manager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Vulkan\CommandPool.cpp" />
+    <ClCompile Include="src\Vulkan\GPU.cpp" />
+    <ClCompile Include="src\Vulkan\GPUHandle.cpp" />
+    <ClCompile Include="src\Vulkan\GraphicPipeline.cpp" />
+    <ClCompile Include="src\Vulkan\RenderPass.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Vulkan\Swapchain.cpp" />
+    <ClCompile Include="src\Vulkan\UI\Core\GUI.cpp">
+      <Filter>UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vulkan\UI\Core\GUIElement.cpp">
+      <Filter>UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vulkan\UI\Elements\TestWindow.cpp">
+      <Filter>UI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vulkan\VulkanAPI.cpp" />
+    <ClCompile Include="src\Vulkan\VulkanDebugger.cpp" />
+    <ClCompile Include="src\Vulkan\main.cpp" />
+    <ClCompile Include="src\Vulkan\VulkanInstance.cpp" />
+    <ClCompile Include="src\Vulkan\Buffer.cpp" />
+    <ClCompile Include="src\Vulkan\MeshFactory.cpp" />
+    <ClCompile Include="src\Vulkan\Mesh.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+</Project>
