@@ -1,0 +1,10 @@
+^C:\IMAGINE\THIRDPARTY\YAML\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Imagine/ThirdParty/YAML -BC:/Imagine/ThirdParty/YAML/build --check-stamp-file C:/Imagine/ThirdParty/YAML/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
