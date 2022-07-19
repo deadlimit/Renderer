@@ -1,4 +1,0 @@
-﻿  MeshFactory.cpp
-C:\Users\Jonathan\Desktop\Vulkan\Renderer\src\Vulkan\MeshFactory.cpp(16,16): warning C4244: 'initializing': conversion from 'VkDeviceSize' to 'uint32_t', possible loss of data
-C:\Users\Jonathan\Desktop\Vulkan\Renderer\src\Vulkan\MeshFactory.cpp(49): warning C4172: returning address of local variable or temporary: mesh
-  Renderer.vcxproj -> C:\Users\Jonathan\Desktop\Vulkan\Renderer\bin\Renderer.exe
