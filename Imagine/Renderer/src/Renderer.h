@@ -1,18 +1,21 @@
 #pragma once
 #include <vector>
 
-class GraphicsAPI;
-
-enum class API {
-	OPENGL = 0, 
-	VULKAN = 1
-};
+#if defined(VULKAN)
+	#include "VulkanAPI.h"
+	#define API Vulkan
+#elif defined(OPENGL)
+	#include "OpenGLAPI.h"
+	#define API OpenGL
+#else
+	#error Error: no graphics-API defined
+#endif
 
 class Renderer {
 
 public:
 
-	Renderer(API);
+	Renderer();
 
 	void Init();
 	void Run();
@@ -20,7 +23,7 @@ public:
 
 private:
 
-	GraphicsAPI* RenderAPI;
+	API::GraphicsAPI* RenderAPI;
 
 };
 

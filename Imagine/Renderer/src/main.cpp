@@ -3,7 +3,7 @@
 
 int main() {
 
-	Renderer renderer(API::VULKAN);
+	Renderer renderer;
 
 	renderer.Init();
 	//renderer.Run();
