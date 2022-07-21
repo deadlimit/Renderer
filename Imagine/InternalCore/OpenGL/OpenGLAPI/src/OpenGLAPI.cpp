@@ -60,16 +60,26 @@ namespace OpenGL {
 		
 		while (!glfwWindowShouldClose(m_Window)) {
 
-			glClearColor(1.0f, 0.5f, 0.5f, 1.0f);
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			glfwPollEvents();
 
 			triangle1.Bind();
 
+			int time = glfwGetTime();
+			int green = sin(time);
+
+			float offset = -0.5f;
+
+			shader1.SetUniform3f("uniColor", 1.0f, 0.5f, 0.5f);
+		
+
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 			triangle2.Bind();
+
+			shader2.SetUniform1f("xOffset", offset);
 
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 

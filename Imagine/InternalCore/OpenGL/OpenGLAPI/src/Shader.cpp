@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 namespace OpenGL {
 
@@ -32,7 +33,18 @@ namespace OpenGL {
 
 		glDeleteShader(m_VertexShaderID);
 		glDeleteShader(m_FragmentShaderID);
+
+		GetUniformLocations();
 	}
+
+	void Shader::Bind() {
+
+		glUseProgram(m_ID);
+
+	}
+
+
+
 
 	bool Shader::CreateShader(GLuint& shaderID, GLuint type, const char* sourceCode) {
 		shaderID = glCreateShader(type);
@@ -75,6 +87,7 @@ namespace OpenGL {
 
 	}
 
+
 	std::tuple<const char*, const char*> Shader::ExtractSourceCode(const std::string& file) {
 
 		std::ifstream fileStream(file);
@@ -83,7 +96,6 @@ namespace OpenGL {
 			std::cout << "Could not open " << file << std::endl;
 			return { "", "" };
 		}
-
 
 		std::stringstream extractedCode[2];
 
@@ -96,15 +108,20 @@ namespace OpenGL {
 			if (line.find("#TYPE VERTEX") != line.npos) {
 				shaderTypeID = 0;
 			}
-
 			else if (line.find("#TYPE FRAGMENT") != line.npos) {
 				shaderTypeID = 1;
 			}
-
 			else {
 				extractedCode[shaderTypeID] << line << "\n";
-			}
+						
+				if (line.find("uniform") != line.npos) {
+					
+					std::string uniform = line.substr(line.find_last_of(' ') + 1);
+					uniform.pop_back();
 
+					m_Uniforms[uniform] = -1;
+				}
+			}
 		}
 
 		fileStream.close();
@@ -112,18 +129,49 @@ namespace OpenGL {
 		return { extractedCode[0].str().c_str(), extractedCode[1].str().c_str()};
 	}
 
-	
-	void Shader::Bind() {
+	void Shader::GetUniformLocations() {
 
-		glUseProgram(m_ID);
+		for (auto& pair : m_Uniforms) {
 
+			int location = glGetUniformLocation(m_ID, pair.first.c_str());
+
+			m_Uniforms[pair.first] = location;
+
+			if (location == -1) {
+				std::cout << pair.first << " is unused" << std::endl;
+			}
+		}		
 	}
+
+
 
 	Shader::~Shader() {
 		glDeleteProgram(m_ID);
 	}
 
+	void Shader::SetUniform1f(const char* uniform, float value) {
+		glUniform1f(m_Uniforms[uniform], value);
+	}
 
+	void Shader::SetUniform1i(const char* uniform, int value) {
+		glUniform1i(m_Uniforms[uniform], value);
+	}
+
+	void Shader::SetUniform1ui(const char* uniform, unsigned int value)  {
+		glUniform1ui(m_Uniforms[uniform], value);
+	}
+
+	void Shader::SetUniform2f(const char* uniform, float v0, float v1) {
+		glUniform2f(m_Uniforms[uniform], v0, v1);
+	}
+
+	void Shader::SetUniform3f(const char* uniform, float v0, float v1, float v2) {
+		glUniform3f(m_Uniforms[uniform], v0, v1, v2);
+	}
+
+	void Shader::SetUniform4f(const char* uniform, float v0, float v1, float v2, float v3) {
+		glUniform4f(m_Uniforms[uniform], v0, v1, v2, v3);
+	}
 
 }
 
