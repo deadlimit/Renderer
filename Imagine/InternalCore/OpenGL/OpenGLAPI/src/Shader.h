@@ -13,6 +13,9 @@ namespace OpenGL {
 		
 		void Bind();
 
+		Shader(const Shader&) = delete;
+		Shader(Shader&&) = delete;
+
 	private:
 	
 		static std::tuple<const char*, const char*> ExtractSourceCode(const std::string&);

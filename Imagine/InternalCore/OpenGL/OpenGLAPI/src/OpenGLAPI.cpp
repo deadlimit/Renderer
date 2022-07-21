@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <vector>
 #include "Shader.h"
+#include "Mesh.h"
 
 namespace OpenGL {
 
@@ -29,71 +30,51 @@ namespace OpenGL {
 
 		glViewport(0, 0, 800, 400);
 
-		Shader shader(SHADER_RESOURCE("Triangle.shader"));
+		Shader shader1(SHADER_RESOURCE("Triangle1.shader"));
+		Shader shader2(SHADER_RESOURCE("Triangle2.shader"));
 
-		/*
-		std::vector<Vertex> vertices = {
-			{{-0.5f, -0.5f, 0.0f}},
-			{{0.0f,  0.5f, 0.0f}},
-			{{ 0.5f, -0.5f, 0.0f}},
-		};
-		*/
-
-		float vertices[] = {
-			-0.5f, -0.5f, 1.0f,
-			0.0f,  0.5f, 1.0f,
-			0.5f, -0.5f, 1.0f,
+		std::vector<Vertex> vertices1 = {
+			{{-1.0f, -1.0f, 0.0f}},
+			{{ -1.0f,  1.0f, 0.0f}},
+			{{0.0f, 1.0f, 0.0f}},
+			{{0.0f, -1.0f, 0.0f}}
 		};
 
-		unsigned int indices[] = {
-			0, 1, 2
+		std::vector<Vertex> vertices2 = {
+			{{0.0f, -1.0f, 0.0f}},
+			{{0.0f,  1.0f, 0.0f}},
+			{{1.0f, 1.0f, 0.0f}},
+			{{1.0f, -1.0f, 0.0f}}
 		};
 
 
-		GLuint VAO;
-		glGenVertexArrays(1, &VAO);
-
-		glBindVertexArray(VAO);
-		GLuint VBO;
-		
-		glGenBuffers(1, &VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		GLuint EBO;
-		glGenBuffers(1, &EBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 3 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(0);
+		std::vector<unsigned int> indices = {
+			0, 1, 2,
+			2, 3, 0
+		};
 
 	
-		while (!glfwWindowShouldClose(m_Window)) {
+		Mesh triangle1(vertices1, indices, shader1);
+		Mesh triangle2(vertices2, indices, shader2);
 
+		
+		while (!glfwWindowShouldClose(m_Window)) {
 
 			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			glfwPollEvents();
 
+			triangle1.Bind();
 
-			glBindVertexArray(VAO);
-			shader.Bind();
-			//glDrawArrays(GL_TRIANGLES, 0, 3);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+			triangle2.Bind();
+
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 			glfwSwapBuffers(m_Window);
 		}
-
-	}
-
-	void GraphicsAPI::CreateTriangleTest() {
-
-
-
-
 
 	}
 

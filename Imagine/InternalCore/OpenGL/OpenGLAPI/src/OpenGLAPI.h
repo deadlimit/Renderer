@@ -15,8 +15,6 @@ namespace OpenGL {
 
 	private:
 
-		void CreateTriangleTest();
-
 		GLFWwindow* m_Window;
 
 	};

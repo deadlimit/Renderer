@@ -76,12 +76,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\OpenGLAPI.h" />
     <ClInclude Include="src\OpenGLCore.h" />
     <ClInclude Include="src\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c" />
+    <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\OpenGLAPI.cpp" />
     <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>

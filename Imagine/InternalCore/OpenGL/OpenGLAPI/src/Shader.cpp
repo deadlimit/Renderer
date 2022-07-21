@@ -93,11 +93,11 @@ namespace OpenGL {
 
 		while (std::getline(fileStream, line)) {
 
-			if (line.find("VERTEX") != line.npos) {
+			if (line.find("#TYPE VERTEX") != line.npos) {
 				shaderTypeID = 0;
 			}
 
-			else if (line.find("FRAGMENT") != line.npos) {
+			else if (line.find("#TYPE FRAGMENT") != line.npos) {
 				shaderTypeID = 1;
 			}
 

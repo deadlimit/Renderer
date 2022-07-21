@@ -8,4 +8,6 @@
 
 struct Vertex {
 	glm::vec3 Position;
+
+	static constexpr unsigned int Stride = sizeof(float) * 3;
 };
