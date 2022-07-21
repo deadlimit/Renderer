@@ -43,8 +43,9 @@ namespace OpenGL {
 
 	}
 
-
-
+	Shader::Shader(const Shader& other) : m_Uniforms(other.m_Uniforms), m_ID(other.m_ID) {
+		std::cout << "Move constructor for Shader" << std::endl;
+	}
 
 	bool Shader::CreateShader(GLuint& shaderID, GLuint type, const char* sourceCode) {
 		shaderID = glCreateShader(type);

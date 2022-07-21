@@ -8,6 +8,8 @@ namespace OpenGL {
 		Texture(const char*);
 		~Texture();
 
+		Texture(const Texture&);
+
 	private:
 
 		unsigned int m_TextureID;

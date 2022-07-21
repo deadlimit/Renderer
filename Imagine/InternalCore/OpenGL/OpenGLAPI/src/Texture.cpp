@@ -29,6 +29,8 @@ namespace OpenGL {
 		glDeleteTextures(1, &m_TextureID);
 	}
 
+	Texture::Texture(const Texture& other ) : m_TextureID(other.m_TextureID) {}
+
 }
 
 

@@ -14,7 +14,7 @@ namespace OpenGL {
 		
 		void Bind();
 
-		Shader(const Shader&) = delete;
+		Shader(const Shader&);
 		Shader(Shader&&) = delete;
 
 		inline const unsigned int GetID() const { return m_ID; }
