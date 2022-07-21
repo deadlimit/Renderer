@@ -21,6 +21,9 @@ namespace OpenGL {
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, Vertex::Stride, (void*)0);
 		glEnableVertexAttribArray(0);
 
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, Vertex::Stride, (void*)(Vertex::Stride / 2));
+		glEnableVertexAttribArray(1);
+
 	}
 
 	void Mesh::Bind() const {

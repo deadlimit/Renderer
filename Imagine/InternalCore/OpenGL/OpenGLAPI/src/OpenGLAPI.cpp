@@ -34,10 +34,10 @@ namespace OpenGL {
 		Shader shader2(SHADER_RESOURCE("Triangle2.shader"));
 
 		std::vector<Vertex> vertices1 = {
-			{{-1.0f, -1.0f, 0.0f}},
-			{{ -1.0f,  1.0f, 0.0f}},
-			{{0.0f, 1.0f, 0.0f}},
-			{{0.0f, -1.0f, 0.0f}}
+			{{-1.0f, -1.0f, 0.0f}, {1.0f, 0.0f, 0.0f}},
+			{{ -1.0f,  1.0f, 0.0f}, {0.0f, 1.0f, 0.0f}},
+			{{0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}},
+			{{0.0f, -1.0f, 0.0f}, {1.0f, 1.0f, 1.0f}}
 		};
 
 		std::vector<Vertex> vertices2 = {
@@ -60,7 +60,7 @@ namespace OpenGL {
 		
 		while (!glfwWindowShouldClose(m_Window)) {
 
-			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+			glClearColor(1.0f, 0.5f, 0.5f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			glfwPollEvents();

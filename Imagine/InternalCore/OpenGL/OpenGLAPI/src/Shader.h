@@ -16,6 +16,8 @@ namespace OpenGL {
 		Shader(const Shader&) = delete;
 		Shader(Shader&&) = delete;
 
+		inline const unsigned int GetID() const { return m_ID; }
+
 	private:
 	
 		static std::tuple<const char*, const char*> ExtractSourceCode(const std::string&);
