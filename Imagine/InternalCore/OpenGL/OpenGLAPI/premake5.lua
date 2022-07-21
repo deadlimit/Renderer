@@ -9,12 +9,15 @@ project "OpenGLAPI"
     files {
         "src/**.h",
         "src/**.cpp",
+        "../vendor/GLAD/src/**.c",
     }
 
     includedirs {
         "../vendor/GLFW/include/GLFW",
         "../vendor/GLM/glm/glm",
-        "../../../Renderer/src"
+        "../../../Renderer/src",
+        "../vendor/GLAD/include/glad",
+        "../vendor/GLAD/include/KHR",
     }
 
     links {

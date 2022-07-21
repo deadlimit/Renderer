@@ -55,7 +55,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\..\..\Renderer\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\..\..\Renderer\src;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -67,7 +67,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\..\..\Renderer\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\..\..\Renderer\src;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -77,9 +77,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\OpenGLAPI.h" />
+    <ClInclude Include="src\OpenGLCore.h" />
+    <ClInclude Include="src\Shader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\vendor\GLAD\src\glad.c" />
     <ClCompile Include="src\OpenGLAPI.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\vendor\GLFW\GLFW.vcxproj">

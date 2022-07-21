@@ -1,64 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="UI">
-      <UniqueIdentifier>{83755900-6F01-880B-D8AF-880BC45A880B}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI\Core">
-      <UniqueIdentifier>{BB839740-2763-16DC-307B-A1B29CD97C3D}</UniqueIdentifier>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI\Elements">
-      <UniqueIdentifier>{2FD6E4D7-9B8B-5DCD-2480-57A4903454D1}</UniqueIdentifier>
+    <Filter Include="vendor\GLAD">
+      <UniqueIdentifier>{1A7667C1-862B-E0B6-0F20-DA8D7BD4D6BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\GLAD\src">
+      <UniqueIdentifier>{31B12476-9D3C-923A-A64D-152F1258EE3A}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Buffer.h" />
-    <ClInclude Include="src\CommandPool.h" />
-    <ClInclude Include="src\DeviceContext.h" />
-    <ClInclude Include="src\GPU.h" />
-    <ClInclude Include="src\GPUHandle.h" />
-    <ClInclude Include="src\GraphicPipeline.h" />
-    <ClInclude Include="src\GraphicsAPI.h" />
-    <ClInclude Include="src\Mesh.h" />
-    <ClInclude Include="src\MeshFactory.h" />
-    <ClInclude Include="src\RenderPass.h" />
-    <ClInclude Include="src\Swapchain.h" />
-    <ClInclude Include="src\UI\Core\GUI.h">
-      <Filter>UI\Core</Filter>
+    <ClInclude Include="src\OpenGLAPI.h">
+      <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\UI\Core\GUIElement.h">
-      <Filter>UI\Core</Filter>
+    <ClInclude Include="src\OpenGLCore.h">
+      <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\UI\Elements\TestWindow.h">
-      <Filter>UI\Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Vertex.h" />
-    <ClInclude Include="src\VulkanAPI.h" />
-    <ClInclude Include="src\VulkanCore.h" />
-    <ClInclude Include="src\VulkanDebugger.h" />
-    <ClInclude Include="src\VulkanInstance.h" />
+    <ClInclude Include="src\Shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Buffer.cpp" />
-    <ClCompile Include="src\CommandPool.cpp" />
-    <ClCompile Include="src\GPU.cpp" />
-    <ClCompile Include="src\GPUHandle.cpp" />
-    <ClCompile Include="src\GraphicPipeline.cpp" />
-    <ClCompile Include="src\Mesh.cpp" />
-    <ClCompile Include="src\MeshFactory.cpp" />
-    <ClCompile Include="src\RenderPass.cpp" />
-    <ClCompile Include="src\Swapchain.cpp" />
-    <ClCompile Include="src\UI\Core\GUI.cpp">
-      <Filter>UI\Core</Filter>
+    <ClCompile Include="..\vendor\GLAD\src\glad.c">
+      <Filter>vendor\GLAD\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\UI\Core\GUIElement.cpp">
-      <Filter>UI\Core</Filter>
+    <ClCompile Include="src\OpenGLAPI.cpp">
+      <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\UI\Elements\TestWindow.cpp">
-      <Filter>UI\Elements</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VulkanAPI.cpp" />
-    <ClCompile Include="src\VulkanDebugger.cpp" />
-    <ClCompile Include="src\VulkanInstance.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
 </Project>
