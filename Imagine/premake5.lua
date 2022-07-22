@@ -6,6 +6,7 @@ workspace "Imagine"
     include "vendor/GLFW"
     include "InternalCore/Vulkan/VulkanAPI"
     include "InternalCore/OpenGL/OpenGLAPI"
+    include "vendor/IMGUI"
 
     --include "vendor/IMGUI"
     --include "vendor/YAML"

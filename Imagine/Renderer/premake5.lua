@@ -21,6 +21,7 @@ project "Renderer"
         "../vendor/GLAD/include/KHR",
         "../InternalCore/Vulkan/VulkanAPI/src",
         "../InternalCore/OpenGL/OpenGLAPI/src",
+        "../vendor/IMGUI"
     }
 
     libdirs{
@@ -34,4 +35,5 @@ project "Renderer"
         "vulkan-1.lib",
         "VulkanAPI.lib",
         "OpenGLAPI.lib",
+        "IMGUI",
     }

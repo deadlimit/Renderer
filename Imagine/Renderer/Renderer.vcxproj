@@ -58,7 +58,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;..\InternalCore\Vulkan\VulkanAPI\src;..\InternalCore\OpenGL\OpenGLAPI\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;..\InternalCore\Vulkan\VulkanAPI\src;..\InternalCore\OpenGL\OpenGLAPI\src;..\vendor\IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -73,7 +73,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;..\InternalCore\Vulkan\VulkanAPI\src;..\InternalCore\OpenGL\OpenGLAPI\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;..\InternalCore\Vulkan\VulkanAPI\src;..\InternalCore\OpenGL\OpenGLAPI\src;..\vendor\IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -94,6 +94,9 @@
   <ItemGroup>
     <ProjectReference Include="..\vendor\GLFW\GLFW.vcxproj">
       <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\vendor\IMGUI\IMGUI.vcxproj">
+      <Project>{606F530D-CC83-7BBE-9505-1F1E01D977EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
