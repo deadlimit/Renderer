@@ -1,13 +1,13 @@
 #include <iostream>
-#include "Renderer.h"
+#include "Engine.h"
 
 int main() {
 
-	Renderer renderer;
+	Engine engine;
 
-	renderer.Init();
-	renderer.Run();
-	renderer.Clean();
+	engine.Init();
+	engine.Run();
+	engine.Clean();
 
 	return 0;
 }

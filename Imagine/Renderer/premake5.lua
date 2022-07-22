@@ -32,8 +32,8 @@ project "Renderer"
 
     links {
         "GLFW",
+        "IMGUI",
         "vulkan-1.lib",
         "VulkanAPI.lib",
         "OpenGLAPI.lib",
-        "IMGUI",
     }

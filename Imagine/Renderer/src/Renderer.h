@@ -18,8 +18,10 @@ public:
 	Renderer();
 
 	void Init();
-	void Run();
+	void Run() const;
 	void Clean();
+
+	GLFWwindow& GetWindow() const { return RenderAPI->GetWindow(); }
 
 private:
 

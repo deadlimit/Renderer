@@ -17,8 +17,7 @@ namespace OpenGL {
 
 	void GraphicsAPI::Init() {
 		std::cout << "Initiating OpenGL" << std::endl;
-		
-
+	
 		glfwInit();
 
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -33,12 +32,9 @@ namespace OpenGL {
 			throw std::runtime_error("Failed to init GLAD");
 			return;
 		}
-	}
-
-	void GraphicsAPI::Run() {
 
 		glViewport(0, 0, 800, 600);
-		
+
 		Shader wallShader(SHADER_RESOURCE("Triangle1.shader"));
 		Texture wallTexture(TEXTURE_RESOURCE("wall.jpg"));
 
@@ -49,38 +45,31 @@ namespace OpenGL {
 
 		Material material(wallShader, wallTexture);
 		Mesh square(Square.vertices, Square.indicies, material);
-	
+
+
 		GameObject go(square);
 
-		Camera camera(glm::mat4(1.0f));
-		
-		wallShader.Bind();
+		m_RenderObjects.push_back(go);
 
-		
-		go.transform = glm::scale(go.transform, glm::vec3(1.0f, 1.0f, 1.0f));
+	}
 
-		float x = -1.0f;
+	void GraphicsAPI::Run() {
 
-		while (!glfwWindowShouldClose(m_Window)) {
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
 
-			glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+		glfwPollEvents();
 
-			glfwPollEvents();
+		DrawObjects();
 
-			go.Draw();
+		glfwSwapBuffers(m_Window);
+	}
 
-			go.transform = glm::rotate(go.transform, glm::radians(0.1f), glm::vec3(1.0f, 0.0f, 0.0f));
+	void GraphicsAPI::DrawObjects() {
 
-			wallShader.SetUniformMatrix4fv("projection", glm::perspective(glm::radians(45.0f), 800.0f / 400.0f, 0.1f, 100.0f));
-			wallShader.SetUniformMatrix4fv("view", glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, x)));
-			wallShader.SetUniformMatrix4fv("model", go.transform);
-
-			x -= 0.00005f;
-
+		for (int i = 0; i < m_RenderObjects.size(); ++i) {
+			m_RenderObjects[i].Draw();
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-			
-			glfwSwapBuffers(m_Window);
 		}
 
 	}
@@ -92,6 +81,8 @@ namespace OpenGL {
 		glfwTerminate();
 
 	}
+
+
 
 }
 
