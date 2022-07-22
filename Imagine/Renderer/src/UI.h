@@ -6,13 +6,16 @@ class UI {
 
 public:
 
-	UI(GLFWwindow&);
+	UI() = default;	
 	~UI();
-	void Render() const;
+
+	void Init(GLFWwindow*);
+
+	void Render();
 
 private:
 
-	GLFWwindow& m_Window;
+	GLFWwindow* m_Window;
 
 };
 

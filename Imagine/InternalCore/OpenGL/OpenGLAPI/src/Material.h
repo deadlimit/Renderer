@@ -8,8 +8,11 @@ namespace OpenGL{
 	class Material {
 
 	public:
+		Material() {}
 		Material(const Shader&, Texture&);
+		Material(Material&&);
 		~Material();
+
 
 		void Bind() const;
 

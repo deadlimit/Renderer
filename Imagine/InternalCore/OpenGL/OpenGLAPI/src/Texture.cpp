@@ -2,6 +2,7 @@
 #include "OpenGLCore.h"
 #include "Image.h"
 
+#include <iostream>
 namespace OpenGL {
 	
 	Texture::Texture(const char* file) {
@@ -27,6 +28,11 @@ namespace OpenGL {
 
 	Texture::~Texture() {
 		glDeleteTextures(1, &m_TextureID);
+	}
+
+	Texture::Texture(Texture&& other) : m_TextureID(other.m_TextureID) {
+		other.m_TextureID = -1;
+		std::cout << "Move: mesh" << std::endl;
 	}
 
 	Texture::Texture(const Texture& other ) : m_TextureID(other.m_TextureID) {}

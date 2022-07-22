@@ -9,17 +9,19 @@ namespace OpenGL {
 	class Shader {
 		
 	public:
+		Shader() {}
 		Shader(const std::string&);
 		~Shader();
-		
+		Shader(Shader&&);
 		void Bind() const;
 
 		Shader(const Shader&);
-		Shader(Shader&&) = delete;
 
 		inline const unsigned int GetID() const { return m_ID; }
 
 	public:
+
+		static int moved;
 
 		void SetUniform1f(const char*, float);
 		void SetUniform1i(const char*, int);
@@ -44,6 +46,9 @@ namespace OpenGL {
 		unsigned int m_ID;
 
 	};
+
+
+
 }
 
 

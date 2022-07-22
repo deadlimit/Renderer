@@ -3,7 +3,7 @@
 
 namespace OpenGL {
 
-	Mesh::Mesh(const std::vector<Vertex> vertices, const std::vector<unsigned int>& indices, const Material& material) : m_Material(material) {
+	Mesh::Mesh(const std::vector<Vertex> vertices, const std::vector<unsigned int>& indices, Material& material) : m_Material(std::move(material)) {
 
 		glGenVertexArrays(1, &m_VAO);
 		glBindVertexArray(m_VAO);
@@ -29,7 +29,11 @@ namespace OpenGL {
 
 	}
 
-	Mesh::Mesh(const Mesh& other) : m_Material(other.m_Material), m_VAO(other.m_VAO) {}
+	Mesh::Mesh(Mesh&& other) noexcept: m_Material(std::move(other.m_Material)), m_VAO(other.m_VAO) {
+		other.m_VAO = -1;
+		std::cout << "Move: mesh" << std::endl;
+	}
+
 
 	void Mesh::Bind() const {
 

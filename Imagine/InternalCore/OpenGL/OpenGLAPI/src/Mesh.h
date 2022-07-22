@@ -9,9 +9,12 @@ namespace OpenGL {
 	class Mesh {
 
 	public:
-		Mesh(const std::vector<Vertex>, const std::vector<unsigned int>&, const Material&);
+		Mesh() {}
+		Mesh(const std::vector<Vertex>, const std::vector<unsigned int>&, Material&);
+		Mesh(Mesh&&) noexcept;
 
-		Mesh(const Mesh&);
+		const Material& GetMaterial() const { return m_Material; }
+		const unsigned int GetID() const { return m_VAO; }
 
 		void Bind() const;
 

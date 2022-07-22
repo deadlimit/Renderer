@@ -5,10 +5,14 @@
 #include <vector>
 #include "gtc/type_ptr.hpp"
 
+
 namespace OpenGL {
+
+	int Shader::moved = 0;
 
 	Shader::Shader(const std::string& file) {
 	
+
 		auto[vertexCode, fragmentCode] = ExtractSourceCode(file);
 
 		GLuint m_VertexShaderID;
@@ -36,6 +40,8 @@ namespace OpenGL {
 		glDeleteShader(m_FragmentShaderID);
 
 		GetUniformLocations();
+
+		Bind();
 	}
 
 	void Shader::Bind() const {
@@ -45,7 +51,7 @@ namespace OpenGL {
 	}
 
 	Shader::Shader(const Shader& other) : m_Uniforms(other.m_Uniforms), m_ID(other.m_ID) {
-		std::cout << "Move constructor for Shader" << std::endl;
+		std::cout << "Copy constructor for Shader" << std::endl;
 	}
 
 	bool Shader::CreateShader(GLuint& shaderID, GLuint type, const char* sourceCode) {
@@ -149,6 +155,13 @@ namespace OpenGL {
 
 	Shader::~Shader() {
 		glDeleteProgram(m_ID);
+	}
+
+	Shader::Shader(Shader&& other ) : m_Uniforms(std::move(other.m_Uniforms)), m_ID(other.m_ID) {
+		other.m_ID = -1;
+		other.m_Uniforms.clear();
+		std::cout << moved << " Move " << moved << ": shader" << std::endl;
+		moved++;
 	}
 
 	void Shader::SetUniform1f(const char* uniform, float value) {

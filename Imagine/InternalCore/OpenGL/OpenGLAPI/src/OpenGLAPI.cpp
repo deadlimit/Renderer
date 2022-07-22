@@ -36,8 +36,10 @@ namespace OpenGL {
 		glViewport(0, 0, 800, 600);
 
 		Shader wallShader(SHADER_RESOURCE("Triangle1.shader"));
+		wallShader.Bind();
 		Texture wallTexture(TEXTURE_RESOURCE("wall.jpg"));
-
+		
+	
 		std::vector<unsigned int> indices = {
 			0, 1, 2,
 			2, 3, 0
@@ -46,10 +48,13 @@ namespace OpenGL {
 		Material material(wallShader, wallTexture);
 		Mesh square(Square.vertices, Square.indicies, material);
 
-
 		GameObject go(square);
 
-		m_RenderObjects.push_back(go);
+		wallShader.SetUniformMatrix4fv("projection", glm::perspective(glm::radians(45.f), 800.f / 400.f, 0.1f, 100.f));
+		wallShader.SetUniformMatrix4fv("view", glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f)));
+		wallShader.SetUniformMatrix4fv("model", go.transform);
+
+		m_RenderObjects.push_back(std::move(go));
 
 	}
 
@@ -68,7 +73,7 @@ namespace OpenGL {
 	void GraphicsAPI::DrawObjects() {
 
 		for (int i = 0; i < m_RenderObjects.size(); ++i) {
-			m_RenderObjects[i].Draw();
+			m_RenderObjects[i].Bind();
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		}
 
