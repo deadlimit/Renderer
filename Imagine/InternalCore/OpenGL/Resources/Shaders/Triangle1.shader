@@ -8,11 +8,13 @@ layout(location = 2) in vec2 inUV;
 
 out vec2 TexCoord;
 
-uniform mat4 transform;
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 model;
 
 void main() {
 
-    gl_Position = transform * vec4(inPos, 1.0);
+    gl_Position = projection * view * model * vec4(inPos, 1.0);
     TexCoord = vec2(inUV.x, inUV.y);
 }
 

@@ -1,0 +1,3 @@
+[submodule "Imagine/InternalCore/OpenGL/vendor/Assimp/assimp"]
+	path = Imagine/InternalCore/OpenGL/vendor/Assimp/assimp
+	url = https://github.com/assimp/assimp.git

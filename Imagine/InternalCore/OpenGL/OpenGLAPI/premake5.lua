@@ -21,5 +21,5 @@ project "OpenGLAPI"
     }
 
     links {
-        "GLFW"
+        "GLFW",
     }
