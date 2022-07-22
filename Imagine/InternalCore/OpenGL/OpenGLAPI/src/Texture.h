@@ -10,6 +10,8 @@ namespace OpenGL {
 
 		Texture(const Texture&);
 
+		void Bind() const;
+
 	private:
 
 		unsigned int m_TextureID;

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include "gtc/type_ptr.hpp"
 
 namespace OpenGL {
 
@@ -15,8 +16,8 @@ namespace OpenGL {
 
 		std::cout << "Compiling shader" << file << std::endl;
 
-		bool vertexCreateSuccess = CreateShader(m_VertexShaderID, GL_VERTEX_SHADER, vertexCode);
-		bool fragmentCreateSuccess = CreateShader(m_FragmentShaderID, GL_FRAGMENT_SHADER, fragmentCode);
+		bool vertexCreateSuccess = CreateShader(m_VertexShaderID, GL_VERTEX_SHADER, vertexCode.c_str());
+		bool fragmentCreateSuccess = CreateShader(m_FragmentShaderID, GL_FRAGMENT_SHADER, fragmentCode.c_str());
 
 		if (!vertexCreateSuccess || !fragmentCreateSuccess)
 			throw std::runtime_error("Failed to create shader");
@@ -37,7 +38,7 @@ namespace OpenGL {
 		GetUniformLocations();
 	}
 
-	void Shader::Bind() {
+	void Shader::Bind() const {
 
 		glUseProgram(m_ID);
 
@@ -89,7 +90,7 @@ namespace OpenGL {
 	}
 
 
-	std::tuple<const char*, const char*> Shader::ExtractSourceCode(const std::string& file) {
+	std::tuple<std::string, std::string> Shader::ExtractSourceCode(const std::string& file) {
 
 		std::ifstream fileStream(file);
 
@@ -113,7 +114,7 @@ namespace OpenGL {
 				shaderTypeID = 1;
 			}
 			else {
-				extractedCode[shaderTypeID] << line << "\n";
+				extractedCode[shaderTypeID] << line + "\n";
 						
 				if (line.find("uniform") != line.npos) {
 					
@@ -127,7 +128,7 @@ namespace OpenGL {
 
 		fileStream.close();
 
-		return { extractedCode[0].str().c_str(), extractedCode[1].str().c_str()};
+		return { extractedCode[0].str(), extractedCode[1].str()};
 	}
 
 	void Shader::GetUniformLocations() {
@@ -172,6 +173,10 @@ namespace OpenGL {
 
 	void Shader::SetUniform4f(const char* uniform, float v0, float v1, float v2, float v3) {
 		glUniform4f(m_Uniforms[uniform], v0, v1, v2, v3);
+	}
+
+	void Shader::SetUniformMatrix4fv(const char* uniform, glm::mat4 value) {
+		glUniformMatrix4fv(m_Uniforms[uniform], 1, GL_FALSE, glm::value_ptr(value));
 	}
 
 }

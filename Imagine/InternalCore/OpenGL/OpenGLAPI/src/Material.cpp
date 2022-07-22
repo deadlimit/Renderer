@@ -4,6 +4,14 @@ namespace OpenGL {
 
 	Material::Material(const Shader& shader, Texture& texture) : m_Shader(shader), m_Texture(texture) {}
 
+	Material::~Material() {
+	}
+
+	void Material::Bind() const {
+		m_Texture.Bind();
+		m_Shader.Bind();
+	}
+
 }
 
 

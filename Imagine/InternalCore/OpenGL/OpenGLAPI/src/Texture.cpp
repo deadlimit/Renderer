@@ -31,6 +31,10 @@ namespace OpenGL {
 
 	Texture::Texture(const Texture& other ) : m_TextureID(other.m_TextureID) {}
 
+	void Texture::Bind() const {
+		glBindTexture(GL_TEXTURE_2D, m_TextureID);
+	}
+
 }
 
 

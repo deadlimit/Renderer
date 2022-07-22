@@ -3,7 +3,7 @@
 
 namespace OpenGL {
 
-	Mesh::Mesh(const std::vector<Vertex> vertices, const std::vector<unsigned int>& indices, Shader& shader) : m_Shader(shader) {
+	Mesh::Mesh(const std::vector<Vertex> vertices, const std::vector<unsigned int>& indices, const Material& material) : m_Material(material) {
 
 		glGenVertexArrays(1, &m_VAO);
 		glBindVertexArray(m_VAO);
@@ -29,9 +29,11 @@ namespace OpenGL {
 
 	}
 
+	Mesh::Mesh(const Mesh& other) : m_Material(other.m_Material), m_VAO(other.m_VAO) {}
+
 	void Mesh::Bind() const {
 
-		m_Shader.Bind();
+		m_Material.Bind();
 		glBindVertexArray(m_VAO);
 
 	}

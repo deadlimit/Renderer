@@ -12,7 +12,7 @@ namespace OpenGL {
 		Shader(const std::string&);
 		~Shader();
 		
-		void Bind();
+		void Bind() const;
 
 		Shader(const Shader&);
 		Shader(Shader&&) = delete;
@@ -27,13 +27,13 @@ namespace OpenGL {
 		void SetUniform2f(const char*, float, float);
 		void SetUniform3f(const char*, float, float, float);
 		void SetUniform4f(const char*, float, float, float, float);
-		
+		void SetUniformMatrix4fv(const char*, glm::mat4);
 
 	private:
 	
 		std::map<std::string, int> m_Uniforms;
 
-		std::tuple<const char*, const char*> ExtractSourceCode(const std::string&);
+		std::tuple<std::string, std::string> ExtractSourceCode(const std::string&);
 
 		bool CreateShader(GLuint&, GLuint, const char*);
 

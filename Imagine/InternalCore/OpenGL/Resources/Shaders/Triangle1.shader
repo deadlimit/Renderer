@@ -8,10 +8,12 @@ layout(location = 2) in vec2 inUV;
 
 out vec2 TexCoord;
 
+uniform mat4 transform;
+
 void main() {
 
-    gl_Position = vec4(inPos.x, inPos.y, inPos.z, 1.0);
-    TexCoord = inUV;
+    gl_Position = transform * vec4(inPos, 1.0);
+    TexCoord = vec2(inUV.x, inUV.y);
 }
 
 #TYPE FRAGMENT

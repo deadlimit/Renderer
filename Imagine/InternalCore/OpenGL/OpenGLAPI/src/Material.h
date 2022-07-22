@@ -11,6 +11,8 @@ namespace OpenGL{
 		Material(const Shader&, Texture&);
 		~Material();
 
+		void Bind() const;
+
 	private:
 
 		Shader m_Shader;

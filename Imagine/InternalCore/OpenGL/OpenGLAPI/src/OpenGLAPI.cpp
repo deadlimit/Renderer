@@ -5,6 +5,12 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "Texture.h"
+#include "Material.h"
+#include "GameObject.h"
+#include "Primitives.h"
+#include "glm.hpp""
+#include "gtc/matrix_transform.hpp"
+
 
 namespace OpenGL {
 
@@ -31,35 +37,36 @@ namespace OpenGL {
 
 		glViewport(0, 0, 800, 400);
 
-		Shader shader1(SHADER_RESOURCE("Triangle1.shader"));
-		Shader shader2(SHADER_RESOURCE("Triangle2.shader"));
+		Shader wallShader(SHADER_RESOURCE("Triangle1.shader"));
+		Texture wallTexture(TEXTURE_RESOURCE("wall.jpg"));
 
-		std::vector<Vertex> vertices1 = {
-			{{-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
-			{{ -0.5f,  0.5f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},
-			{{0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
-			{{0.5f, -0.5f, 0.0f}, {1.0f, 1.0f, 1.0f}, {1.0f, 0.0f}}
-		};
-
-		
 		std::vector<unsigned int> indices = {
 			0, 1, 2,
 			2, 3, 0
 		};
 
-		
-		Texture texture(TEXTURE_RESOURCE("wall.jpg"));
+		Material material(wallShader, wallTexture);
+		Mesh square(Square.vertices, Square.indicies, material);
+	
+		GameObject go(square);
 
-		Mesh triangle1(vertices1, indices, shader1);
 		
+		wallShader.Bind();
+
 		while (!glfwWindowShouldClose(m_Window)) {
 
-			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			glfwPollEvents();
 
-			triangle1.Bind();
+			go.Draw();
+
+			go.transform = glm::translate(go.transform, glm::vec3(-0.0001f, 0.0f, 0.0f));
+			go.transform = glm::rotate(go.transform, glm::radians(0.1f), glm::vec3(0.0f, 1.0f, 0.0f));
+			go.transform = glm::scale(go.transform, glm::vec3(1.0f, 1.0f, 1.0f));
+
+			wallShader.SetUniformMatrix4fv("u_Transform", go.transform);
 
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 			
