@@ -55,22 +55,31 @@ namespace OpenGL {
 
 		m_RenderObjects.push_back(std::move(go));
 
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
 	}
 
 	void GraphicsAPI::Run() {
 
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
-
+		
 		glfwPollEvents();
 
 		DrawObjects();
 
 		glfwSwapBuffers(m_Window);
+
 	}
 
+	void GraphicsAPI::Clear() {
+
+		
+		glClear(GL_COLOR_BUFFER_BIT);
+		
+	}
 	
 	void GraphicsAPI::DrawObjects() {
+
+		glViewport(0, 0, 800, 600);
 
 		for (int i = 0; i < m_RenderObjects.size(); ++i) {
 	

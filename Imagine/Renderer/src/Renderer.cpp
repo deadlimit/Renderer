@@ -14,6 +14,10 @@ void Renderer::Run() {
 	RenderAPI->Run();
 }
 
+void Renderer::Clear() {
+	RenderAPI->Clear();
+}
+
 void Renderer::Clean() {
 	RenderAPI->Clean();
 }

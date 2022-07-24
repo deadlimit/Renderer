@@ -10,6 +10,7 @@ void Engine::Run() {
 
 	while (!glfwWindowShouldClose(m_Window)) {
 		
+		m_Renderer.Clear();
 		m_UI.Render();
 		m_Renderer.Run();
 	}

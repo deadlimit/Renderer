@@ -5,20 +5,26 @@
 
 #include <iostream>
 
+#define IMGUI_IMPL_OPENGL_ES3
+
 void UI::Init(GLFWwindow* window) {
 
 	m_Window = window;
 
 	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	auto context = ImGui::CreateContext();
+	ImGui::SetCurrentContext(context);
+	ImGuiIO& io = ImGui::GetIO(); 
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      	
 
-	ImGui::StyleColorsLight();
 
-	ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
-	ImGui_ImplOpenGL3_Init("#version 330");
+	ImGui_ImplGlfw_InitForOpenGL(m_Window, false);
+	ImGui_ImplOpenGL3_Init("#version 460 core");
+	ImGui::StyleColorsDark();
+
+
+
 }
 
 void UI::Render() {
@@ -27,13 +33,14 @@ void UI::Render() {
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
+
 	ImGui::Begin("Hello, world!");
-	ImGui::Text("This is some useful text.");
-	if (ImGui::Button("Button")) 
-		std::cout << "Hello world" << std::endl;
+	ImGui::SetNextWindowSize({ 300, 300 });
+	ImGui::Button("Button on window B");
 
 	ImGui::End();
 
+	ImGui::EndFrame();
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

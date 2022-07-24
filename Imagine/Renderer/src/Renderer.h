@@ -19,7 +19,9 @@ public:
 
 	void Init();
 	void Run();
+	void Clear();
 	void Clean();
+	
 
 	GLFWwindow& GetWindow() const { return RenderAPI->GetWindow(); }
 

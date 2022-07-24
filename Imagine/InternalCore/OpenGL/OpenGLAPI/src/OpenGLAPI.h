@@ -16,8 +16,8 @@ namespace OpenGL {
 
 		void Init();
 		void Run();
+		void Clear();
 		void Clean();
-
 		GLFWwindow& GetWindow() const { return *m_Window; }
 
 	private:

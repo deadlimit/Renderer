@@ -16,6 +16,7 @@ namespace Vulkan {
 		GraphicsAPI() = default;
 		void Init();
 		void Run();
+		void Clear() {}
 		void Clean();
 
 	private:
