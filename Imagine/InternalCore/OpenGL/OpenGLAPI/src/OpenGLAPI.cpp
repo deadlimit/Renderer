@@ -15,6 +15,9 @@
 
 namespace OpenGL {
 
+
+	GraphicsAPI::GraphicsAPI() : m_Camera(glm::mat4(1.0f)) {}
+
 	void GraphicsAPI::Init() {
 		std::cout << "Initiating OpenGL" << std::endl;
 	
@@ -36,23 +39,19 @@ namespace OpenGL {
 		glViewport(0, 0, 800, 600);
 
 		Shader wallShader(SHADER_RESOURCE("Triangle1.shader"));
-		wallShader.Bind();
 		Texture wallTexture(TEXTURE_RESOURCE("wall.jpg"));
-		
-	
-		std::vector<unsigned int> indices = {
-			0, 1, 2,
-			2, 3, 0
-		};
-
 		Material material(wallShader, wallTexture);
 		Mesh square(Square.vertices, Square.indicies, material);
 
 		GameObject go(square);
 
-		wallShader.SetUniformMatrix4fv("projection", glm::perspective(glm::radians(45.f), 800.f / 400.f, 0.1f, 100.f));
-		wallShader.SetUniformMatrix4fv("view", glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f)));
-		wallShader.SetUniformMatrix4fv("model", go.transform);
+		go.Bind();
+		
+		
+		
+		go.GetMaterial().GetShader().SetUniformMatrix4fv("projection", glm::perspective(glm::radians(45.f), 800.f / 600.0f, 0.01f, 100.f));
+		go.GetMaterial().GetShader().SetUniformMatrix4fv("view", glm::translate(m_Camera.GetViewMatrix(), glm::vec3(0.0f, 0.0f, -2.0f)));
+		go.GetMaterial().GetShader().SetUniformMatrix4fv("model", go.transform);
 
 		m_RenderObjects.push_back(std::move(go));
 
@@ -70,12 +69,17 @@ namespace OpenGL {
 		glfwSwapBuffers(m_Window);
 	}
 
+	
 	void GraphicsAPI::DrawObjects() {
 
 		for (int i = 0; i < m_RenderObjects.size(); ++i) {
+	
 			m_RenderObjects[i].Bind();
+
+			m_RenderObjects[i].transform = glm::rotate(m_RenderObjects[i].transform, glm::radians(0.03f), glm::vec3(0.0f, 0.0f, 1.0f));
+			m_RenderObjects[i].GetMaterial().GetShader().SetUniformMatrix4fv("model", m_RenderObjects[i].transform);
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		}
+		}		
 
 	}
 

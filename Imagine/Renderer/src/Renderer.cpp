@@ -10,7 +10,7 @@ void Renderer::Init() {
 	RenderAPI->Init();
 }
 
-void Renderer::Run() const {
+void Renderer::Run() {
 	RenderAPI->Run();
 }
 

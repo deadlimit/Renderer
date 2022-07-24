@@ -3,10 +3,10 @@
 
 namespace OpenGL {
 
-	Material::Material(const Shader& shader, Texture& texture) : m_Shader(shader), m_Texture(texture) {}
+	Material::Material(Shader& shader, Texture& texture) : m_Shader(std::move(shader)), m_Texture(std::move(texture)) {}
 
 	Material::Material(Material&& other ) : m_Shader(std::move(other.m_Shader)), m_Texture(std::move(other.m_Texture)) {
-		std::cout << "Move: material" << std::endl;
+		std::cout << "Move constructor for Material" << std::endl;
 	}
 
 	Material::~Material() {

@@ -32,10 +32,12 @@ namespace OpenGL {
 
 	Texture::Texture(Texture&& other) : m_TextureID(other.m_TextureID) {
 		other.m_TextureID = -1;
-		std::cout << "Move: mesh" << std::endl;
+		std::cout << "Move constructor for Texture" << std::endl;
 	}
 
-	Texture::Texture(const Texture& other ) : m_TextureID(other.m_TextureID) {}
+	Texture::Texture(const Texture& other ) : m_TextureID(other.m_TextureID) {
+		std::cout << "Copy constructor for Texture" << std::endl;
+	}
 
 	void Texture::Bind() const {
 		glBindTexture(GL_TEXTURE_2D, m_TextureID);

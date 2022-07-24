@@ -9,10 +9,11 @@ namespace OpenGL{
 
 	public:
 		Material() {}
-		Material(const Shader&, Texture&);
+		Material(Shader&, Texture&);
 		Material(Material&&);
 		~Material();
 
+		Shader& GetShader() { return m_Shader; }
 
 		void Bind() const;
 

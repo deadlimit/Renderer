@@ -14,6 +14,8 @@ namespace OpenGL {
 
 		void Bind() const;
 
+		Material& GetMaterial() { return m_Mesh.GetMaterial(); }
+
 		glm::mat4 transform;
 
 	private:

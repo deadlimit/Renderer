@@ -18,7 +18,7 @@ public:
 	Renderer();
 
 	void Init();
-	void Run() const;
+	void Run();
 	void Clean();
 
 	GLFWwindow& GetWindow() const { return RenderAPI->GetWindow(); }

@@ -31,14 +31,14 @@ namespace OpenGL {
 
 	Mesh::Mesh(Mesh&& other) noexcept: m_Material(std::move(other.m_Material)), m_VAO(other.m_VAO) {
 		other.m_VAO = -1;
-		std::cout << "Move: mesh" << std::endl;
+		std::cout << "Move constructor for Mesh" << std::endl;
 	}
 
 
 	void Mesh::Bind() const {
 
-		m_Material.Bind();
 		glBindVertexArray(m_VAO);
+		m_Material.Bind();
 
 	}
 

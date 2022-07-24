@@ -160,7 +160,7 @@ namespace OpenGL {
 	Shader::Shader(Shader&& other ) : m_Uniforms(std::move(other.m_Uniforms)), m_ID(other.m_ID) {
 		other.m_ID = -1;
 		other.m_Uniforms.clear();
-		std::cout << moved << " Move " << moved << ": shader" << std::endl;
+		std::cout << "Move constructor for Shader" << std::endl;
 		moved++;
 	}
 
