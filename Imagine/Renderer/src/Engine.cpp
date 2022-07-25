@@ -1,7 +1,4 @@
 #include "Engine.h"
-#include "glfw3.h"
-#include "glfw3native.h"
-
 
 void Engine::Init() {
 

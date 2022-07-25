@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Renderer.h"
-#include "UI/UI.h"
+#include "GUI/GUI.h"
 
 class Engine {
 
@@ -19,7 +19,7 @@ private:
 	Renderer m_Renderer;
 	GLFWwindow* m_Window;
 
-	UI m_UI;
+	GUI m_UI;
 
 };
 
