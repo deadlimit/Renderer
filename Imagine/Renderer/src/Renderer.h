@@ -17,13 +17,11 @@ public:
 
 	Renderer();
 
-	void Init();
+	void Init(GLFWwindow*);
 	void Run();
 	void Clear();
 	void Clean();
 	
-	GLFWwindow& GetWindow() const { return RenderAPI->GetWindow(); }
-
 private:
 
 	API::GraphicsAPI* RenderAPI;

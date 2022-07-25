@@ -2,12 +2,12 @@
 #include <iostream>
 
 
-Renderer::Renderer() : RenderAPI(nullptr) {
+Renderer::Renderer() {
 	RenderAPI = new API::GraphicsAPI();
 }
 
-void Renderer::Init() {
-	RenderAPI->Init();
+void Renderer::Init(GLFWwindow* window) {
+	RenderAPI->Init(window);
 }
 
 void Renderer::Run() {

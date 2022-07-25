@@ -18,25 +18,20 @@ namespace OpenGL {
 
 	GraphicsAPI::GraphicsAPI() : m_Camera(glm::mat4(1.0f)) {}
 
-	void GraphicsAPI::Init() {
+	void GraphicsAPI::Init(GLFWwindow* window) {
 		std::cout << "Initiating OpenGL" << std::endl;
 	
-		glfwInit();
-
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		m_Window = glfwCreateWindow(800, 600, "OpenGL", nullptr, nullptr);
+		m_Window = window;
 
-		glfwMakeContextCurrent(m_Window);
+		
+		int width, height;
+		glfwGetWindowSize(window, &width, &height);
 
-		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-			throw std::runtime_error("Failed to init GLAD");
-			return;
-		}
-
-		glViewport(0, 0, 800, 600);
+		glViewport(0, 0, width, height);
 
 		Shader wallShader(SHADER_RESOURCE("Triangle1.shader"));
 		Texture wallTexture(TEXTURE_RESOURCE("wall.jpg"));

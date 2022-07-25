@@ -14,12 +14,11 @@ namespace OpenGL {
 	public:
 		GraphicsAPI();
 
-		void Init();
+		void Init(GLFWwindow*);
 		void Run();
 		void Clear();
 		void Clean();
-		GLFWwindow& GetWindow() const { return *m_Window; }
-
+		
 	private:
 
 		void DrawObjects();

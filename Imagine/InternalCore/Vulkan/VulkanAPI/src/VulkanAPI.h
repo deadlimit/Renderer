@@ -13,7 +13,7 @@ namespace Vulkan {
 
 	public:
 
-		GraphicsAPI() = default;
+		GraphicsAPI(GLFWwindow* window) : m_Window(window) {}
 		void Init();
 		void Run();
 		void Clear() {}

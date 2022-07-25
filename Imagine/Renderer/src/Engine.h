@@ -6,7 +6,7 @@
 class Engine {
 
 public:
-	Engine();
+	Engine() = default;
 	~Engine();
 	
 	void Init();
@@ -17,6 +17,7 @@ private:
 
 	Renderer m_Renderer;
 	GLFWwindow* m_Window;
+
 	UI m_UI;
 };
 
