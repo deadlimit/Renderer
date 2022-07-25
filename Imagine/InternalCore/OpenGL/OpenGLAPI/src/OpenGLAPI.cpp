@@ -12,10 +12,9 @@
 #include "gtc/matrix_transform.hpp"
 #include "Camera.h"
 
-
 namespace OpenGL {
 
-	GraphicsAPI::GraphicsAPI() : m_Camera(glm::mat4(1.0f)) {}
+	GraphicsAPI::GraphicsAPI() : m_Camera(glm::mat4(1.0f)), m_Framebuffer(nullptr) {}
 
 	void GraphicsAPI::Init(GLFWwindow* window) {
 		std::cout << "Initiating OpenGL" << std::endl;
@@ -49,6 +48,7 @@ namespace OpenGL {
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
+		m_Framebuffer = new Framebuffer();
 	}
 
 	void GraphicsAPI::Run() {
@@ -64,6 +64,8 @@ namespace OpenGL {
 	
 	void GraphicsAPI::DrawObjects() {
 
+		m_Framebuffer->Bind(true);
+
 		for (int i = 0; i < m_RenderObjects.size(); ++i) {
 	
 			m_RenderObjects[i].Bind();
@@ -73,9 +75,14 @@ namespace OpenGL {
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		}		
 
+		m_Framebuffer->Bind(false);
 	}
 
 	void GraphicsAPI::Clean() {}
+
+	void* GraphicsAPI::GetRenderImage()  {
+		
+	}
 
 
 

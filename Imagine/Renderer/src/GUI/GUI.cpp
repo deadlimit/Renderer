@@ -46,13 +46,14 @@ void GUI::Render() {
 
 	BeginFrame();
 
-	for (std::map<std::string, GUIWindow*>::iterator it = m_Subwindows.begin(); it != m_Subwindows.end(); ++it) {
+	
+	/*for (std::map<std::string, GUIWindow*>::iterator it = m_Subwindows.begin(); it != m_Subwindows.end(); ++it) {
 
 		if (it->second->IsOpen()) {
 			it->second->Render();
 		}
 
-	}
+	}*/
 
 	EndFrame();
 

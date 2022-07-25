@@ -1,5 +1,6 @@
 ﻿  Engine.cpp
   GUI.cpp
+  Renderer.cpp
   main.cpp
   Generating Code...
   Renderer.vcxproj -> C:\Users\Jonathan\Desktop\Renderer\Imagine\Renderer\bin\Renderer.exe

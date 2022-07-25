@@ -4,6 +4,7 @@
 #include <vector>
 #include "GameObject.h"
 #include "Camera.h"
+#include "Framebuffer.h"
 
 struct GLFWwindow;
 
@@ -19,6 +20,8 @@ namespace OpenGL {
 		void Clear();
 		void Clean();
 		
+		void* GetRenderImage();
+
 	private:
 
 		void DrawObjects();
@@ -26,7 +29,7 @@ namespace OpenGL {
 	private:
 
 		GLFWwindow* m_Window;
-
+		Framebuffer* m_Framebuffer;
 		Camera m_Camera;
 
 		//This should not be gameobjects, make more atomic

@@ -21,6 +21,12 @@ public:
 	void Run();
 	void Clear();
 	void Clean();
+
+#ifdef OPENGL
+
+	
+
+#endif
 	
 private:
 
