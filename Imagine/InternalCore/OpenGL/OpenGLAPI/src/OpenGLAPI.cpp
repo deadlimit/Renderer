@@ -27,10 +27,11 @@ namespace OpenGL {
 
 		m_Window = window;
 
-		
+		glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); });
+
 		int width, height;
 		glfwGetWindowSize(window, &width, &height);
-
+			
 		glViewport(0, 0, width, height);
 
 		Shader wallShader(SHADER_RESOURCE("Triangle1.shader"));
@@ -57,7 +58,6 @@ namespace OpenGL {
 
 	}
 
-
 	void GraphicsAPI::Clear() {
 		glfwSwapBuffers(m_Window);
 		glClear(GL_COLOR_BUFFER_BIT);		
@@ -76,13 +76,7 @@ namespace OpenGL {
 
 	}
 
-	void GraphicsAPI::Clean() {
-
-		glfwDestroyWindow(m_Window);
-
-		glfwTerminate();
-
-	}
+	void GraphicsAPI::Clean() {}
 
 
 

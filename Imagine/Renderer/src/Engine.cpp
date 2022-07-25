@@ -1,4 +1,7 @@
 #include "Engine.h"
+#include "glfw3.h"
+#include "glfw3native.h"
+
 
 void Engine::Init() {
 
@@ -15,6 +18,7 @@ void Engine::Init() {
 
 	m_Renderer.Init(m_Window);
 	m_UI.Init(m_Window);
+
 }
 
 void Engine::Run() {
@@ -32,8 +36,13 @@ void Engine::Run() {
 
 void Engine::Clean() {
 	m_Renderer.Clean();
+
+	glfwDestroyWindow(m_Window);
+	glfwTerminate();
 }
+
 
 Engine::~Engine() {
 	m_Renderer.Clean();
 }
+

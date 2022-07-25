@@ -13,11 +13,13 @@ public:
 	void Run();
 	void Clean();
 
+	
 private:
 
 	Renderer m_Renderer;
 	GLFWwindow* m_Window;
 
 	UI m_UI;
+
 };
 
