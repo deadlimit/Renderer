@@ -22,7 +22,6 @@ public:
 	void Clear();
 	void Clean();
 	
-
 	GLFWwindow& GetWindow() const { return RenderAPI->GetWindow(); }
 
 private:

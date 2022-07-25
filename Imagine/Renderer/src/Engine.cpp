@@ -12,7 +12,7 @@ void Engine::Run() {
 		m_Renderer.Clear();
 		
 		glfwPollEvents();
-		
+	
 		m_Renderer.Run();
 		m_UI.Render();
 	}

@@ -21,9 +21,11 @@
     <ClInclude Include="src\Renderer.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\UI.h">
+    <ClInclude Include="src\UI\UI.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\UI\UI_Window.h" />
+    <ClInclude Include="src\UI\Windows\MenuBar.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c">
@@ -35,11 +37,13 @@
     <ClCompile Include="src\Renderer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\UI.cpp">
+    <ClCompile Include="src\UI\UI.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\UI\UI_Window.cpp" />
+    <ClCompile Include="src\UI\Windows\MenuBar.cpp" />
   </ItemGroup>
 </Project>
