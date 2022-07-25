@@ -20,6 +20,9 @@ void Engine::Init() {
 
 void Engine::Run() {
 
+	m_UI.GetWindow("Viewport");
+
+	
 	while (!glfwWindowShouldClose(m_Window)) {
 
 		m_Renderer.Clear();

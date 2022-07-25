@@ -3,6 +3,8 @@
 #include "glfw3.h"
 #include <vector>
 #include "GUIWindow.h"
+#include <map>
+#include <string>
 
 class GUI {
 
@@ -15,14 +17,16 @@ public:
 
 	void Render();
 
-private:
+	GUIWindow const* GetWindow(const std::string&);
 
+private:
+	
 	void BeginFrame();
 	void EndFrame();
 
 private:
 	
-	std::vector<GUIWindow*> m_Subwindows;
+	std::map<std::string, GUIWindow*> m_Subwindows;
 
 	GLFWwindow* m_Window;
 

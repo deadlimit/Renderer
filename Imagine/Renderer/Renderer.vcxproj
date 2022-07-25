@@ -84,20 +84,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\GUI\Windows\MenuBar.h" />
     <ClInclude Include="src\Engine.h" />
-    <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\GUI\GUI.h" />
     <ClInclude Include="src\GUI\GUIWindow.h" />
+    <ClInclude Include="src\GUI\Windows\MenuBar.h" />
+    <ClInclude Include="src\GUI\Windows\TestWindow.h" />
+    <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\GUI\Windows\Viewport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c" />
-    <ClCompile Include="src\GUI\Windows\MenuBar.cpp" />
     <ClCompile Include="src\Engine.cpp" />
-    <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
-    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\GUI\GUIWindow.cpp" />
+    <ClCompile Include="src\GUI\Windows\MenuBar.cpp" />
+    <ClCompile Include="src\GUI\Windows\TestWindow.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\GUI\Windows\Viewport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vendor\GLFW\GLFW.vcxproj">

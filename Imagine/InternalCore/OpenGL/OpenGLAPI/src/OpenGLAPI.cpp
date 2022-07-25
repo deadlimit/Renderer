@@ -15,7 +15,6 @@
 
 namespace OpenGL {
 
-
 	GraphicsAPI::GraphicsAPI() : m_Camera(glm::mat4(1.0f)) {}
 
 	void GraphicsAPI::Init(GLFWwindow* window) {
