@@ -9,10 +9,12 @@ void Engine::Init() {
 void Engine::Run() {
 
 	while (!glfwWindowShouldClose(m_Window)) {
-		
 		m_Renderer.Clear();
-		m_UI.Render();
+		
+		glfwPollEvents();
+		
 		m_Renderer.Run();
+		m_UI.Render();
 	}
 }
 

@@ -23,8 +23,7 @@ void UI::Init(GLFWwindow* window) {
 	ImGui_ImplOpenGL3_Init("#version 460 core");
 	ImGui::StyleColorsDark();
 
-
-
+	ImGui::SetNextWindowSize({ 300, 300 });
 }
 
 void UI::Render() {
@@ -33,9 +32,9 @@ void UI::Render() {
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-
+	
 	ImGui::Begin("Hello, world!");
-	ImGui::SetNextWindowSize({ 300, 300 });
+	
 	ImGui::Button("Button on window B");
 
 	ImGui::End();

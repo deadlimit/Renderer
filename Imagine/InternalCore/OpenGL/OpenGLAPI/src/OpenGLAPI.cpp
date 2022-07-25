@@ -46,9 +46,6 @@ namespace OpenGL {
 		GameObject go(square);
 
 		go.Bind();
-		
-		
-		
 		go.GetMaterial().GetShader().SetUniformMatrix4fv("projection", glm::perspective(glm::radians(45.f), 800.f / 600.0f, 0.01f, 100.f));
 		go.GetMaterial().GetShader().SetUniformMatrix4fv("view", glm::translate(m_Camera.GetViewMatrix(), glm::vec3(0.0f, 0.0f, -2.0f)));
 		go.GetMaterial().GetShader().SetUniformMatrix4fv("model", go.transform);
@@ -61,25 +58,16 @@ namespace OpenGL {
 
 	void GraphicsAPI::Run() {
 
-		
-		glfwPollEvents();
-
 		DrawObjects();
-
-		glfwSwapBuffers(m_Window);
 
 	}
 
 	void GraphicsAPI::Clear() {
-
-		
-		glClear(GL_COLOR_BUFFER_BIT);
-		
+		glfwSwapBuffers(m_Window);
+		glClear(GL_COLOR_BUFFER_BIT);		
 	}
 	
 	void GraphicsAPI::DrawObjects() {
-
-		glViewport(0, 0, 800, 600);
 
 		for (int i = 0; i < m_RenderObjects.size(); ++i) {
 	
