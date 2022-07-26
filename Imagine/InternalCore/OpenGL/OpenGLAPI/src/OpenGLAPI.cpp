@@ -16,7 +16,7 @@ namespace OpenGL {
 
 	GraphicsAPI::GraphicsAPI() : m_Camera(glm::mat4(1.0f)), m_Framebuffer(nullptr) {}
 
-	void GraphicsAPI::Init(GLFWwindow* window) {
+	void GraphicsAPI::Init(GLFWwindow* window, uint32_t width, uint32_t height) {
 		std::cout << "Initiating OpenGL" << std::endl;
 	
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -27,9 +27,6 @@ namespace OpenGL {
 
 		glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); });
 
-		int width, height;
-		glfwGetWindowSize(window, &width, &height);
-			
 		glViewport(0, 0, width, height);
 
 		Shader wallShader(SHADER_RESOURCE("Triangle1.shader"));
@@ -48,18 +45,19 @@ namespace OpenGL {
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-		m_Framebuffer = new Framebuffer();
+		m_Framebuffer = new Framebuffer(width, height);
 	}
 
 	void GraphicsAPI::Run() {
 
+		
 		DrawObjects();
 
 	}
 
 	void GraphicsAPI::Clear() {
 		glfwSwapBuffers(m_Window);
-		glClear(GL_COLOR_BUFFER_BIT);		
+		glClear(GL_COLOR_BUFFER_BIT | GL_COLOR_ATTACHMENT0);		
 	}
 	
 	void GraphicsAPI::DrawObjects() {
@@ -79,11 +77,6 @@ namespace OpenGL {
 	}
 
 	void GraphicsAPI::Clean() {}
-
-	void* GraphicsAPI::GetRenderImage()  {
-		
-	}
-
 
 
 }

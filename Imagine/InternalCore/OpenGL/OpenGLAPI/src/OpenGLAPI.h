@@ -15,12 +15,12 @@ namespace OpenGL {
 	public:
 		GraphicsAPI();
 
-		void Init(GLFWwindow*);
+		void Init(GLFWwindow*, uint32_t, uint32_t);
 		void Run();
 		void Clear();
 		void Clean();
 		
-		void* GetRenderImage();
+		const Framebuffer& FrameBuffer() const { return *m_Framebuffer; }
 
 	private:
 

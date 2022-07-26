@@ -17,17 +17,13 @@ public:
 
 	Renderer();
 
-	void Init(GLFWwindow*);
+	void Init(GLFWwindow*, unsigned int, unsigned int);
 	void Run();
 	void Clear();
 	void Clean();
 
-#ifdef OPENGL
+	uint32_t GetRenderImage() const { return RenderAPI->FrameBuffer().GetColorAttachment(); }
 
-	
-
-#endif
-	
 private:
 
 	API::GraphicsAPI* RenderAPI;

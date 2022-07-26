@@ -47,13 +47,13 @@ void GUI::Render() {
 	BeginFrame();
 
 	
-	/*for (std::map<std::string, GUIWindow*>::iterator it = m_Subwindows.begin(); it != m_Subwindows.end(); ++it) {
+	for (std::map<std::string, GUIWindow*>::iterator it = m_Subwindows.begin(); it != m_Subwindows.end(); ++it) {
 
 		if (it->second->IsOpen()) {
 			it->second->Render();
 		}
 
-	}*/
+	}
 
 	EndFrame();
 
@@ -67,7 +67,7 @@ void GUI::Render() {
 
 }
 
-GUIWindow const* GUI::GetWindow(const std::string& windowName) {
+GUIWindow* GUI::GetWindow(const std::string& windowName) {
 	if (m_Subwindows.find(windowName) != m_Subwindows.end()) {
 		return m_Subwindows[windowName];
 	}

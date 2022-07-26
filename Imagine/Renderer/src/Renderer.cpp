@@ -6,8 +6,8 @@ Renderer::Renderer() {
 	RenderAPI = new API::GraphicsAPI();
 }
 
-void Renderer::Init(GLFWwindow* window) {
-	RenderAPI->Init(window);
+void Renderer::Init(GLFWwindow* window, unsigned int width, unsigned int height) {
+	RenderAPI->Init(window, width, height);
 }
 
 void Renderer::Run() {

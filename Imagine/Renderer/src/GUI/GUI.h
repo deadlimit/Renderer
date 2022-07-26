@@ -17,13 +17,13 @@ public:
 
 	void Render();
 
-	GUIWindow const* GetWindow(const std::string&);
+	GUIWindow* GetWindow(const std::string&);
 
 private:
 	
 	void BeginFrame();
 	void EndFrame();
-
+	
 private:
 	
 	std::map<std::string, GUIWindow*> m_Subwindows;

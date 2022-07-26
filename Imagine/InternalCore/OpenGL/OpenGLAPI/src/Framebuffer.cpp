@@ -18,14 +18,6 @@ namespace OpenGL {
 
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_ColorAttachmentID, 0);
 
-		unsigned int renderObjectID;
-		glGenRenderbuffers(1, &renderObjectID);
-		glBindRenderbuffer(GL_RENDERBUFFER, renderObjectID);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-		glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderObjectID);
-
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE) {
 			std::cout << "Complete" << std::endl;
 		}
@@ -34,7 +26,6 @@ namespace OpenGL {
 	}
 
 	Framebuffer::~Framebuffer() {
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glDeleteFramebuffers(1, &m_FramebufferID);
 
 	}

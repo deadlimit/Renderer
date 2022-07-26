@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "GUI/Windows/Viewport.h"
 
 void Engine::Init() {
 
@@ -13,16 +14,18 @@ void Engine::Init() {
 		return;
 	}
 
-	m_Renderer.Init(m_Window);
+	m_Renderer.Init(m_Window, 300, 300);
 	m_UI.Init(m_Window);
+
+	reinterpret_cast<Viewport*>(m_UI.GetWindow("Viewport"))->SetRenderID(m_Renderer.GetRenderImage());
+
+	
 
 }
 
 void Engine::Run() {
 
-	m_UI.GetWindow("Viewport");
 
-	
 	while (!glfwWindowShouldClose(m_Window)) {
 
 		m_Renderer.Clear();
