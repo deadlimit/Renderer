@@ -1,4 +1,4 @@
-project "Renderer"
+project "Engine"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++17"
@@ -34,6 +34,6 @@ project "Renderer"
         "GLFW",
         "IMGUI",
         "vulkan-1.lib",
-        "VulkanAPI.lib",
-        "OpenGLAPI.lib",
+        --"VulkanAPI.lib",
+        --"OpenGLAPI.lib",
     }

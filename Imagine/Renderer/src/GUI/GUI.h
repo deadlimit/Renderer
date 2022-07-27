@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glfw3.h"
+
 #include <vector>
 #include "GUIWindow.h"
 #include <map>
@@ -13,7 +13,7 @@ public:
 	GUI() = default;	
 	~GUI();
 	
-	void Init(GLFWwindow*);
+	void Init(struct GLFWwindow*);
 
 	void Render();
 

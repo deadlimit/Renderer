@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Engine</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin\</OutDir>
+    <IntDir>bin-int\Debug\</IntDir>
+    <TargetName>Engine</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin\</OutDir>
+    <IntDir>bin-int\Release\</IntDir>
+    <TargetName>Engine</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;..\InternalCore\Vulkan\VulkanAPI\src;..\InternalCore\OpenGL\OpenGLAPI\src;..\vendor\IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\VulkanSDK\1.3.204.1\Lib;..\InternalCore\Vulkan\VulkanAPI\bin;..\InternalCore\OpenGL\OpenGLAPI\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;..\InternalCore\Vulkan\VulkanAPI\src;..\InternalCore\OpenGL\OpenGLAPI\src;..\vendor\IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\VulkanSDK\1.3.204.1\Lib;..\InternalCore\Vulkan\VulkanAPI\bin;..\InternalCore\OpenGL\OpenGLAPI\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Engine.h" />
+    <ClInclude Include="src\GUI\GUI.h" />
+    <ClInclude Include="src\GUI\GUIWindow.h" />
+    <ClInclude Include="src\GUI\Windows\MenuBar.h" />
+    <ClInclude Include="src\GUI\Windows\TestWindow.h" />
+    <ClInclude Include="src\GUI\Windows\Viewport.h" />
+    <ClInclude Include="src\Renderer\OpenGL\Camera.h" />
+    <ClInclude Include="src\Renderer\OpenGL\Framebuffer.h" />
+    <ClInclude Include="src\Renderer\OpenGL\GameObject.h" />
+    <ClInclude Include="src\Renderer\OpenGL\Image.h" />
+    <ClInclude Include="src\Renderer\OpenGL\Material.h" />
+    <ClInclude Include="src\Renderer\OpenGL\Mesh.h" />
+    <ClInclude Include="src\Renderer\OpenGL\OpenGLCore.h" />
+    <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\Renderer\OpenGL\Primitives.h" />
+    <ClInclude Include="src\Renderer\OpenGL\Shader.h" />
+    <ClInclude Include="src\Renderer\OpenGL\Texture.h" />
+    <ClInclude Include="src\Renderer\OpenGL\stb_image.h" />
+    <ClInclude Include="src\System.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\vendor\GLAD\src\glad.c" />
+    <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\GUI\GUI.cpp" />
+    <ClCompile Include="src\GUI\GUIWindow.cpp" />
+    <ClCompile Include="src\GUI\Windows\MenuBar.cpp" />
+    <ClCompile Include="src\GUI\Windows\TestWindow.cpp" />
+    <ClCompile Include="src\GUI\Windows\Viewport.cpp" />
+    <ClCompile Include="src\Renderer\OpenGL\Camera.cpp" />
+    <ClCompile Include="src\Renderer\OpenGL\Framebuffer.cpp" />
+    <ClCompile Include="src\Renderer\OpenGL\GameObject.cpp" />
+    <ClCompile Include="src\Renderer\OpenGL\Material.cpp" />
+    <ClCompile Include="src\Renderer\OpenGL\Mesh.cpp" />
+    <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Renderer\OpenGL\Shader.cpp" />
+    <ClCompile Include="src\Renderer\OpenGL\Texture.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\vendor\GLFW\GLFW.vcxproj">
+      <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\vendor\IMGUI\IMGUI.vcxproj">
+      <Project>{606F530D-CC83-7BBE-9505-1F1E01D977EF}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

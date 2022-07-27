@@ -5,8 +5,8 @@ workspace "Imagine"
     include "Renderer"
     include "vendor/IMGUI"
     include "vendor/GLFW"
-    include "InternalCore/Vulkan/VulkanAPI"
-    include "InternalCore/OpenGL/OpenGLAPI"
+    --include "InternalCore/OpenGL/OpenGLAPI"
+    --include "InternalCore/Vulkan/VulkanAPI"
 
 
 

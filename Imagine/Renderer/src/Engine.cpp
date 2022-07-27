@@ -1,5 +1,5 @@
 #include "Engine.h"
-#include "GUI/Windows/Viewport.h"
+#include <stdexcept>
 
 void Engine::Init() {
 
@@ -14,13 +14,9 @@ void Engine::Init() {
 		return;
 	}
 
-	m_Renderer.Init(m_Window, 300, 300);
-	m_UI.Init(m_Window);
-
-	reinterpret_cast<Viewport*>(m_UI.GetWindow("Viewport"))->SetRenderID(m_Renderer.GetRenderImage());
-
+	Renderer::Get().Init(m_Window, { 400, 300 });
 	
-
+	m_UI.Init(m_Window);
 }
 
 void Engine::Run() {
@@ -28,17 +24,20 @@ void Engine::Run() {
 
 	while (!glfwWindowShouldClose(m_Window)) {
 
-		m_Renderer.Clear();
-		
+		Renderer::Get().Clear();
+
 		glfwPollEvents();
-	
-		m_Renderer.Run();
+
+		Renderer::Get().Run();
 		m_UI.Render();
+
+		Renderer::Get().SwapFramebuffer();
+
 	}
 }
 
 void Engine::Clean() {
-	m_Renderer.Clean();
+	//m_Renderer.Clean();
 
 	glfwDestroyWindow(m_Window);
 	glfwTerminate();
@@ -46,6 +45,6 @@ void Engine::Clean() {
 
 
 Engine::~Engine() {
-	m_Renderer.Clean();
+	//m_Renderer.Clean();
 }
 

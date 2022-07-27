@@ -7,6 +7,9 @@
 #include "Windows/TestWindow.h"
 #include "Windows/Viewport.h"
 #include <iostream>
+#include "glad.h"
+#include "glfw3.h"
+#include "../../../Renderer/src/Renderer/Renderer.h"
 
 #define IMGUI_IMPL_OPENGL_ES3
 
@@ -25,8 +28,6 @@ void GUI::Init(GLFWwindow* window) {
 	ImGui_ImplOpenGL3_Init("#version 460");
 	ImGui::StyleColorsDark();
 
-
-
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
 		ImGuiStyle& style = ImGui::GetStyle();
 		style.WindowRounding = 0.0f;
@@ -37,6 +38,8 @@ void GUI::Init(GLFWwindow* window) {
 	TestWindow* test = new TestWindow();
 	Viewport* viewport = new Viewport();
 
+	viewport->SetRenderID(Renderer::Get().GetViewportImage());
+
 	m_Subwindows["Viewport"] = viewport;
 	m_Subwindows["TestWindow"] = bar;
 	m_Subwindows["MenuBar"] = test;
@@ -45,8 +48,6 @@ void GUI::Init(GLFWwindow* window) {
 void GUI::Render() {
 
 	BeginFrame();
-
-	
 	for (std::map<std::string, GUIWindow*>::iterator it = m_Subwindows.begin(); it != m_Subwindows.end(); ++it) {
 
 		if (it->second->IsOpen()) {

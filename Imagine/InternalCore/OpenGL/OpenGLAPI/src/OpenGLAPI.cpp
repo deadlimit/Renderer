@@ -17,11 +17,9 @@ namespace OpenGL {
 	GraphicsAPI::GraphicsAPI() : m_Camera(glm::mat4(1.0f)), m_Framebuffer(nullptr) {}
 
 	void GraphicsAPI::Init(GLFWwindow* window, uint32_t width, uint32_t height) {
-		std::cout << "Initiating OpenGL" << std::endl;
+		
 	
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		
 
 		m_Window = window;
 

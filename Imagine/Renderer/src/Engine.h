@@ -1,7 +1,9 @@
 #pragma once
 
-#include "Renderer.h"
+#include "Renderer/Renderer.h"
 #include "GUI/GUI.h"
+#include "glad.h"
+#include "glfw3.h"
 
 class Engine {
 
@@ -16,7 +18,6 @@ public:
 	
 private:
 
-	Renderer m_Renderer;
 	GLFWwindow* m_Window;
 
 	GUI m_UI;

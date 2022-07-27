@@ -18,6 +18,9 @@
     <ClInclude Include="src\Camera.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Framebuffer.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameObject.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -33,13 +36,7 @@
     <ClInclude Include="src\OpenGLAPI.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\OpenGLCore.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\Primitives.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Shader.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Texture.h">
@@ -48,15 +45,15 @@
     <ClInclude Include="src\stb_image.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framebuffer.h">
-      <Filter>src</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c">
       <Filter>vendor\GLAD\src</Filter>
     </ClCompile>
     <ClCompile Include="src\Camera.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framebuffer.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObject.cpp">
@@ -71,13 +68,7 @@
     <ClCompile Include="src\OpenGLAPI.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Shader.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\Texture.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Framebuffer.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
