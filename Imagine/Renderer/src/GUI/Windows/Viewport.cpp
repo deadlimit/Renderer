@@ -14,6 +14,7 @@ void Viewport::Render() {
 
 	ImGui::Image((void*)m_RenderID, m_Size, ImVec2(0, 1), ImVec2(1, 0));
 
+
 	ImGui::End();
 
 }

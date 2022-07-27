@@ -22,7 +22,7 @@ void Renderer::Init(GLFWwindow* window, ViewportSize viewportSize) {
 
 	glViewport(0, 0, viewportSize.width, viewportSize.height);
 
-	//glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); });
+	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) { Renderer::Get().ResizeViewport(width, height); });
 
 	OpenGL::Shader wallShader(SHADER_RESOURCE("Triangle1.shader"));
 	OpenGL::Texture wallTexture(TEXTURE_RESOURCE("wall.jpg"));
@@ -38,7 +38,7 @@ void Renderer::Init(GLFWwindow* window, ViewportSize viewportSize) {
 
 	m_RenderObjects.push_back(std::move(go));
 
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	m_RenderViewport = new OpenGL::RenderViewport(viewportSize.width, viewportSize.height);
 	
@@ -55,6 +55,7 @@ void Renderer::Clear() {
 	m_RenderViewport->Clear();
 
 	//Clear window
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 

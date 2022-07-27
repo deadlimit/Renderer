@@ -44,11 +44,18 @@ void GUI::Init(GLFWwindow* window) {
 	m_Subwindows["Viewport"] = viewport;
 	m_Subwindows["TestWindow"] = bar;
 	m_Subwindows["MenuBar"] = test;
+
+
 }
 
 void GUI::Render() {
 
+	
+
 	BeginFrame();
+
+	ImGui::DockSpaceOverViewport();
+
 	for (std::map<std::string, GUIWindow*>::iterator it = m_Subwindows.begin(); it != m_Subwindows.end(); ++it) {
 
 		if (it->second->IsOpen()) {
@@ -60,6 +67,7 @@ void GUI::Render() {
 	EndFrame();
 
 	if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+		
 		GLFWwindow* backup_current_context = glfwGetCurrentContext();
 		ImGui::UpdatePlatformWindows();
 		ImGui::RenderPlatformWindowsDefault();
