@@ -15,8 +15,8 @@ void Engine::Init() {
 	}
 
 	Renderer::Get().Init(m_Window, { 300, 300 });
-	
-	m_UI.Init(m_Window);
+	GUI::Get().Init(m_Window);
+
 }
 
 void Engine::Run() {
@@ -29,7 +29,7 @@ void Engine::Run() {
 		glfwPollEvents();
 
 		Renderer::Get().Run();
-		m_UI.Render();
+		GUI::Get().Render();
 
 		Renderer::Get().SwapFramebuffer();
 
@@ -37,7 +37,6 @@ void Engine::Run() {
 }
 
 void Engine::Clean() {
-	//m_Renderer.Clean();
 
 	glfwDestroyWindow(m_Window);
 	glfwTerminate();
@@ -45,6 +44,5 @@ void Engine::Clean() {
 
 
 Engine::~Engine() {
-	//m_Renderer.Clean();
 }
 

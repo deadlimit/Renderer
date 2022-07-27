@@ -12,13 +12,15 @@ namespace OpenGL {
 		void Bind() const;
 		void Unbind() const;
 		
+		void RecreateFramebuffer(uint32_t, uint32_t);
+
 		uint32_t GetColorAttachment() const { return m_ColorAttachmentID; }
 
 	private:
 
-		uint32_t m_FramebufferID;
-		uint32_t m_ColorAttachmentID;
-		uint32_t m_DepthAttachmentID;
+		uint32_t m_FramebufferID = 0;
+		uint32_t m_ColorAttachmentID = 0;
+		uint32_t m_DepthAttachmentID = 0;
 		
 	};
 

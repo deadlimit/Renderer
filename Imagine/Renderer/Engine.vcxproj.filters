@@ -82,6 +82,7 @@
       <Filter>src\Renderer\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\System.h" />
+    <ClInclude Include="src\Renderer\OpenGL\RenderViewport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c">
@@ -132,5 +133,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\OpenGL\RenderViewport.cpp" />
   </ItemGroup>
 </Project>

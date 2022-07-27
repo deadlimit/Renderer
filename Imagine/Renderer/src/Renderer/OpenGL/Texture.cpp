@@ -3,6 +3,7 @@
 #include "Image.h"
 
 #include <iostream>
+
 namespace OpenGL {
 	
 	Texture::Texture(const char* file) {

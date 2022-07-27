@@ -13,18 +13,19 @@
 
 #define IMGUI_IMPL_OPENGL_ES3
 
+
 void GUI::Init(GLFWwindow* window) {
 
 	m_Window = window;
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); 
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-	ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 460");
 	ImGui::StyleColorsDark();
 
@@ -93,3 +94,4 @@ GUI::~GUI() {
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 }
+

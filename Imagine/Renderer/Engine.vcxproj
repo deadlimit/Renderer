@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Renderer\OpenGL\RenderViewport.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\GUI\GUI.h" />
     <ClInclude Include="src\GUI\GUIWindow.h" />
@@ -106,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c" />
+    <ClCompile Include="src\Renderer\OpenGL\RenderViewport.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\GUI\GUIWindow.cpp" />

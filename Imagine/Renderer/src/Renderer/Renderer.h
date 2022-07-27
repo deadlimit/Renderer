@@ -4,7 +4,7 @@
 #include "OpenGL/OpenGLCore.h"
 #include "OpenGL/GameObject.h"
 #include "OpenGL/Camera.h"
-#include "OpenGL/Framebuffer.h"
+#include "OpenGL/RenderViewport.h"
 #include <vector>
 
 class Renderer : public System<Renderer> {
@@ -22,14 +22,16 @@ public:
 	void Run();
 	void Clear();
 	void Clean();
-	void SwapFramebuffer() const { glfwSwapBuffers(m_Window); }
+	void SwapFramebuffer() const;
 	void ResizeViewport(int, int);
 
-	unsigned int GetViewportImage() { return m_Framebuffer->GetColorAttachment(); }
+	ViewportSize GetViewportSize() const { auto [width, height] = m_RenderViewport->GetSize(); return { width, height }; }
+
+	unsigned int GetViewportImage() { return m_RenderViewport->GetRenderID(); }
 
 private:
-	
-	OpenGL::Framebuffer* m_Framebuffer;
+
+	OpenGL::RenderViewport* m_RenderViewport;
 	OpenGL::Camera m_Camera;
 
 	GLFWwindow* m_Window;
@@ -38,7 +40,6 @@ private:
 
 	std::vector<OpenGL::GameObject> m_RenderObjects;
 
-	
+
 
 };
-

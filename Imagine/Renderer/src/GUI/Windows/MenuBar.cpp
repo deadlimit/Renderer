@@ -1,10 +1,11 @@
 #include "MenuBar.h"
 #include <iostream>
 
+
 void MenuBar::Render() {
 
 	ImGui::BeginMainMenuBar();
-	
+
 	if (ImGui::BeginMenu("File")) {
 		if (ImGui::MenuItem("Open", "Ctrl+F")) { std::cout << "Open" << std::endl; }
 		if (ImGui::MenuItem("Save", "Ctrl+S")) { std::cout << "Save" << std::endl; }
@@ -31,3 +32,5 @@ void MenuBar::Render() {
 
 	ImGui::EndMainMenuBar();
 }
+
+

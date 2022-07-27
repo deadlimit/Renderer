@@ -10,17 +10,16 @@ class Engine {
 public:
 	Engine() = default;
 	~Engine();
-	
+
 	void Init();
 	void Run();
 	void Clean();
 
-	
+
 private:
 
 	GLFWwindow* m_Window;
 
-	GUI m_UI;
-
 };
+
 
