@@ -31,6 +31,8 @@ public:
 
 private:
 
+	void SetClearColor(glm::vec4);
+
 	OpenGL::RenderViewport* m_RenderViewport;
 	OpenGL::Camera m_Camera;
 

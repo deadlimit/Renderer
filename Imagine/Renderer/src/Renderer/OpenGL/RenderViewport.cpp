@@ -36,7 +36,6 @@ namespace OpenGL {
 
 	void RenderViewport::Clear() const {
 		m_Framebuffer->Bind();
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		m_Framebuffer->Unbind();
 	}

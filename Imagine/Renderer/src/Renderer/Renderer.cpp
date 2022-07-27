@@ -38,8 +38,6 @@ void Renderer::Init(GLFWwindow* window, ViewportSize viewportSize) {
 
 	m_RenderObjects.push_back(std::move(go));
 
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-
 	m_RenderViewport = new OpenGL::RenderViewport(viewportSize.width, viewportSize.height);
 	
 }
@@ -52,10 +50,11 @@ void Renderer::Run() {
 void Renderer::Clear() {
 
 	//Clear viewport
+	SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
 	m_RenderViewport->Clear();
 
 	//Clear window
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	SetClearColor({ 0.0f, 0.0f, 0.0f, 1.0f });
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
@@ -68,6 +67,10 @@ void Renderer::ResizeViewport(int newWidth, int newHeight) {
 	m_RenderViewport->Resize(newWidth, newHeight);
 }
 
+void Renderer::SetClearColor(glm::vec4 color) {
+	glClearColor(color.r, color.g, color.b, color.a);
+}
+
 void Renderer::Draw() {
 
 	m_RenderViewport->Bind();
@@ -76,8 +79,17 @@ void Renderer::Draw() {
 
 		m_RenderObjects[i].Bind();
 
-		m_RenderObjects[i].transform = glm::rotate(m_RenderObjects[i].transform, glm::radians(0.03f), glm::vec3(0.0f, 0.0f, 1.0f));
+		m_RenderObjects[i].transform = glm::rotate(m_RenderObjects[i].transform, glm::radians(0.05f), glm::vec3(0.0f, 1.0f, 0.0f));
 		m_RenderObjects[i].GetMaterial().GetShader().SetUniformMatrix4fv("model", m_RenderObjects[i].transform);
+
+		glm::mat4 camera = m_Camera.GetViewMatrix();
+
+		camera = glm::rotate(camera, glm::radians((float)glm::sin(glfwGetTime()) * 10), glm::vec3(0, 1, 0));
+
+		auto [width, height] = m_RenderViewport->GetSize();
+
+		m_RenderObjects[i].GetMaterial().GetShader().SetUniformMatrix4fv("view", glm::translate(camera, glm::vec3(0.0f, 0.0f, -3.0f)));
+		m_RenderObjects[i].GetMaterial().GetShader().SetUniformMatrix4fv("projection", glm::perspective(glm::radians(45.0f), (float)width/ (float)height, 0.01f, 100.f));
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	}
 
