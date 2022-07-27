@@ -14,7 +14,7 @@ void Engine::Init() {
 		return;
 	}
 
-	Renderer::Get().Init(m_Window, { 400, 300 });
+	Renderer::Get().Init(m_Window, { 300, 300 });
 	
 	m_UI.Init(m_Window);
 }
