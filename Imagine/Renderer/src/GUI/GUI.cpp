@@ -3,7 +3,6 @@
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "GUIWindow.h"
-#include "Windows/MenuBar.h"
 #include "Windows/TestWindow.h"
 #include "Windows/Viewport.h"
 #include "Windows/ConsoleWindow.h"
@@ -39,8 +38,6 @@ void GUI::Init(GLFWwindow* window) {
 	TestWindow* test = new TestWindow();
 	Viewport* viewport = new Viewport();
 	ConsoleWindow* console = new ConsoleWindow();
-
-	viewport->SetRenderID(Renderer::Get().GetViewportImage());
 
 	m_Subwindows["Viewport"] = viewport;
 	m_Subwindows["TestWindow"] = test;

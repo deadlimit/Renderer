@@ -11,7 +11,7 @@ public:
 
 private:
 
-	unsigned int m_RenderID;
+	unsigned int m_RenderID = 0;
 
 };
 

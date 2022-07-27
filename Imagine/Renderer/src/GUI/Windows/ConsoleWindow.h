@@ -14,6 +14,8 @@ public:
 
 private:
 
+
+
 	std::vector<std::string> m_ConsoleMessageQueue;
 
 };

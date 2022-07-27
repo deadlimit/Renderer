@@ -3,6 +3,9 @@
 
 void Viewport::Render() {
 
+	if (!m_RenderID)
+		m_RenderID = Renderer::Get().GetViewportImage();
+
 	ImGui::Begin("Viewport", &m_IsOpen);
 
 	ImVec2 pos = ImGui::GetCursorScreenPos();

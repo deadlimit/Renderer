@@ -14,18 +14,13 @@ void Engine::Init() {
 		return;
 	}
 
-	Renderer::Get().Init(m_Window, { 300, 300 });
 	GUI::Get().Init(m_Window);
+
+	Renderer::Get().Init(m_Window, { 300, 300 });
 
 }
 
 void Engine::Run() {
-
-	
-	GUI::PrintToConsole("Hello world 1");
-	GUI::PrintToConsole("Hello world 2");
-	GUI::PrintToConsole("Hello world 3");
-	GUI::PrintToConsole("Hello world 4");
 
 	while (!glfwWindowShouldClose(m_Window)) {
 
@@ -40,9 +35,7 @@ void Engine::Run() {
 
 	}
 }
-
 void Engine::Clean() {
-
 	glfwDestroyWindow(m_Window);
 	glfwTerminate();
 }

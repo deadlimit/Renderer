@@ -36,9 +36,6 @@
     <ClInclude Include="src\GUI\GUIWindow.h">
       <Filter>src\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\Windows\MenuBar.h">
-      <Filter>src\GUI\Windows</Filter>
-    </ClInclude>
     <ClInclude Include="src\GUI\Windows\TestWindow.h">
       <Filter>src\GUI\Windows</Filter>
     </ClInclude>
@@ -97,9 +94,6 @@
     </ClCompile>
     <ClCompile Include="src\GUI\GUIWindow.cpp">
       <Filter>src\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Windows\MenuBar.cpp">
-      <Filter>src\GUI\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\Windows\TestWindow.cpp">
       <Filter>src\GUI\Windows</Filter>

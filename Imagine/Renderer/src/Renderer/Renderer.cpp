@@ -10,9 +10,11 @@
 #include "OpenGL/Primitives.h"
 #include "OpenGL/RenderViewport.h"
 
-void Renderer::Init(GLFWwindow* window, ViewportSize viewportSize) {
+#include "../GUI/GUI.h"
 
-	std::cout << "Initiating OpenGL" << std::endl;
+void Renderer::Init(GLFWwindow* window, ViewportSize viewportSize) {
+		
+	GUI::PrintToConsole("Initiating OpenGL");
 
 	m_Window = window;
 

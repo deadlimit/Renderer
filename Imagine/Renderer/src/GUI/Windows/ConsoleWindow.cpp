@@ -2,9 +2,14 @@
 #include "imgui.h"
 #include <sstream>
 #include <iomanip>
+#include <iostream>
+
 void ConsoleWindow::Render() {
 
 	ImGui::Begin("Console");
+
+	if (ImGui::Button("Clear console"))
+		m_ConsoleMessageQueue.clear();
 
 	for (int i = 0; i < m_ConsoleMessageQueue.size(); ++i) {			
 		ImGui::Text(m_ConsoleMessageQueue[i].c_str());
@@ -27,4 +32,5 @@ void ConsoleWindow::AddMessage(const std::string& message) {
 
 	m_ConsoleMessageQueue.push_back(timeString);
 }
+
 

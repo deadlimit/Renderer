@@ -89,7 +89,6 @@
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\GUI\GUI.h" />
     <ClInclude Include="src\GUI\GUIWindow.h" />
-    <ClInclude Include="src\GUI\Windows\MenuBar.h" />
     <ClInclude Include="src\GUI\Windows\TestWindow.h" />
     <ClInclude Include="src\GUI\Windows\Viewport.h" />
     <ClInclude Include="src\Renderer\OpenGL\Camera.h" />
@@ -113,7 +112,6 @@
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\GUI\GUIWindow.cpp" />
-    <ClCompile Include="src\GUI\Windows\MenuBar.cpp" />
     <ClCompile Include="src\GUI\Windows\TestWindow.cpp" />
     <ClCompile Include="src\GUI\Windows\Viewport.cpp" />
     <ClCompile Include="src\Renderer\OpenGL\Camera.cpp" />
