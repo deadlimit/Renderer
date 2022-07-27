@@ -13,7 +13,7 @@ namespace OpenGL {
 
 		uint32_t GetRenderID() const {return m_Framebuffer->GetColorAttachment();}
 		
-		void Bind() const;
+		void MakeRenderTarget() const;
 		void Unbind() const;
 
 		std::tuple<uint32_t, uint32_t> GetSize() const { return { m_CurrentWidth, m_CurrentHeight }; }

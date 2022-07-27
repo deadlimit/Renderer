@@ -6,6 +6,7 @@
 #include <map>
 #include <string>
 #include "../System.h"
+#include <string>
 
 class GUI : public System<GUI> {
 
@@ -15,8 +16,9 @@ public:
 	~GUI();
 
 	void Init(struct GLFWwindow*);
-
 	void Render();
+
+	static void PrintToConsole(const std::string&);
 
 	GUIWindow* GetWindow(const std::string&);
 

@@ -21,6 +21,11 @@ void Engine::Init() {
 
 void Engine::Run() {
 
+	
+	GUI::PrintToConsole("Hello world 1");
+	GUI::PrintToConsole("Hello world 2");
+	GUI::PrintToConsole("Hello world 3");
+	GUI::PrintToConsole("Hello world 4");
 
 	while (!glfwWindowShouldClose(m_Window)) {
 

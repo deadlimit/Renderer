@@ -6,11 +6,13 @@
 #include "Windows/MenuBar.h"
 #include "Windows/TestWindow.h"
 #include "Windows/Viewport.h"
+#include "Windows/ConsoleWindow.h"
 #include <iostream>
 #include "glad.h"
 #include "glfw3.h"
 #include "../../../Renderer/src/Renderer/Renderer.h"
-
+#include <sstream>
+#include <iomanip>
 #define IMGUI_IMPL_OPENGL_ES3
 
 
@@ -38,19 +40,19 @@ void GUI::Init(GLFWwindow* window) {
 	MenuBar* bar = new MenuBar();
 	TestWindow* test = new TestWindow();
 	Viewport* viewport = new Viewport();
+	ConsoleWindow* console = new ConsoleWindow();
 
 	viewport->SetRenderID(Renderer::Get().GetViewportImage());
 
 	m_Subwindows["Viewport"] = viewport;
 	m_Subwindows["TestWindow"] = bar;
 	m_Subwindows["MenuBar"] = test;
+	m_Subwindows["Console"] = console;
 
 
 }
 
 void GUI::Render() {
-
-	
 
 	BeginFrame();
 
@@ -75,6 +77,10 @@ void GUI::Render() {
 
 	}
 
+}
+
+void GUI::PrintToConsole(const std::string& message) {
+	static_cast<ConsoleWindow*>(GUI::Get().GetWindow("Console"))->AddMessage(message);
 }
 
 GUIWindow* GUI::GetWindow(const std::string& windowName) {
