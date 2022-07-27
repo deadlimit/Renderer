@@ -36,8 +36,6 @@ void GUI::Init(GLFWwindow* window) {
 		style.WindowRounding = 0.0f;
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
-
-	MenuBar* bar = new MenuBar();
 	TestWindow* test = new TestWindow();
 	Viewport* viewport = new Viewport();
 	ConsoleWindow* console = new ConsoleWindow();
@@ -45,16 +43,47 @@ void GUI::Init(GLFWwindow* window) {
 	viewport->SetRenderID(Renderer::Get().GetViewportImage());
 
 	m_Subwindows["Viewport"] = viewport;
-	m_Subwindows["TestWindow"] = bar;
-	m_Subwindows["MenuBar"] = test;
+	m_Subwindows["TestWindow"] = test;
 	m_Subwindows["Console"] = console;
-
-
 }
 
 void GUI::Render() {
 
 	BeginFrame();
+
+	ImGui::BeginMainMenuBar();
+
+	if (ImGui::BeginMenu("File")) {
+		if (ImGui::MenuItem("Open", "Ctrl+F")) { std::cout << "Open" << std::endl; }
+		if (ImGui::MenuItem("Save", "Ctrl+S")) { std::cout << "Save" << std::endl; }
+		if (ImGui::MenuItem("Close", "Ctrl+S")) { std::cout << "Close" << std::endl; }
+
+		ImGui::EndMenu();
+	}
+
+	//Need someway to pass command to renderer
+	if (ImGui::BeginMenu("Load object")) {
+		if (ImGui::MenuItem("Square")) { std::cout << "Load Square!" << std::endl; }
+		if (ImGui::MenuItem("Triangle")) { std::cout << "Load Triangle" << std::endl; }
+		ImGui::EndMenu();
+	}
+
+	if (ImGui::BeginMenu("Windows")) {
+		if (ImGui::MenuItem("Console")) { std::cout << "Console" << std::endl; }
+		if (ImGui::MenuItem("Viewport")) { std::cout << "Viewport" << std::endl; }
+		ImGui::EndMenu();
+	}
+	
+
+	if (ImGui::BeginMenu("Styles")) {
+		if (ImGui::MenuItem("Dark")) { ImGui::StyleColorsDark(); }
+		if (ImGui::MenuItem("Light")) { ImGui::StyleColorsLight(); }
+		if (ImGui::MenuItem("Classic")) { ImGui::StyleColorsClassic(); }
+		ImGui::EndMenu();
+	}
+
+
+	ImGui::EndMainMenuBar();
 
 	ImGui::DockSpaceOverViewport();
 
