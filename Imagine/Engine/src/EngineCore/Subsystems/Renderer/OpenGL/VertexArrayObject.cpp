@@ -1,12 +1,14 @@
-#include "Mesh.h"
+#include "VertexArrayObject.h"
 #include <iostream>
 
 namespace OpenGL {
 
-	Mesh::Mesh(const std::vector<Vertex> vertices, const std::vector<unsigned int>& indices, Material& material) : m_Material(std::move(material)) {
+	uint32_t CreateVertexArrayObject(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices) {
 
-		glGenVertexArrays(1, &m_VAO);
-		glBindVertexArray(m_VAO);
+		uint32_t VAO;
+
+		glGenVertexArrays(1, &VAO);
+		glBindVertexArray(VAO);
 
 		unsigned int VBO;
 		glGenBuffers(1, &VBO);
@@ -27,20 +29,10 @@ namespace OpenGL {
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, Vertex::Stride, (void*)(6 * sizeof(float)));
 		glEnableVertexAttribArray(2);
 
-	}
-
-	Mesh::Mesh(Mesh&& other) noexcept: m_Material(std::move(other.m_Material)), m_VAO(other.m_VAO) {
-		other.m_VAO = -1;
-		std::cout << "Move constructor for Mesh" << std::endl;
-	}
-
-
-	void Mesh::Bind() const {
-
-		glBindVertexArray(m_VAO);
-		m_Material.Bind();
+		return VAO;
 
 	}
-
-
+	void DeleteVertexArrayObject(uint32_t VAO) {
+		glDeleteVertexArrays(1, &VAO);
+	}
 }

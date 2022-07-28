@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EntityManager.h" />
     <ClInclude Include="src\EngineCore\Engine.h" />
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h" />
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUIWindow.h" />
@@ -90,8 +91,7 @@
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Framebuffer.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Image.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Material.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Mesh.h" />
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\OpenGLCore.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\RenderViewport.h" />
@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c" />
+    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="src\EngineCore\Engine.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\GUI\GUI.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\GUI\GUIWindow.cpp" />
@@ -112,8 +113,7 @@
     <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\Viewport.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Framebuffer.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Material.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Mesh.cpp" />
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\RenderViewport.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.cpp" />

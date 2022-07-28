@@ -4,9 +4,19 @@
 #include "OpenGL/OpenGLCore.h"
 #include "OpenGL/Camera.h"
 #include "OpenGL/RenderViewport.h"
-#include "OpenGL/Mesh.h"
+#include "OpenGL/Primitives.h"
+#include "OpenGL/Texture.h"
+#include "OpenGL/Shader.h"
+#include "OpenGL/Framebuffer.h"
 #include "OpenGL/Primitives.h"
 #include <vector>
+
+
+struct RenderInformation {
+	uint32_t VAO;
+	uint32_t textureID;
+	uint32_t shaderID;
+};
 
 class Renderer : public System<Renderer> {
 
@@ -18,7 +28,7 @@ public:
 	};
 
 	void Init(GLFWwindow*, ViewportSize);
-	void Draw(const OpenGL::Mesh&);
+	void Draw(const RenderInformation&);
 	void Clear();
 	void Clean();
 	void SwapFramebuffer() const;

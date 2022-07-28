@@ -1,27 +1,10 @@
 #pragma once
+#include "OpenGLCore.h"
+#include <string>
 
 namespace OpenGL {
 
-	class Texture {
-		
-	public:
-		Texture() {}
-		Texture(const char*);
-		~Texture();
-		Texture(Texture&&);
-		Texture(const Texture&);
-
-		void Bind() const;
-
-		unsigned int GetID() const { return m_TextureID; }
-
-	private:
-
-		unsigned int m_TextureID;
-
-	};
-
-
-
+	static uint32_t CreateTexture(const std::string&);
+	static void DeleteTexture(uint32_t);
 }
 

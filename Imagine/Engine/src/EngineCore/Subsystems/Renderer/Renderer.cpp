@@ -3,9 +3,7 @@
 #include <stdexcept>
 #include <vector>
 #include "OpenGL/Shader.h"
-#include "OpenGL/Mesh.h"
 #include "OpenGL/Texture.h"
-#include "OpenGL/Material.h"
 #include "OpenGL/Primitives.h"
 #include "OpenGL/RenderViewport.h"
 #include "../GUI/GUI.h"
@@ -35,8 +33,12 @@ void Renderer::Init(GLFWwindow* window, ViewportSize viewportSize) {
 
 }
 
-void Renderer::Draw(const OpenGL::Mesh& mesh) {
-	mesh.Bind();
+void Renderer::Draw(const RenderInformation& renderInformation) {
+
+	glBindVertexArray(renderInformation.VAO);
+	glUseProgram(renderInformation.shaderID);
+	glBindTexture(GL_TEXTURE_2D, renderInformation.textureID);
+	
 	glDrawElements(GL_TRIANGLES, mesh.GetIndices(), GL_UNSIGNED_INT, 0);
 }
 
@@ -80,3 +82,4 @@ void Renderer::Clean() {
 		m_RenderObjects[i].GetMaterial().GetShader().SetUniformMatrix4fv("view", glm::translate(camera, glm::vec3(0.0f, 0.0f, -3.0f)));
 		m_RenderObjects[i].GetMaterial().GetShader().SetUniformMatrix4fv("projection", glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.01f, 100.f));
 		*/
+
