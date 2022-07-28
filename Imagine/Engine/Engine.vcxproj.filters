@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore">
+      <UniqueIdentifier>{BB7E073A-A74C-FB3F-90E0-6B667C4DD7A4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\Subsystems">
+      <UniqueIdentifier>{EC44F341-5807-27CC-A1B7-B5580DB9FFA9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\Subsystems\GUI">
+      <UniqueIdentifier>{00DABEE2-6CF2-A50C-359F-35A6A1763AA6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\Subsystems\GUI\Windows">
+      <UniqueIdentifier>{3A84063F-A648-052F-6FAE-35F9DB31A164}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\Subsystems\Renderer">
+      <UniqueIdentifier>{12D22822-FE0D-2C8C-6720-4483537BD4A6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\Subsystems\Renderer\OpenGL">
+      <UniqueIdentifier>{0633C6A4-724D-2946-BB6F-39DA27C9504D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\GLAD">
+      <UniqueIdentifier>{1A7667C1-862B-E0B6-0F20-DA8D7BD4D6BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\GLAD\src">
+      <UniqueIdentifier>{31B12476-9D3C-923A-A64D-152F1258EE3A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\EngineCore\Engine.h">
+      <Filter>src\EngineCore</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h">
+      <Filter>src\EngineCore\Subsystems\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\GUI\GUIWindow.h">
+      <Filter>src\EngineCore\Subsystems\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\GUI\Windows\ConsoleWindow.h">
+      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\GUI\Windows\SceneWindow.h">
+      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\GUI\Windows\TestWindow.h">
+      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\GUI\Windows\Viewport.h">
+      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Framebuffer.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Image.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Material.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Mesh.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\OpenGLCore.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\RenderViewport.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Texture.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\stb_image.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\Renderer.h">
+      <Filter>src\EngineCore\Subsystems\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\System.h">
+      <Filter>src\EngineCore</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\vendor\GLAD\src\glad.c">
+      <Filter>vendor\GLAD\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Engine.cpp">
+      <Filter>src\EngineCore</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\GUI\GUI.cpp">
+      <Filter>src\EngineCore\Subsystems\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\GUI\GUIWindow.cpp">
+      <Filter>src\EngineCore\Subsystems\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\ConsoleWindow.cpp">
+      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\SceneWindow.cpp">
+      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\TestWindow.cpp">
+      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\Viewport.cpp">
+      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.cpp">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Framebuffer.cpp">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Material.cpp">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Mesh.cpp">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.cpp">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\RenderViewport.cpp">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.cpp">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Texture.cpp">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\Renderer.cpp">
+      <Filter>src\EngineCore\Subsystems\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\main.cpp">
+      <Filter>src\EngineCore</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
