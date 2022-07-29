@@ -93,7 +93,6 @@
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\OpenGLCore.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\RenderViewport.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Texture.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\stb_image.h" />
@@ -113,7 +112,6 @@
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Framebuffer.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\RenderViewport.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Texture.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\Renderer.cpp" />

@@ -72,9 +72,6 @@
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.h">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\RenderViewport.h">
-      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.h">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClInclude>
@@ -126,9 +123,6 @@
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.cpp">
-      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\RenderViewport.cpp">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.cpp">

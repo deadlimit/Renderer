@@ -3,71 +3,104 @@
 #include <iostream>
 #include <stdexcept>
 
+
 static void OpenGLDebugCallback(GLenum source, GLenum type, GLuint ID, GLenum severity, GLsizei length, const GLchar* message, const void* userParams) {
 	std::cout << message << std::endl;
 }
 
-void Renderer::Init(GLFWwindow* window, ViewportSize viewportSize) {
-		
-	GUI::PrintToConsole("Initiating OpenGL");
+void Renderer::Init(GLFWwindow* window, uint32_t viewportWidth, uint32_t viewportHeight) {
 
-	m_Window = window;
+	GUI::PrintToConsole("Initiating OpenGL");
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	glViewport(0, 0, viewportSize.width, viewportSize.height);
+	glViewport(0, 0, viewportWidth, viewportHeight);
 
-	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) { Renderer::Get().ResizeViewport(width, height); });
+	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) { Renderer::ResizeViewport(width, height);});
 
-	m_RenderViewport = new OpenGL::RenderViewport(viewportSize.width, viewportSize.height);
-	
 	glDebugMessageCallback(OpenGLDebugCallback, nullptr);
 
+	ViewportWidth = viewportWidth;
+	ViewportHeight = viewportHeight;
+
+	ResizeViewport(ViewportWidth, ViewportHeight);
+
 }
 
-void Renderer::Draw(RenderInformation& renderInformation) {
+void Renderer::Draw(RenderInformation& renderInfo, const uint32_t framebufferID) {
 
-	glBindVertexArray(renderInformation.VAO);
-	renderInformation.p_Shader->Bind();
-	glBindTexture(GL_TEXTURE_2D, renderInformation.textureID);
-	glDrawElements(GL_TRIANGLES, renderInformation.indicies, GL_UNSIGNED_INT, 0);
+	if(framebufferID)
+		glBindFramebuffer(GL_FRAMEBUFFER, framebufferID);
+
+	glBindVertexArray(renderInfo.VAO);
+	glBindTexture(GL_TEXTURE_2D, renderInfo.textureID);
+	glDrawElements(GL_TRIANGLES, renderInfo.indicies, GL_UNSIGNED_INT, 0);
+
+	if (framebufferID)
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+void Renderer::Clear(const uint32_t framebufferID) {
 
-void Renderer::Clear() {
-
-	//Clear viewport
-	m_RenderViewport->Clear();
-
-	//Clear window
+	if (framebufferID) {
+		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+		glBindFramebuffer(GL_FRAMEBUFFER, framebufferID);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::SwapFramebuffer() const {
-	glfwSwapBuffers(m_Window);
-}
-
-
 void Renderer::ResizeViewport(int newWidth, int newHeight) {
-	m_RenderViewport->Resize(newWidth, newHeight);
+
+	static GLint ViewportSize[4];
+
+	glGetIntegerv(GL_VIEWPORT, ViewportSize);
+
+	if (ViewportSize[2] == newWidth && ViewportSize[3] == newHeight)
+		return;
+
+	ViewportWidth = newWidth;
+	ViewportHeight = newHeight;
+
+	std::cout << ViewportSize[2] << std::endl;
+	std::cout << ViewportSize[3] << std::endl;
+
+	glViewport(0, 0, newWidth, newHeight);
+
+	//If a framebuffer exists it needs to be deleted in order to be recreated
+	if (Framebuffer.ID) {
+
+		glDeleteFramebuffers(1, &Framebuffer.ID);
+		glDeleteTextures(1, &Framebuffer.ColorAttachment);
+
+	}
+
+	glGenFramebuffers(1, &Framebuffer.ID);
+	glBindFramebuffer(GL_FRAMEBUFFER, Framebuffer.ID);
+
+
+	glCreateTextures(GL_TEXTURE_2D, 1, &Framebuffer.ColorAttachment);
+	glBindTexture(GL_TEXTURE_2D, Framebuffer.ColorAttachment);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, newWidth, newHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, Framebuffer.ColorAttachment, 0);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+		throw std::runtime_error("Failed to recreate framebuffer");
+	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 }
 
-void Renderer::Clean() {}
 
-
-/* This is game logic, should not be in renderer
-* 		m_RenderObjects[i].transform = glm::rotate(m_RenderObjects[i].transform, glm::radians(0.05f), glm::vec3(0.0f, 1.0f, 0.0f));
-		m_RenderObjects[i].GetMaterial().GetShader().SetUniformMatrix4fv("model", m_RenderObjects[i].transform);
-
-		glm::mat4 camera = m_Camera.GetViewMatrix();
-
-		camera = glm::rotate(camera, glm::radians((float)glm::sin(glfwGetTime()) * 10), glm::vec3(0, 1, 0));
-
-		auto [width, height] = m_RenderViewport->GetSize();
-
-		m_RenderObjects[i].GetMaterial().GetShader().SetUniformMatrix4fv("view", glm::translate(camera, glm::vec3(0.0f, 0.0f, -3.0f)));
-		*/
-
+void Renderer::SwapBuffers(GLFWwindow& window) {
+	glfwSwapBuffers(&window);
+}

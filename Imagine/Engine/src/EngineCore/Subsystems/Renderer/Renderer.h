@@ -1,9 +1,7 @@
 #pragma once
 
-#include "../../System.h"
 #include "OpenGL/OpenGLCore.h"
 #include "OpenGL/Camera.h"
-#include "OpenGL/RenderViewport.h"
 #include "OpenGL/Primitives.h"
 #include "OpenGL/Texture.h"
 #include "OpenGL/Shader.h"
@@ -12,39 +10,32 @@
 #include "OpenGL/VertexArrayObject.h"
 #include <vector>
 
+namespace Renderer {
 
-struct RenderInformation {
-	uint32_t VAO;
-	uint32_t textureID;
-	uint32_t indicies;
-	OpenGL::Shader* p_Shader;
-	glm::mat4 transform;
-};
-
-class Renderer : public System<Renderer> {
-
-public:
-
-	struct ViewportSize {
-		uint32_t width;
-		uint32_t height;
+	struct RenderInformation {
+		uint32_t VAO;
+		uint32_t textureID;
+		uint32_t indicies;
+		OpenGL::Shader* p_Shader;
+		glm::mat4 transform = glm::mat4(1.0f);
 	};
 
-	void Init(GLFWwindow*, ViewportSize);
-	void Draw(RenderInformation&);
-	void Clear();
-	void Clean();
-	void SwapFramebuffer() const;
+	struct FramebufferInfo {
+		uint32_t ID;
+		uint32_t ColorAttachment;
+	};
+
+
+	inline FramebufferInfo Framebuffer;
+
+	void Init(GLFWwindow*, uint32_t, uint32_t);
+	void Draw(RenderInformation&, const uint32_t = -1);
+	void Clear(const uint32_t);
 	void ResizeViewport(int, int);
+	void SwapBuffers(GLFWwindow&);
 
-	const OpenGL::RenderViewport& GetViewport() const { return *m_RenderViewport; }
-	ViewportSize GetViewportSize() const { auto [width, height] = m_RenderViewport->GetSize(); return { width, height }; }
-	unsigned int GetViewportImage() { return m_RenderViewport->GetRenderID(); }
+	inline float ViewportWidth;
+	inline float ViewportHeight;
 
-private:
+}
 
-	OpenGL::RenderViewport* m_RenderViewport;
-
-	GLFWwindow* m_Window;
-
-};

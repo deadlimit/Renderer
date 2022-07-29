@@ -6,7 +6,6 @@
 #include <iostream>
 #include "glad.h"
 #include "glfw3.h"
-#include "../Renderer/Renderer.h"
 #include <sstream>
 #include <iomanip>
 

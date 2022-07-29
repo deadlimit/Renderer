@@ -5,7 +5,6 @@
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 
-
 #define SHADER_RESOURCE(x) "../InternalCore/OpenGL/Resources/Shaders/"##x
 #define TEXTURE_RESOURCE(x) "../InternalCore/OpenGL/Resources/Textures/"##x
 

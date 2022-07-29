@@ -1,5 +1,7 @@
 #include "Engine.h"
+#include "Subsystems//GUI/GUI.h"
 #include <stdexcept>
+#include <iostream>
 
 void Engine::Init() {
 
@@ -16,7 +18,7 @@ void Engine::Init() {
 
 	GUI::Get().Init(m_Window);
 
-	Renderer::Get().Init(m_Window, { 300, 300 });
+	Renderer::Init(m_Window, 1280, 860);
 
 	OpenGL::MeshData data = OpenGL::Square();
 
@@ -25,47 +27,34 @@ void Engine::Init() {
 	test.p_Shader = new OpenGL::Shader("../Resources/Shaders/OpenGL/Triangle1.shader");
 	test.indicies = data.indicies.size();
 	
-
-		
 }
 
 void Engine::Run() {
 
 	while (!glfwWindowShouldClose(m_Window)) {
 
-		Renderer::Get().Clear();
+		Renderer::Clear(Renderer::Framebuffer.ID);
 
 		glfwPollEvents();
-		
-		SubitForRendering();
+
+		test.transform = glm::rotate(test.transform, glm::radians(0.05f), glm::vec3(0.0f, 0.0f, 1.0f));
+		test.transform = glm::translate(test.transform, glm::vec3(0.0f));
+		test.p_Shader->Bind();
+		test.p_Shader->SetUniformMatrix4fv("model", test.transform);
+		test.p_Shader->SetUniformMatrix4fv("view", glm::translate(m_Camera.GetViewMatrix(), glm::vec3(0.0f, 0.0f, - 2 - glm::sin(glfwGetTime()))));
+		test.p_Shader->SetUniformMatrix4fv("projection", glm::perspective(glm::radians(45.0f), (float)3 / (float)2, 0.01f, 100.f));
+
+		Renderer::Draw(test, Renderer::Framebuffer.ID);
 
 		GUI::Get().Render();
 
-		Renderer::Get().SwapFramebuffer();
+		Renderer::SwapBuffers(*m_Window);
 
 	}
 }
-void Engine::Clean() {
+void Engine::Clean() { 
 	glfwDestroyWindow(m_Window);
 	glfwTerminate();
-}
-
-void Engine::SubitForRendering() {
-
-	Renderer& renderer = Renderer::Get();
-
-	renderer.GetViewport().MakeRenderTarget();
-
-	auto [width, height] = renderer.GetViewportSize();
-
-	test.p_Shader->Bind();
-	test.p_Shader->SetUniformMatrix4fv("model", glm::mat4(1.0));
-	test.p_Shader->SetUniformMatrix4fv("view", glm::translate(m_Camera.GetViewMatrix(), glm::vec3(0.0f, 0.0f, -2.0f)));
-	test.p_Shader->SetUniformMatrix4fv("projection", glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.01f, 100.f));
-
-	renderer.Draw(test);
-
-	renderer.GetViewport().Unbind();
 }
 
 

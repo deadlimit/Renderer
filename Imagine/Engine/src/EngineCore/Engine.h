@@ -2,7 +2,7 @@
 
 
 #include "Subsystems/Renderer/Renderer.h"
-#include "Subsystems//GUI/GUI.h"
+
 #include "glad.h"
 #include "glfw3.h"
 #include <map>
@@ -19,9 +19,7 @@ public:
 
 private:
 
-	RenderInformation test;
-
-	void SubitForRendering();
+	Renderer::RenderInformation test;
 	
 	GLFWwindow* m_Window;
 

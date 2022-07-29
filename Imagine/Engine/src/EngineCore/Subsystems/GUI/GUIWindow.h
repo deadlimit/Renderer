@@ -2,7 +2,6 @@
 
 #include "imgui.h"
 
-
 class GUIWindow {
 
 public:
