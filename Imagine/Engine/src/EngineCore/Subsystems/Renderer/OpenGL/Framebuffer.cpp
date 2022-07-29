@@ -1,7 +1,7 @@
 #include "Framebuffer.h"
 #include <iostream>
 
-namespace OpenGL {
+namespace Renderer {
 
 	Framebuffer::Framebuffer(uint32_t width, uint32_t height) {
 

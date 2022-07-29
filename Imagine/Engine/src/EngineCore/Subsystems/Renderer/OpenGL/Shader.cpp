@@ -6,57 +6,48 @@
 #include "gtc/type_ptr.hpp"
 
 
-namespace OpenGL {
-	Shader::Shader(const std::string& file) {
-	
-		auto[vertexCode, fragmentCode] = ExtractSourceCode(file);
+namespace Renderer {
 
-		GLuint m_VertexShaderID;
-		GLuint m_FragmentShaderID;
+	static std::tuple<std::string, std::string> ExtractSourceCode(const std::string& file, std::map<std::string, int>& uniforms) {
 
-		std::cout << "Compiling shader" << file << std::endl;
+		std::ifstream fileStream(file);
 
-		bool vertexCreateSuccess = CreateShader(m_VertexShaderID, GL_VERTEX_SHADER, vertexCode.c_str());
-		bool fragmentCreateSuccess = CreateShader(m_FragmentShaderID, GL_FRAGMENT_SHADER, fragmentCode.c_str());
+		if (!fileStream.is_open()) {
+			std::cout << "Could not open " << file << std::endl;
+			return { "", "" };
+		}
 
-		if (!vertexCreateSuccess || !fragmentCreateSuccess)
-			throw std::runtime_error("Failed to create shader");
+		std::stringstream extractedCode[2];
 
-		m_ID = glCreateProgram();
-		glAttachShader(m_ID, m_VertexShaderID);
-		glAttachShader(m_ID, m_FragmentShaderID);
-		glLinkProgram(m_ID);
-	
-		bool successfulLink = CheckStatus(m_ID, GL_LINK_STATUS);
+		std::string line;
 
-		if(!successfulLink)
-			throw std::runtime_error("Failed to link " + file);
+		unsigned int shaderTypeID = -1;
 
-		glDeleteShader(m_VertexShaderID);
-		glDeleteShader(m_FragmentShaderID);
+		while (std::getline(fileStream, line)) {
 
-		GetUniformLocations();
+			if (line.find("#TYPE VERTEX") != line.npos) {
+				shaderTypeID = 0;
+			} else if (line.find("#TYPE FRAGMENT") != line.npos) {
+				shaderTypeID = 1;
+			} else {
+				extractedCode[shaderTypeID] << line + "\n";
 
-		Bind();
+				if (line.find("uniform") != line.npos) {
+
+					std::string uniform = line.substr(line.find_last_of(' ') + 1);
+					uniform.pop_back();
+
+					uniforms[uniform] = -1;
+				}
+			}
+		}
+
+		fileStream.close();
+
+		return { extractedCode[0].str(), extractedCode[1].str() };
 	}
 
-	void Shader::Bind() const {
-
-		glUseProgram(m_ID);
-
-	}
-
-	bool Shader::CreateShader(GLuint& shaderID, GLuint type, const char* sourceCode) {
-		shaderID = glCreateShader(type);
-
-		glShaderSource(shaderID, 1, &sourceCode, nullptr);
-
-		glCompileShader(shaderID);
-
-		return CheckStatus(shaderID, GL_COMPILE_STATUS);
-	}
-
-	bool Shader::CheckStatus(GLuint& ID, GLuint type) {
+	static bool CheckStatus(GLuint& ID, GLuint type) {
 
 		int compileSuccess;
 		char failLog[512];
@@ -87,55 +78,25 @@ namespace OpenGL {
 
 	}
 
+	static bool CreateShader(GLuint& shaderID, GLuint type, const char* sourceCode) {
+		shaderID = glCreateShader(type);
 
-	std::tuple<std::string, std::string> Shader::ExtractSourceCode(const std::string& file) {
+		glShaderSource(shaderID, 1, &sourceCode, nullptr);
 
-		std::ifstream fileStream(file);
+		glCompileShader(shaderID);
 
-		if (!fileStream.is_open()) {
-			std::cout << "Could not open " << file << std::endl;
-			return { "", "" };
-		}
-
-		std::stringstream extractedCode[2];
-
-		std::string line;
-
-		unsigned int shaderTypeID = -1;
-
-		while (std::getline(fileStream, line)) {
-
-			if (line.find("#TYPE VERTEX") != line.npos) {
-				shaderTypeID = 0;
-			}
-			else if (line.find("#TYPE FRAGMENT") != line.npos) {
-				shaderTypeID = 1;
-			}
-			else {
-				extractedCode[shaderTypeID] << line + "\n";
-						
-				if (line.find("uniform") != line.npos) {
-					
-					std::string uniform = line.substr(line.find_last_of(' ') + 1);
-					uniform.pop_back();
-
-					m_Uniforms[uniform] = -1;
-				}
-			}
-		}
-
-		fileStream.close();
-
-		return { extractedCode[0].str(), extractedCode[1].str()};
+		return CheckStatus(shaderID, GL_COMPILE_STATUS);
 	}
 
-	void Shader::GetUniformLocations() {
+	
 
-		for (auto& pair : m_Uniforms) {
+	static void GetUniformLocations(Shader& shader) {
 
-			int location = glGetUniformLocation(m_ID, pair.first.c_str());
+		for (auto& pair : shader.Uniforms) {
 
-			m_Uniforms[pair.first] = location;
+			int location = glGetUniformLocation(shader.ProgramID, pair.first.c_str());
+
+			shader.Uniforms[pair.first] = location;
 
 			if (location == -1) {
 				std::cout << pair.first << " is unused" << std::endl;
@@ -143,36 +104,72 @@ namespace OpenGL {
 		}		
 	}
 
-	Shader::~Shader() {
-		glDeleteProgram(m_ID);
+	void SetUniform1f(Shader& shader, const char* uniform, float value) {
+		glUniform1f(shader.Uniforms[uniform], value);
 	}
 
-	void Shader::SetUniform1f(const char* uniform, float value) {
-		glUniform1f(m_Uniforms[uniform], value);
+	void SetUniform1i(Shader& shader, const char* uniform, int value) {
+		glUniform1i(shader.Uniforms[uniform], value);
 	}
 
-	void Shader::SetUniform1i(const char* uniform, int value) {
-		glUniform1i(m_Uniforms[uniform], value);
+	void SetUniform1ui(Shader& shader, const char* uniform, unsigned int value)  {
+		glUniform1ui(shader.Uniforms[uniform], value);
 	}
 
-	void Shader::SetUniform1ui(const char* uniform, unsigned int value)  {
-		glUniform1ui(m_Uniforms[uniform], value);
+	void SetUniform2f(Shader& shader, const char* uniform, float v0, float v1) {
+		glUniform2f(shader.Uniforms[uniform], v0, v1);
 	}
 
-	void Shader::SetUniform2f(const char* uniform, float v0, float v1) {
-		glUniform2f(m_Uniforms[uniform], v0, v1);
+	void SetUniform3f(Shader& shader, const char* uniform, float v0, float v1, float v2) {
+		glUniform3f(shader.Uniforms[uniform], v0, v1, v2);
 	}
 
-	void Shader::SetUniform3f(const char* uniform, float v0, float v1, float v2) {
-		glUniform3f(m_Uniforms[uniform], v0, v1, v2);
+	void SetUniform4f(Shader& shader, const char* uniform, float v0, float v1, float v2, float v3) {
+		glUniform4f(shader.Uniforms[uniform], v0, v1, v2, v3);
 	}
 
-	void Shader::SetUniform4f(const char* uniform, float v0, float v1, float v2, float v3) {
-		glUniform4f(m_Uniforms[uniform], v0, v1, v2, v3);
+	void SetUniformMatrix4fv(Shader& shader, const char* uniform, glm::mat4 value) {
+		glUniformMatrix4fv(shader.Uniforms[uniform], 1, GL_FALSE, glm::value_ptr(value));
 	}
 
-	void Shader::SetUniformMatrix4fv(const char* uniform, glm::mat4 value) {
-		glUniformMatrix4fv(m_Uniforms[uniform], 1, GL_FALSE, glm::value_ptr(value));
+	void BindShader(const uint32_t& program) {
+		glUseProgram(program);
+
+	}
+
+	void DeleteShader(const uint32_t& program) {
+		glDeleteProgram(program);
+	}
+
+	void CreateShaderProgram(const std::string& file, Shader& shader) {
+
+		auto [vertexCode, fragmentCode] = ExtractSourceCode(file, shader.Uniforms);
+
+		GLuint m_VertexShaderID;
+		GLuint m_FragmentShaderID;
+
+		std::cout << "Compiling shader" << file << std::endl;
+
+		bool vertexCreateSuccess = CreateShader(m_VertexShaderID, GL_VERTEX_SHADER, vertexCode.c_str());
+		bool fragmentCreateSuccess = CreateShader(m_FragmentShaderID, GL_FRAGMENT_SHADER, fragmentCode.c_str());
+
+		if (!vertexCreateSuccess || !fragmentCreateSuccess)
+			throw std::runtime_error("Failed to create shader");
+
+		shader.ProgramID = glCreateProgram();
+		glAttachShader(shader.ProgramID, m_VertexShaderID);
+		glAttachShader(shader.ProgramID, m_FragmentShaderID);
+		glLinkProgram(shader.ProgramID);
+
+		bool successfulLink = CheckStatus(shader.ProgramID, GL_LINK_STATUS);
+
+		if (!successfulLink)
+			throw std::runtime_error("Failed to link " + file);
+
+		glDeleteShader(m_VertexShaderID);
+		glDeleteShader(m_FragmentShaderID);
+
+		GetUniformLocations(shader);
 	}
 
 }

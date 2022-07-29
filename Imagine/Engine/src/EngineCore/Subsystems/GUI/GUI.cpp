@@ -49,6 +49,11 @@ void GUI::PrintToConsole(const std::string& message) {
 	g_ConsoleMessages.push_back(timeString);
 
 }
+static bool Open_SceneWindow = true;
+static bool Open_Viewport = true;
+static bool Open_Console = true;
+static bool Open_Stats = true;
+
 
 void GUI::Draw() {
 
@@ -76,7 +81,7 @@ void GUI::Draw() {
 
 	if (ImGui::BeginMenu("Windows")) {
 		if (ImGui::MenuItem("Console")) { std::cout << "Console" << std::endl; }
-		if (ImGui::MenuItem("Viewport")) { std::cout << "Viewport" << std::endl; }
+		if (ImGui::MenuItem("Viewport")) { Open_Viewport = true; }
 		ImGui::EndMenu();
 	}
 
@@ -91,21 +96,19 @@ void GUI::Draw() {
 #pragma endregion
 
 	#pragma region Viewport 
-
-		if (!g_ViewportImageID)
-			g_ViewportImageID = Renderer::Framebuffer.ColorAttachment;
-
-		ImGui::Begin("Viewport");
-
-		//ImVec2 pos = ImGui::GetCursorScreenPos();
-
-		const ImVec2& viewportWindowSize = ImGui::GetContentRegionAvail();
 	
-		Renderer::ResizeViewport(viewportWindowSize.x, viewportWindowSize.y);
+	if (!g_ViewportImageID)
+		g_ViewportImageID = Renderer::Framebuffer.ColorAttachment;
 
-		ImGui::Image((void*)g_ViewportImageID, viewportWindowSize, ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Begin("Viewport", &Open_Viewport);
 
-		ImGui::End();
+	const ImVec2& viewportWindowSize = ImGui::GetContentRegionAvail();
+	
+	Renderer::ResizeViewport(viewportWindowSize.x, viewportWindowSize.y);
+
+	ImGui::Image((void*)g_ViewportImageID, viewportWindowSize, ImVec2(0, 1), ImVec2(1, 0));
+
+	ImGui::End();
 
 	#pragma endregion
 
@@ -122,14 +125,14 @@ void GUI::Draw() {
 	#pragma endregion
 
 	#pragma region Scene 
-			ImGui::Begin("Scene");
+			ImGui::Begin("Scene", &Open_SceneWindow);
 
 			ImGui::End();
 	#pragma endregion
 
 	#pragma region ConsoleWindow
 
-		ImGui::Begin("Console");
+		ImGui::Begin("Console", &Open_Console);
 
 		if (ImGui::Button("Clear console"))
 			g_ConsoleMessages.clear();

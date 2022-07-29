@@ -2,7 +2,7 @@
 #include "Image.h"
 #include <iostream>
 
-namespace OpenGL {
+namespace Renderer {
 	
 	 void CreateTexture(const std::string& filepath, uint32_t& textureID) {
 

@@ -1,6 +1,7 @@
 #include "Primitives.h"
 
-namespace OpenGL {
+namespace Renderer {
+
 	MeshData Square() {
 
 		std::vector<Vertex> vertices = {

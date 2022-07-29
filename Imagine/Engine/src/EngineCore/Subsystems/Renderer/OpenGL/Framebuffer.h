@@ -1,7 +1,7 @@
 #pragma once
 #include "OpenGLCore.h"
 
-namespace OpenGL {
+namespace Renderer {
 
 	class Framebuffer {
 

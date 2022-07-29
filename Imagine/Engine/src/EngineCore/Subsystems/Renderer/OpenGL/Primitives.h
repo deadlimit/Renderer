@@ -3,7 +3,7 @@
 #include "OpenGLCore.h"
 #include <vector>
 
-namespace OpenGL {
+namespace Renderer {
 
 	struct MeshData {
 		std::vector<Vertex> vertices;

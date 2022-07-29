@@ -1,7 +1,7 @@
 #include "VertexArrayObject.h"
 #include <iostream>
 
-namespace OpenGL {
+namespace Renderer {
 
 		void CreateVertexArrayObject(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices, uint32_t& VAO) {
 

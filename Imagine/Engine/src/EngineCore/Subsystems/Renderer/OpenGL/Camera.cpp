@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include "gtc/matrix_transform.hpp"
 
-namespace OpenGL {
+namespace Renderer {
 
 	void Camera::Move(glm::vec3 direction) {
 	

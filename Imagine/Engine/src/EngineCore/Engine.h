@@ -23,7 +23,7 @@ private:
 	
 	GLFWwindow* m_Window;
 
-	OpenGL::Camera m_Camera;
+	Renderer::Camera m_Camera;
 };
 
 

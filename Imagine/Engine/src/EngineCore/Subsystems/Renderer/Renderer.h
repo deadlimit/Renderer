@@ -16,7 +16,7 @@ namespace Renderer {
 		uint32_t VAO;
 		uint32_t textureID;
 		uint32_t indicies;
-		OpenGL::Shader* p_Shader;
+		Renderer::Shader shader;
 		glm::mat4 transform = glm::mat4(1.0f);
 	};
 
