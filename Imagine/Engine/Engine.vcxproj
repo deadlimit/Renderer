@@ -58,7 +58,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;..\Renderer;..\Renderer\OpenGL;..\vendor\IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;src\EngineCore;..\Renderer;..\Renderer\OpenGL;..\vendor\IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -71,7 +71,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;..\Renderer;..\Renderer\OpenGL;..\vendor\IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;src\EngineCore;..\Renderer;..\Renderer\OpenGL;..\vendor\IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -83,15 +83,16 @@
     <ClInclude Include="src\EngineCore\Engine.h" />
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Framebuffer.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Image.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\OpenGLCore.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.h" />
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\RenderViewport.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Texture.h" />
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\stb_image.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\Renderer.h" />
+    <ClInclude Include="src\EngineCore\Subsystems\ResourceManager\ResourceManager.h" />
     <ClInclude Include="src\EngineCore\System.h" />
   </ItemGroup>
   <ItemGroup>
@@ -99,12 +100,12 @@
     <ClCompile Include="src\EngineCore\Engine.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\GUI\GUI.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Framebuffer.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Texture.cpp" />
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\EngineCore\Subsystems\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="src\EngineCore\main.cpp" />
   </ItemGroup>
   <ItemGroup>

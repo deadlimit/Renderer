@@ -4,16 +4,19 @@
 #include <sstream>
 #include <vector>
 #include "gtc/type_ptr.hpp"
-
+#include "Subsystems/ResourceManager/ResourceManager.h"
 
 namespace Renderer {
 
 	static std::tuple<std::string, std::string> ExtractSourceCode(const std::string& file, std::map<std::string, int>& uniforms) {
 
-		std::ifstream fileStream(file);
+
+		std::string fullpath = ResourceManager::LoadShader(file);
+
+		std::ifstream fileStream(fullpath);
 
 		if (!fileStream.is_open()) {
-			std::cout << "Could not open " << file << std::endl;
+			std::cout << "Could not open " << fullpath << std::endl;
 			return { "", "" };
 		}
 

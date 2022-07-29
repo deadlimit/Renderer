@@ -13,14 +13,14 @@
     <Filter Include="src\EngineCore\Subsystems\GUI">
       <UniqueIdentifier>{00DABEE2-6CF2-A50C-359F-35A6A1763AA6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\EngineCore\Subsystems\GUI\Windows">
-      <UniqueIdentifier>{3A84063F-A648-052F-6FAE-35F9DB31A164}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\EngineCore\Subsystems\Renderer">
       <UniqueIdentifier>{12D22822-FE0D-2C8C-6720-4483537BD4A6}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\EngineCore\Subsystems\Renderer\OpenGL">
       <UniqueIdentifier>{0633C6A4-724D-2946-BB6F-39DA27C9504D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\Subsystems\ResourceManager">
+      <UniqueIdentifier>{FE85BAE8-6AA0-1D8A-B3C2-2D1E1F1C4591}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
@@ -42,13 +42,7 @@
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.h">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Framebuffer.h">
-      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Image.h">
-      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.h">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\OpenGLCore.h">
@@ -57,10 +51,16 @@
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.h">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\RenderViewport.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.h">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Texture.h">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.h">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\stb_image.h">
@@ -68,6 +68,9 @@
     </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\Renderer.h">
       <Filter>src\EngineCore\Subsystems\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\ResourceManager\ResourceManager.h">
+      <Filter>src\EngineCore\Subsystems\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="src\EngineCore\System.h">
       <Filter>src\EngineCore</Filter>
@@ -86,12 +89,6 @@
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.cpp">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Framebuffer.cpp">
-      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.cpp">
-      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.cpp">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClCompile>
@@ -101,8 +98,14 @@
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Texture.cpp">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.cpp">
+      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\Renderer.cpp">
       <Filter>src\EngineCore\Subsystems\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\ResourceManager\ResourceManager.cpp">
+      <Filter>src\EngineCore\Subsystems\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="src\EngineCore\main.cpp">
       <Filter>src\EngineCore</Filter>

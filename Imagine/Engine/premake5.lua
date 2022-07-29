@@ -20,6 +20,7 @@ project "Engine"
         "src/Subsystems/GUI/Windows/**.h",
         "src/Subsystems/GUI/Windows/**.cpp",
         "../vendor/GLAD/src/glad.c",
+
     }
 
     includedirs {
@@ -27,6 +28,7 @@ project "Engine"
         "../vendor/GLM/glm/glm",
         "../vendor/GLAD/include/glad",
         "../vendor/GLAD/include/KHR",
+        "src/EngineCore";
         "../Renderer",
         "../Renderer/OpenGL",
         --"../InternalCore/Vulkan/VulkanAPI/src",

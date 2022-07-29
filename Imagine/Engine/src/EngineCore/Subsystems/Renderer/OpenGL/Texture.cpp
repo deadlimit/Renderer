@@ -1,6 +1,7 @@
 #include "Texture.h"
 #include "Image.h"
 #include <iostream>
+#include "Subsystems/ResourceManager/ResourceManager.h"
 
 namespace Renderer {
 	
@@ -14,8 +15,10 @@ namespace Renderer {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+		std::string fullPath = ResourceManager::LoadTexture(filepath);
+
 		int width, height, nrChannels;
-		unsigned char* data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
+		unsigned char* data = stbi_load(fullPath.c_str(), &width, &height, &nrChannels, 0);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);

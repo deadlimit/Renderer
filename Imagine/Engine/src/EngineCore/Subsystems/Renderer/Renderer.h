@@ -5,7 +5,6 @@
 #include "OpenGL/Primitives.h"
 #include "OpenGL/Texture.h"
 #include "OpenGL/Shader.h"
-#include "OpenGL/Framebuffer.h"
 #include "OpenGL/Primitives.h"
 #include "OpenGL/VertexArrayObject.h"
 #include <vector>

@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "Subsystems//GUI/GUI.h"
+#include "Subsystems/ResourceManager/ResourceManager.h"
 #include <stdexcept>
 #include <iostream>
 
@@ -23,8 +24,8 @@ void Engine::Init() {
 	Renderer::MeshData data = Renderer::Square();
 
 	Renderer::CreateVertexArrayObject(data.vertices, data.indicies, test.VAO);
-	Renderer::CreateTexture("../Resources/Textures/wall.jpg", test.textureID);
-	Renderer::CreateShaderProgram("../Resources/Shaders/OpenGL/Triangle1.shader", test.shader);
+	Renderer::CreateTexture("wall.jpg", test.textureID);
+	Renderer::CreateShaderProgram("Triangle1.shader", test.shader);
 	test.indicies = data.indicies.size();
 	
 }
