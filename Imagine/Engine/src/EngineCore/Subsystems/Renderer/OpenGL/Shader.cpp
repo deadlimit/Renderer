@@ -7,9 +7,6 @@
 
 
 namespace OpenGL {
-
-	int Shader::moved = 0;
-
 	Shader::Shader(const std::string& file) {
 	
 		auto[vertexCode, fragmentCode] = ExtractSourceCode(file);
@@ -47,10 +44,6 @@ namespace OpenGL {
 
 		glUseProgram(m_ID);
 
-	}
-
-	Shader::Shader(const Shader& other) : m_Uniforms(other.m_Uniforms), m_ID(other.m_ID) {
-		std::cout << "Copy constructor for Shader" << std::endl;
 	}
 
 	bool Shader::CreateShader(GLuint& shaderID, GLuint type, const char* sourceCode) {
@@ -150,17 +143,8 @@ namespace OpenGL {
 		}		
 	}
 
-
-
 	Shader::~Shader() {
 		glDeleteProgram(m_ID);
-	}
-
-	Shader::Shader(Shader&& other ) : m_Uniforms(std::move(other.m_Uniforms)), m_ID(other.m_ID) {
-		other.m_ID = -1;
-		other.m_Uniforms.clear();
-		std::cout << "Move constructor for Shader" << std::endl;
-		moved++;
 	}
 
 	void Shader::SetUniform1f(const char* uniform, float value) {

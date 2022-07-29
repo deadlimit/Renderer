@@ -4,7 +4,7 @@
 
 namespace OpenGL {
 
-	static uint32_t CreateTexture(const std::string&);
-	static void DeleteTexture(uint32_t);
+	void CreateTexture(const std::string&, uint32_t&);
+	void DeleteTexture(const uint32_t&);
 }
 

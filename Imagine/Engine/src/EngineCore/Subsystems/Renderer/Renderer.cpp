@@ -1,13 +1,7 @@
 #include "Renderer.h"
+#include "../../Subsystems/GUI/GUI.h"
 #include <iostream>
 #include <stdexcept>
-#include <vector>
-#include "OpenGL/Shader.h"
-#include "OpenGL/Texture.h"
-#include "OpenGL/Primitives.h"
-#include "OpenGL/RenderViewport.h"
-#include "../GUI/GUI.h"
-
 
 static void OpenGLDebugCallback(GLenum source, GLenum type, GLuint ID, GLenum severity, GLsizei length, const GLchar* message, const void* userParams) {
 	std::cout << message << std::endl;
@@ -33,13 +27,12 @@ void Renderer::Init(GLFWwindow* window, ViewportSize viewportSize) {
 
 }
 
-void Renderer::Draw(const RenderInformation& renderInformation) {
+void Renderer::Draw(RenderInformation& renderInformation) {
 
 	glBindVertexArray(renderInformation.VAO);
-	glUseProgram(renderInformation.shaderID);
+	renderInformation.p_Shader->Bind();
 	glBindTexture(GL_TEXTURE_2D, renderInformation.textureID);
-	
-	glDrawElements(GL_TRIANGLES, mesh.GetIndices(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, renderInformation.indicies, GL_UNSIGNED_INT, 0);
 }
 
 
@@ -62,11 +55,7 @@ void Renderer::ResizeViewport(int newWidth, int newHeight) {
 	m_RenderViewport->Resize(newWidth, newHeight);
 }
 
-void Renderer::Clean() {
-
-
-
-}
+void Renderer::Clean() {}
 
 
 /* This is game logic, should not be in renderer
@@ -80,6 +69,5 @@ void Renderer::Clean() {
 		auto [width, height] = m_RenderViewport->GetSize();
 
 		m_RenderObjects[i].GetMaterial().GetShader().SetUniformMatrix4fv("view", glm::translate(camera, glm::vec3(0.0f, 0.0f, -3.0f)));
-		m_RenderObjects[i].GetMaterial().GetShader().SetUniformMatrix4fv("projection", glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.01f, 100.f));
 		*/
 

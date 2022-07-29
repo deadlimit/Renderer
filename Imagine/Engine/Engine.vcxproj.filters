@@ -90,7 +90,6 @@
     <ClInclude Include="src\EngineCore\System.h">
       <Filter>src\EngineCore</Filter>
     </ClInclude>
-    <ClInclude Include="EntityManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c">
@@ -144,6 +143,5 @@
     <ClCompile Include="src\EngineCore\main.cpp">
       <Filter>src\EngineCore</Filter>
     </ClCompile>
-    <ClCompile Include="EntityManager.cpp" />
   </ItemGroup>
 </Project>

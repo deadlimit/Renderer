@@ -3,9 +3,7 @@
 
 namespace OpenGL {
 
-	uint32_t CreateVertexArrayObject(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices) {
-
-		uint32_t VAO;
+		void CreateVertexArrayObject(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indices, uint32_t& VAO) {
 
 		glGenVertexArrays(1, &VAO);
 		glBindVertexArray(VAO);
@@ -29,10 +27,8 @@ namespace OpenGL {
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, Vertex::Stride, (void*)(6 * sizeof(float)));
 		glEnableVertexAttribArray(2);
 
-		return VAO;
-
 	}
-	void DeleteVertexArrayObject(uint32_t VAO) {
+	void DeleteVertexArrayObject(uint32_t& VAO) {
 		glDeleteVertexArrays(1, &VAO);
 	}
 }

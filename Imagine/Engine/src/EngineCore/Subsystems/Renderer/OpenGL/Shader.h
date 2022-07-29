@@ -12,16 +12,11 @@ namespace OpenGL {
 		Shader() {}
 		Shader(const std::string&);
 		~Shader();
-		Shader(Shader&&);
 		void Bind() const;
-
-		Shader(const Shader&);
 
 		inline const unsigned int GetID() const { return m_ID; }
 
 	public:
-
-		static int moved;
 
 		void SetUniform1f(const char*, float);
 		void SetUniform1i(const char*, int);
@@ -43,7 +38,7 @@ namespace OpenGL {
 
 		void GetUniformLocations();
 
-		unsigned int m_ID;
+		uint32_t m_ID;
 
 	};
 

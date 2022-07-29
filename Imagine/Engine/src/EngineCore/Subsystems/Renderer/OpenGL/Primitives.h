@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
 #include "OpenGLCore.h"
+#include <vector>
 
 namespace OpenGL {
 

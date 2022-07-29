@@ -1,11 +1,11 @@
 #pragma once
-#include <vector>
 #include "OpenGLCore.h"
+#include <vector>
 
 namespace OpenGL {
 
-	static uint32_t CreateVertexArrayObject(const std::vector<Vertex>&, const std::vector<uint32_t>&);
-	static void DeleteVertexArrayObject(uint32_t);
+	void CreateVertexArrayObject(const std::vector<Vertex>&, const std::vector<uint32_t>&, uint32_t&);
+	void DeleteVertexArrayObject(uint32_t&);
 }
 
 

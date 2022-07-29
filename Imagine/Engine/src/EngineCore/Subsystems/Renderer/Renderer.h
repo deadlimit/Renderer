@@ -9,13 +9,16 @@
 #include "OpenGL/Shader.h"
 #include "OpenGL/Framebuffer.h"
 #include "OpenGL/Primitives.h"
+#include "OpenGL/VertexArrayObject.h"
 #include <vector>
 
 
 struct RenderInformation {
 	uint32_t VAO;
 	uint32_t textureID;
-	uint32_t shaderID;
+	uint32_t indicies;
+	OpenGL::Shader* p_Shader;
+	glm::mat4 transform;
 };
 
 class Renderer : public System<Renderer> {
@@ -28,7 +31,7 @@ public:
 	};
 
 	void Init(GLFWwindow*, ViewportSize);
-	void Draw(const RenderInformation&);
+	void Draw(RenderInformation&);
 	void Clear();
 	void Clean();
 	void SwapFramebuffer() const;

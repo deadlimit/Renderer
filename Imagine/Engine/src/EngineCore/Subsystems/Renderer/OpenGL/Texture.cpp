@@ -4,9 +4,7 @@
 
 namespace OpenGL {
 	
-	uint32_t CreateTexture(const std::string& filepath) {
-
-		uint32_t textureID;
+	 void CreateTexture(const std::string& filepath, uint32_t& textureID) {
 
 		glGenTextures(1, &textureID);
 		glBindTexture(GL_TEXTURE_2D, textureID);
@@ -23,12 +21,10 @@ namespace OpenGL {
 		glGenerateMipmap(GL_TEXTURE_2D);
 
 		stbi_image_free(data);
-	
-		return textureID;
 	}
 
 
-	void DeleteTexture(uint32_t textureID) {
+	void DeleteTexture(uint32_t& textureID) {
 		glDeleteTextures(1, &textureID);
 	}
 

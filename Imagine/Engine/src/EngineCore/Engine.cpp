@@ -18,20 +18,15 @@ void Engine::Init() {
 
 	Renderer::Get().Init(m_Window, { 300, 300 });
 
-	//ObjectFactory::CreateGameObject(OpenGL::Square(), SHADER_RESOURCE("Triangle1.shader"), "../Resources/Textures/wall.jpg");
+	OpenGL::MeshData data = OpenGL::Square();
+
+	OpenGL::CreateVertexArrayObject(data.vertices, data.indicies, test.VAO);
+	OpenGL::CreateTexture("../Resources/Textures/wall.jpg", test.textureID);
+	test.p_Shader = new OpenGL::Shader("../Resources/Shaders/OpenGL/Triangle1.shader");
+	test.indicies = data.indicies.size();
 	
 
-	/*go->Bind();
-	go->GetMaterial().GetShader().SetUniformMatrix4fv("projection", glm::perspective(glm::radians(45.f), 800.f / 600.0f, 0.01f, 100.f));
-	go->GetMaterial().GetShader().SetUniformMatrix4fv("view", glm::translate(m_Camera.GetViewMatrix(), glm::vec3(0.0f, 0.0f, -2.0f)));
-	go->GetMaterial().GetShader().SetUniformMatrix4fv("model", go->transform);
-	*/
-
-
-	//m_ActiveGameObjects[go->ID()] = go;
-
-	//m_ActiveMeshes[go->ID()] = go->GetMesh();
-
+		
 }
 
 void Engine::Run() {
@@ -61,10 +56,15 @@ void Engine::SubitForRendering() {
 
 	renderer.GetViewport().MakeRenderTarget();
 
-	/*for (const auto& [ID, mesh] : m_ActiveMeshes) {
-		renderer.Draw(*mesh);
-	}
-	*/
+	auto [width, height] = renderer.GetViewportSize();
+
+	test.p_Shader->Bind();
+	test.p_Shader->SetUniformMatrix4fv("model", glm::mat4(1.0));
+	test.p_Shader->SetUniformMatrix4fv("view", glm::translate(m_Camera.GetViewMatrix(), glm::vec3(0.0f, 0.0f, -2.0f)));
+	test.p_Shader->SetUniformMatrix4fv("projection", glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.01f, 100.f));
+
+	renderer.Draw(test);
+
 	renderer.GetViewport().Unbind();
 }
 

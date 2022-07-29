@@ -19,6 +19,8 @@ public:
 
 private:
 
+	RenderInformation test;
+
 	void SubitForRendering();
 	
 	GLFWwindow* m_Window;
