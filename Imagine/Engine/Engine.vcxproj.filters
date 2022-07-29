@@ -39,21 +39,6 @@
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h">
       <Filter>src\EngineCore\Subsystems\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\EngineCore\Subsystems\GUI\GUIWindow.h">
-      <Filter>src\EngineCore\Subsystems\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EngineCore\Subsystems\GUI\Windows\ConsoleWindow.h">
-      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EngineCore\Subsystems\GUI\Windows\SceneWindow.h">
-      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EngineCore\Subsystems\GUI\Windows\TestWindow.h">
-      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EngineCore\Subsystems\GUI\Windows\Viewport.h">
-      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
-    </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.h">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClInclude>
@@ -97,21 +82,6 @@
     </ClCompile>
     <ClCompile Include="src\EngineCore\Subsystems\GUI\GUI.cpp">
       <Filter>src\EngineCore\Subsystems\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EngineCore\Subsystems\GUI\GUIWindow.cpp">
-      <Filter>src\EngineCore\Subsystems\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\ConsoleWindow.cpp">
-      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\SceneWindow.cpp">
-      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\TestWindow.cpp">
-      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\Viewport.cpp">
-      <Filter>src\EngineCore\Subsystems\GUI\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.cpp">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>

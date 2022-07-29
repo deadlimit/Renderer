@@ -2,25 +2,20 @@
 #include "imgui.h"
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
-#include "GUIWindow.h"
 #include <iostream>
-#include "glad.h"
-#include "glfw3.h"
 #include <sstream>
 #include <iomanip>
-
-#include "Windows/TestWindow.h"
-#include "Windows/Viewport.h"
-#include "Windows/ConsoleWindow.h"
-#include "Windows/SceneWindow.h"
-
+#include "../../Subsystems/Renderer/Renderer.h"
 
 #define IMGUI_IMPL_OPENGL_ES3
 
+static std::vector<std::string> g_ConsoleMessages;
+static uint32_t g_ViewportImageID;
+
+static void BeginFrame();
+static void EndFrame();
 
 void GUI::Init(GLFWwindow* window) {
-
-	m_Window = window;
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -31,27 +26,37 @@ void GUI::Init(GLFWwindow* window) {
 
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 460");
-	
+
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
 		ImGuiStyle& style = ImGui::GetStyle();
 		style.WindowRounding = 0.0f;
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
-	TestWindow* test = new TestWindow();
-	Viewport* viewport = new Viewport();
-	ConsoleWindow* console = new ConsoleWindow();
-	SceneWindow* sceneWindow = new SceneWindow();
 
-	m_Subwindows["Viewport"] = viewport;
-	m_Subwindows["TestWindow"] = test;
-	m_Subwindows["Console"] = console;
-	m_Subwindows["Scene"] = sceneWindow;
 }
 
-void GUI::Render() {
+void GUI::PrintToConsole(const std::string& message) {
+	
+	time_t t = std::time(nullptr);
+	tm tm = *std::localtime(&t);
+
+	std::ostringstream oss;
+	oss << std::put_time(&tm, "%H:%M:%S");
+	std::string timeString = oss.str();
+
+	timeString.append(" " + message);
+
+	g_ConsoleMessages.push_back(timeString);
+
+}
+
+void GUI::Draw() {
 
 	BeginFrame();
 
+	ImGui::DockSpaceOverViewport();
+
+	#pragma region TopMenuBar
 	ImGui::BeginMainMenuBar();
 
 	if (ImGui::BeginMenu("File")) {
@@ -74,7 +79,7 @@ void GUI::Render() {
 		if (ImGui::MenuItem("Viewport")) { std::cout << "Viewport" << std::endl; }
 		ImGui::EndMenu();
 	}
-	
+
 	if (ImGui::BeginMenu("Styles")) {
 		if (ImGui::MenuItem("Dark")) { ImGui::StyleColorsDark(); }
 		if (ImGui::MenuItem("Light")) { ImGui::StyleColorsLight(); }
@@ -83,21 +88,68 @@ void GUI::Render() {
 	}
 
 	ImGui::EndMainMenuBar();
+#pragma endregion
 
-	ImGui::DockSpaceOverViewport();
+	#pragma region Viewport 
 
-	for (std::map<std::string, GUIWindow*>::iterator it = m_Subwindows.begin(); it != m_Subwindows.end(); ++it) {
+		if (!g_ViewportImageID)
+			g_ViewportImageID = Renderer::Framebuffer.ColorAttachment;
 
-		if (it->second->IsOpen()) {
-			it->second->Render();
+		ImGui::Begin("Viewport");
+
+		//ImVec2 pos = ImGui::GetCursorScreenPos();
+
+		const ImVec2& viewportWindowSize = ImGui::GetContentRegionAvail();
+	
+		Renderer::ResizeViewport(viewportWindowSize.x, viewportWindowSize.y);
+
+		ImGui::Image((void*)g_ViewportImageID, viewportWindowSize, ImVec2(0, 1), ImVec2(1, 0));
+
+		ImGui::End();
+
+	#pragma endregion
+
+	#pragma region Stats
+
+		static bool open = true;
+
+		ImGui::Begin("Viewport stats",&open, ImGuiWindowFlags_AlwaysAutoResize);
+
+		ImGui::Text("Viewport IMGUI: %.0f | %.0f", viewportWindowSize.x, viewportWindowSize.y);
+
+		ImGui::End();
+
+	#pragma endregion
+
+	#pragma region Scene 
+			ImGui::Begin("Scene");
+
+			ImGui::End();
+	#pragma endregion
+
+	#pragma region ConsoleWindow
+
+		ImGui::Begin("Console");
+
+		if (ImGui::Button("Clear console"))
+			g_ConsoleMessages.clear();
+		ImGui::SameLine();
+		if (ImGui::Button("Test button"))
+			PrintToConsole("Test message");
+
+		for (int i = 0; i < g_ConsoleMessages.size(); ++i) {
+			ImGui::Text(g_ConsoleMessages[i].c_str());
 		}
 
-	}
+
+		ImGui::End();
+
+	#pragma endregion
 
 	EndFrame();
 
 	if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
-		
+
 		GLFWwindow* backup_current_context = glfwGetCurrentContext();
 		ImGui::UpdatePlatformWindows();
 		ImGui::RenderPlatformWindowsDefault();
@@ -107,33 +159,22 @@ void GUI::Render() {
 
 }
 
-void GUI::PrintToConsole(const std::string& message) {
-	static_cast<ConsoleWindow*>(GUI::Get().GetWindow("Console"))->AddMessage(message);
-}
 
-GUIWindow* GUI::GetWindow(const std::string& windowName) {
-	if (m_Subwindows.find(windowName) != m_Subwindows.end()) {
-		return m_Subwindows[windowName];
-	}
-
-	return nullptr;
-}
-
-void GUI::BeginFrame() {
+static void BeginFrame() {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 }
 
-void GUI::EndFrame() {
+static void EndFrame() {
+
 	ImGui::EndFrame();
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-GUI::~GUI() {
+void GUI::Shutdown() {
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 }
-

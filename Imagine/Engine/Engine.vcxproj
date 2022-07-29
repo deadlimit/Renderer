@@ -82,11 +82,6 @@
   <ItemGroup>
     <ClInclude Include="src\EngineCore\Engine.h" />
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\GUI\GUIWindow.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\GUI\Windows\ConsoleWindow.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\GUI\Windows\SceneWindow.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\GUI\Windows\TestWindow.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\GUI\Windows\Viewport.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Framebuffer.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Image.h" />
@@ -103,11 +98,6 @@
     <ClCompile Include="..\vendor\GLAD\src\glad.c" />
     <ClCompile Include="src\EngineCore\Engine.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\GUI\GUI.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\GUI\GUIWindow.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\ConsoleWindow.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\SceneWindow.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\TestWindow.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\GUI\Windows\Viewport.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Framebuffer.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.cpp" />

@@ -16,8 +16,8 @@ void Engine::Init() {
 		return;
 	}
 
-	GUI::Get().Init(m_Window);
 
+	GUI::Init(m_Window);
 	Renderer::Init(m_Window, 1280, 860);
 
 	OpenGL::MeshData data = OpenGL::Square();
@@ -30,6 +30,8 @@ void Engine::Init() {
 }
 
 void Engine::Run() {
+
+	GUI::PrintToConsole("Begin engine run");
 
 	while (!glfwWindowShouldClose(m_Window)) {
 
@@ -46,13 +48,14 @@ void Engine::Run() {
 
 		Renderer::Draw(test, Renderer::Framebuffer.ID);
 
-		GUI::Get().Render();
+		GUI::Draw();
 
 		Renderer::SwapBuffers(*m_Window);
 
 	}
 }
 void Engine::Clean() { 
+	GUI::Shutdown();
 	glfwDestroyWindow(m_Window);
 	glfwTerminate();
 }

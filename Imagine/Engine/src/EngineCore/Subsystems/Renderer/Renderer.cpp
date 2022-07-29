@@ -3,7 +3,6 @@
 #include <iostream>
 #include <stdexcept>
 
-
 static void OpenGLDebugCallback(GLenum source, GLenum type, GLuint ID, GLenum severity, GLsizei length, const GLchar* message, const void* userParams) {
 	std::cout << message << std::endl;
 }
