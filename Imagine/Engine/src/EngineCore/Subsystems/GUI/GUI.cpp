@@ -16,7 +16,7 @@ static uint32_t g_ViewportImageID;
 
 static void BeginFrame();
 static void EndFrame();
-
+ 
 void GUI::Init(GLFWwindow* window) {
 
 	IMGUI_CHECKVERSION();
@@ -126,31 +126,26 @@ void GUI::Draw() {
 	#pragma endregion
 
 	#pragma region Scene 
-
-
-		static ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
-		static uint32_t ClickedID = 0;
+		
+		static ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_Leaf;
+		static uint32_t clicked_ID = 0;
+		static bool fold_out = 1;
 		ImGui::Begin("Scene", &Open_SceneWindow);
+
+		ImGui::SetNextItemOpen(fold_out);
 
 		if(ImGui::TreeNode("Scene name")) {
 			   
+			ImGui::Indent(10);
+
 			for (int i = 0; i < EntityManager::Entities.size(); ++i) {
-				
-				ImGuiTreeNodeFlags currentNodeFlags = flags;
+				ImGui::Selectable(EntityManager::Entities[i].Name.c_str(), false);
 
-				if (ClickedID & (1 << i)) {
-					flags |= ImGuiTreeNodeFlags_Selected;
-				}
-
-				ImGui::TreeNodeEx((void*)(intptr_t)i, flags, EntityManager::Entities[i].Name.c_str(), i);
-				
-				if (ImGui::IsItemClicked()) {
-					ClickedID = 1 + i;
-				}
+				if (ImGui::IsItemClicked())
+					GUI::PrintToConsole(EntityManager::Entities[i].Name);
 			}
-
+	
 			ImGui::TreePop();
-
 		}
 
 
