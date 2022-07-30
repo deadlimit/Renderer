@@ -2,13 +2,13 @@
 
 #include "OpenGLCore.h"
 #include <string>
-#include <map>
+#include <unordered_map>
 
 namespace Renderer {
 
 	struct Shader {
 		uint32_t ProgramID;
-		std::map<std::string, int> Uniforms;
+		std::unordered_map<std::string, int> Uniforms;
 	};
 
 	void CreateShaderProgram(const std::string&, Shader&);

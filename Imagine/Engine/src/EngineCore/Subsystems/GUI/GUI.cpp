@@ -5,7 +5,9 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
-#include "../../Subsystems/Renderer/Renderer.h"
+#include "Subsystems/Renderer/Renderer.h"
+#include "Engine.h"
+#include "Subsystems/EntityManager.h"
 
 #define IMGUI_IMPL_OPENGL_ES3
 
@@ -32,7 +34,6 @@ void GUI::Init(GLFWwindow* window) {
 		style.WindowRounding = 0.0f;
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
-
 }
 
 void GUI::PrintToConsole(const std::string& message) {
@@ -127,6 +128,11 @@ void GUI::Draw() {
 	#pragma region Scene 
 			ImGui::Begin("Scene", &Open_SceneWindow);
 
+			for (int i = 0; i < EntityManager::Entities.size(); ++i) {
+				ImGui::Selectable(std::to_string(EntityManager::Entities[i]).c_str(), false);
+			}
+
+			
 			ImGui::End();
 	#pragma endregion
 

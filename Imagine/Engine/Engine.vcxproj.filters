@@ -75,6 +75,7 @@
     <ClInclude Include="src\EngineCore\System.h">
       <Filter>src\EngineCore</Filter>
     </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\EntityManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c">

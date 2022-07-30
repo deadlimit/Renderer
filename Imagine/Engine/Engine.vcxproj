@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\EngineCore\Engine.h" />
+    <ClInclude Include="src\EngineCore\Subsystems\EntityManager.h" />
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Image.h" />

@@ -14,7 +14,7 @@ namespace Renderer {
 	struct RenderInformation {
 		uint32_t VAO;
 		uint32_t textureID;
-		uint32_t indicies;
+		uint64_t indicies;
 		Renderer::Shader shader;
 		glm::mat4 transform = glm::mat4(1.0f);
 	};
@@ -28,13 +28,13 @@ namespace Renderer {
 	inline FramebufferInfo Framebuffer;
 
 	void Init(GLFWwindow*, uint32_t, uint32_t);
-	void Draw(RenderInformation&, const uint32_t = -1);
+	void Draw(std::unordered_map<uint32_t, Renderer::RenderInformation>&, const uint32_t = -1);
 	void Clear(const uint32_t);
 	void ResizeViewport(int, int);
 	void SwapBuffers(GLFWwindow&);
 
-	inline float ViewportWidth;
-	inline float ViewportHeight;
+	inline uint32_t ViewportWidth;
+	inline uint32_t ViewportHeight;
 
 }
 

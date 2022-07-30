@@ -1,8 +1,12 @@
 #include "Engine.h"
 #include "Subsystems//GUI/GUI.h"
 #include "Subsystems/ResourceManager/ResourceManager.h"
+#include "Subsystems/EntityManager.h"
 #include <stdexcept>
 #include <iostream>
+
+
+
 
 void Engine::Init() {
 
@@ -18,23 +22,19 @@ void Engine::Init() {
 	}
 
 
-	GUI::Init(m_Window);
+
 	Renderer::Init(m_Window, 1280, 860);
+	GUI::Init(m_Window);
+	Renderer::MeshData meshData = Renderer::Square();
 
-	Renderer::MeshData data = Renderer::Square();
+	CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", glm::vec3(-1.5f, 0.0f, 0.0f));
+	CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", glm::vec3( 1.5f, 0.0f, 0.0f));
 
-	Renderer::CreateVertexArrayObject(data.vertices, data.indicies, test.VAO);
-	Renderer::CreateTexture("wall.jpg", test.textureID);
-	Renderer::CreateShaderProgram("Triangle1.shader", test.shader);
-	test.indicies = data.indicies.size();
-	
 }
 
+int EntityID = 0;
+
 void Engine::Run() {
-
-	uint32_t size = sizeof Renderer::RenderInformation;
-
-	GUI::PrintToConsole(std::to_string(size) + " bytes");
 
 	while (!glfwWindowShouldClose(m_Window)) {
 
@@ -42,29 +42,48 @@ void Engine::Run() {
 
 		glfwPollEvents();
 
-		test.transform = glm::rotate(test.transform, glm::radians(0.05f), glm::vec3(1.0f, 1.0f, 1.0f));
-		test.transform = glm::translate(test.transform, glm::vec3(0.0f));
-		
-		Renderer::BindShader(test.shader.ProgramID);
-		Renderer::SetUniformMatrix4fv(test.shader, "model", test.transform);
-		Renderer::SetUniformMatrix4fv(test.shader, "view", glm::translate(m_Camera.GetViewMatrix(), glm::vec3(0.0f, 0.0f, -2.0f)));
-		Renderer::SetUniformMatrix4fv(test.shader, "projection", glm::perspective(glm::radians(45.0f), (float)3 / (float)2, 0.01f, 100.f));
+		for (RenderData::iterator& it = m_RenderData.begin(); it != m_RenderData.end(); ++it) {
 
-		Renderer::Draw(test, Renderer::Framebuffer.ID);
+			it->second.transform = glm::rotate(it->second.transform, glm::radians(0.05f), glm::vec3(1.0f, 1.0f, 1.0f));
+
+			Renderer::BindShader(it->second.shader.ProgramID);
+			Renderer::SetUniformMatrix4fv(it->second.shader, "model", it->second.transform);
+			Renderer::SetUniformMatrix4fv(it->second.shader, "view", glm::translate(m_Camera.GetViewMatrix(), glm::vec3(0.0f, 0.0f, -5.0f)));
+			Renderer::SetUniformMatrix4fv(it->second.shader, "projection", glm::perspective(glm::radians(45.0f), (float)3 / (float)2, 0.01f, 100.f));
+		}
+
+		Renderer::Draw(m_RenderData, Renderer::Framebuffer.ID);
 
 		GUI::Draw();
 
 		Renderer::SwapBuffers(*m_Window);
-
 	}
 }
-void Engine::Clean() { 
+
+Engine::~Engine() {
+}
+
+void Engine::CreateEntity(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indicies, const std::string& shader, const std::string& texture, glm::vec3 defaultPosition) {
+	
+	Renderer::RenderInformation renderInfo = {};
+	renderInfo.transform = glm::translate(glm::mat4(1.0f), defaultPosition);
+	Renderer::CreateVertexArrayObject(vertices, indicies, renderInfo.VAO);
+	Renderer::CreateTexture("wall.jpg", renderInfo.textureID);
+	Renderer::CreateShaderProgram("Triangle1.shader", renderInfo.shader);
+
+	renderInfo.indicies = indicies.size();
+
+	//Mock generate ID
+	uint32_t ID = EntityID++;
+
+	m_RenderData.insert({ ID, std::move(renderInfo) });
+
+	EntityManager::Entities.push_back(ID);
+}
+
+void Engine::Clean() {
 	GUI::Shutdown();
 	glfwDestroyWindow(m_Window);
 	glfwTerminate();
-}
-
-
-Engine::~Engine() {
 }
 

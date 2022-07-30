@@ -8,7 +8,7 @@
 
 namespace Renderer {
 
-	static std::tuple<std::string, std::string> ExtractSourceCode(const std::string& file, std::map<std::string, int>& uniforms) {
+	static std::tuple<std::string, std::string> ExtractSourceCode(const std::string& file, std::unordered_map<std::string, int>& uniforms) {
 
 
 		std::string fullpath = ResourceManager::LoadShader(file);

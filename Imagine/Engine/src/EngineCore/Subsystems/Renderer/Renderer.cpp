@@ -28,14 +28,20 @@ void Renderer::Init(GLFWwindow* window, uint32_t viewportWidth, uint32_t viewpor
 
 }
 
-void Renderer::Draw(RenderInformation& renderInfo, const uint32_t framebufferID) {
+void Renderer::Draw(std::unordered_map<uint32_t, Renderer::RenderInformation>& renderData, const uint32_t framebufferID) {
 
 	if(framebufferID)
 		glBindFramebuffer(GL_FRAMEBUFFER, framebufferID);
 
-	glBindVertexArray(renderInfo.VAO);
-	glBindTexture(GL_TEXTURE_2D, renderInfo.textureID);
-	glDrawElements(GL_TRIANGLES, renderInfo.indicies, GL_UNSIGNED_INT, 0);
+
+	for (auto& it = renderData.cbegin(); it != renderData.end(); ++it) {
+		glBindVertexArray(it->second.VAO);
+		glUseProgram(it->second.shader.ProgramID);
+		glBindTexture(GL_TEXTURE_2D, it->second.textureID);
+		glDrawElements(GL_TRIANGLES, it->second.indicies, GL_UNSIGNED_INT, 0);
+
+	}
+
 
 	if (framebufferID)
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);

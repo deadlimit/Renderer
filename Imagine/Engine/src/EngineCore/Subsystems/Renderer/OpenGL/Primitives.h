@@ -11,6 +11,7 @@ namespace Renderer {
 	};
 	
 	MeshData Square();
+	MeshData Cube();
 	MeshData Triangle();
 
 }
