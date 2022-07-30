@@ -130,6 +130,7 @@ void GUI::Draw() {
 		static ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_Leaf;
 		static uint32_t clicked_ID = 0;
 		static bool fold_out = 1;
+		static int32_t selected_entity_ID = -1;
 		ImGui::Begin("Scene", &Open_SceneWindow);
 
 		ImGui::SetNextItemOpen(fold_out);
@@ -141,8 +142,10 @@ void GUI::Draw() {
 			for (int i = 0; i < EntityManager::Entities.size(); ++i) {
 				ImGui::Selectable(EntityManager::Entities[i].Name.c_str(), false);
 
-				if (ImGui::IsItemClicked())
-					GUI::PrintToConsole(EntityManager::Entities[i].Name);
+				if (ImGui::IsItemClicked()) {
+					selected_entity_ID = EntityManager::Entities[i].ID;
+				}
+					
 			}
 	
 			ImGui::TreePop();
@@ -171,6 +174,39 @@ void GUI::Draw() {
 		ImGui::End();
 
 	#pragma endregion
+
+#pragma region Inspector
+
+
+		ImGui::Begin("Inspector");
+
+		if (selected_entity_ID >= 0) {
+			ImGui::Text(EntityManager::Entities[selected_entity_ID].Name.c_str());
+			ImGui::Text("Transform");
+			ImGui::SameLine();
+			float transform[3] = {
+			EntityManager::RenderingData[selected_entity_ID].transform[3][0],
+			EntityManager::RenderingData[selected_entity_ID].transform[3][1],
+			EntityManager::RenderingData[selected_entity_ID].transform[3][2] 
+			};
+			ImGui::DragFloat3("Transform", transform, 0.005f, -200.0f, 200.0f,"%.3f", 0);
+			
+
+
+			EntityManager::RenderingData[selected_entity_ID].transform[3][0] = transform[0];
+			EntityManager::RenderingData[selected_entity_ID].transform[3][1] = transform[1];
+			EntityManager::RenderingData[selected_entity_ID].transform[3][2] = transform[2];
+
+
+			//ImGui::DragFloat4("Transform", );
+
+		}
+		
+
+		ImGui::End();
+
+#pragma endregion
+
 
 	EndFrame();
 

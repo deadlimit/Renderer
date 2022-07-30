@@ -5,9 +5,6 @@
 #include <stdexcept>
 #include <iostream>
 
-
-
-
 void Engine::Init() {
 
 	glfwInit();
@@ -25,8 +22,8 @@ void Engine::Init() {
 	GUI::Init(m_Window);
 	Renderer::MeshData meshData = Renderer::Square();
 
-	CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", "Square 1", glm::vec3(-1.5f, 0.0f, 0.0f));
-	CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", "Square 2", glm::vec3(1.5f, 0.0f, 0.0f));
+	EntityManager::CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", "Square 1", glm::vec3(-1.5f, 1.0f, 2.0f));
+	EntityManager::CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", "Square 2", glm::vec3(1.5f, -1.0f, 0.5f));
 
 }
 
@@ -40,7 +37,7 @@ void Engine::Run() {
 
 		glfwPollEvents();
 
-		for (RenderData::iterator& it = m_RenderData.begin(); it != m_RenderData.end(); ++it) {
+		for (EntityManager::RenderData::iterator& it = EntityManager::RenderingData.begin(); it != EntityManager::RenderingData.end(); ++it) {
 
 			it->second.transform = glm::rotate(it->second.transform, glm::radians(0.05f), glm::vec3(1.0f, 1.0f, 1.0f));
 
@@ -50,7 +47,7 @@ void Engine::Run() {
 			Renderer::SetUniformMatrix4fv(it->second.shader, "projection", glm::perspective(glm::radians(45.0f), (float)3 / (float)2, 0.01f, 100.f));
 		}
 
-		Renderer::Draw(m_RenderData, Renderer::Framebuffer.ID);
+		Renderer::Draw(EntityManager::RenderingData, Renderer::Framebuffer.ID);
 
 		GUI::Draw();
 
@@ -58,25 +55,7 @@ void Engine::Run() {
 	}
 }
 
-int EntityID = 0;
 
-void Engine::CreateEntity(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indicies, const std::string& shader, const std::string& texture, const std::string& name, glm::vec3 defaultPosition) {
-	
-	Renderer::RenderInformation renderInfo = {};
-	renderInfo.transform = glm::translate(glm::mat4(1.0f), defaultPosition);
-	Renderer::CreateVertexArrayObject(vertices, indicies, renderInfo.VAO);
-	Renderer::CreateTexture("wall.jpg", renderInfo.textureID);
-	Renderer::CreateShaderProgram("Triangle1.shader", renderInfo.shader);
-
-	renderInfo.indicies = indicies.size();
-
-	//Mock generate ID
-	uint32_t ID = EntityID++;
-
-	m_RenderData.insert({ ID, std::move(renderInfo) });
-
-	EntityManager::Entities.push_back({ ID, name });
-}
 
 void Engine::Clean() {
 	GUI::Shutdown();

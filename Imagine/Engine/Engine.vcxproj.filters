@@ -111,5 +111,6 @@
     <ClCompile Include="src\EngineCore\main.cpp">
       <Filter>src\EngineCore</Filter>
     </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\EntityManager.cpp" />
   </ItemGroup>
 </Project>
