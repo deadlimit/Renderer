@@ -33,7 +33,6 @@ void Renderer::Draw(std::unordered_map<uint32_t, Renderer::RenderInformation>& r
 	if(framebufferID)
 		glBindFramebuffer(GL_FRAMEBUFFER, framebufferID);
 
-
 	for (auto& it = renderData.cbegin(); it != renderData.end(); ++it) {
 		glBindVertexArray(it->second.VAO);
 		glUseProgram(it->second.shader.ProgramID);
@@ -86,7 +85,6 @@ void Renderer::ResizeViewport(int newWidth, int newHeight) {
 
 	glGenFramebuffers(1, &Framebuffer.ID);
 	glBindFramebuffer(GL_FRAMEBUFFER, Framebuffer.ID);
-
 
 	glCreateTextures(GL_TEXTURE_2D, 1, &Framebuffer.ColorAttachment);
 	glBindTexture(GL_TEXTURE_2D, Framebuffer.ColorAttachment);

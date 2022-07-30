@@ -914,8 +914,7 @@ static void ShowDemoWindowWidgets()
                         ImGui::TreePop();
                     }
                 }
-                else
-                {
+                else {
                     // Items 3..5 are Tree Leaves
                     // The only reason we use TreeNode at all is to allow selection of the leaf. Otherwise we can
                     // use BulletText() or advance the cursor by GetTreeNodeToLabelSpacing() and call Text().

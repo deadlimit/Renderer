@@ -1,9 +1,15 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 namespace EntityManager {
-	
-	inline std::vector<uint32_t> Entities;
+
+	struct Entity {
+		uint32_t ID;
+		std::string Name;
+	};
+
+	inline std::vector<Entity> Entities;
 	
 }

@@ -21,18 +21,16 @@ void Engine::Init() {
 		return;
 	}
 
-
-
 	Renderer::Init(m_Window, 1280, 860);
 	GUI::Init(m_Window);
 	Renderer::MeshData meshData = Renderer::Square();
 
-	CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", glm::vec3(-1.5f, 0.0f, 0.0f));
-	CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", glm::vec3( 1.5f, 0.0f, 0.0f));
+	CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", "Square 1", glm::vec3(-1.5f, 0.0f, 0.0f));
+	CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", "Square 2", glm::vec3(1.5f, 0.0f, 0.0f));
 
 }
 
-int EntityID = 0;
+
 
 void Engine::Run() {
 
@@ -60,10 +58,9 @@ void Engine::Run() {
 	}
 }
 
-Engine::~Engine() {
-}
+int EntityID = 0;
 
-void Engine::CreateEntity(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indicies, const std::string& shader, const std::string& texture, glm::vec3 defaultPosition) {
+void Engine::CreateEntity(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indicies, const std::string& shader, const std::string& texture, const std::string& name, glm::vec3 defaultPosition) {
 	
 	Renderer::RenderInformation renderInfo = {};
 	renderInfo.transform = glm::translate(glm::mat4(1.0f), defaultPosition);
@@ -78,7 +75,7 @@ void Engine::CreateEntity(const std::vector<Vertex>& vertices, const std::vector
 
 	m_RenderData.insert({ ID, std::move(renderInfo) });
 
-	EntityManager::Entities.push_back(ID);
+	EntityManager::Entities.push_back({ ID, name });
 }
 
 void Engine::Clean() {

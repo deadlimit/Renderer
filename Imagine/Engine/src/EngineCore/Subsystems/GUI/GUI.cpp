@@ -126,14 +126,36 @@ void GUI::Draw() {
 	#pragma endregion
 
 	#pragma region Scene 
-			ImGui::Begin("Scene", &Open_SceneWindow);
 
+
+		static ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
+		static uint32_t ClickedID = 0;
+		ImGui::Begin("Scene", &Open_SceneWindow);
+
+		if(ImGui::TreeNode("Scene name")) {
+			   
 			for (int i = 0; i < EntityManager::Entities.size(); ++i) {
-				ImGui::Selectable(std::to_string(EntityManager::Entities[i]).c_str(), false);
+				
+				ImGuiTreeNodeFlags currentNodeFlags = flags;
+
+				if (ClickedID & (1 << i)) {
+					flags |= ImGuiTreeNodeFlags_Selected;
+				}
+
+				ImGui::TreeNodeEx((void*)(intptr_t)i, flags, EntityManager::Entities[i].Name.c_str(), i);
+				
+				if (ImGui::IsItemClicked()) {
+					ClickedID = 1 + i;
+				}
 			}
 
-			
-			ImGui::End();
+			ImGui::TreePop();
+
+		}
+
+
+		ImGui::End();
+
 	#pragma endregion
 
 	#pragma region ConsoleWindow

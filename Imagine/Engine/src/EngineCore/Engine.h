@@ -13,7 +13,7 @@ class Engine {
 
 public:
 	Engine() : m_Camera(glm::mat4(1.0f)) {}
-	~Engine();
+	~Engine() {}
 
 	void Init();
 	void Run();
@@ -21,7 +21,7 @@ public:
 
 private:
 
-	void CreateEntity(const std::vector<Vertex>&, const std::vector<uint32_t>&, const std::string&, const std::string&, glm::vec3 defaultPosition);
+	void CreateEntity(const std::vector<Vertex>&, const std::vector<uint32_t>&, const std::string&, const std::string&, const std::string&, glm::vec3 defaultPosition);
 
 	RenderData m_RenderData;	
 	GLFWwindow* m_Window;
