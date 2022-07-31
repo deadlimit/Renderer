@@ -5,9 +5,10 @@
 #include "Subsystems/EntityManager.h"
 #include <stdexcept>
 #include <iostream>
+#include <fstream>
 
 void Engine::Init() {
-
+	
 	glfwInit();
 
 	m_Window = glfwCreateWindow(1280, 860, "OpenGL", nullptr, nullptr);
@@ -19,13 +20,16 @@ void Engine::Init() {
 		return;
 	}
 
+	
+	YAML::Node init = YAML::LoadFile("Config/init.yaml");
 
-	YAML::Emitter out;
-	out << YAML::BeginMap;
-	out << YAML::Key << "Window";
-	out << YAML::Value << YAML::BeginSeq << 1280 << 720 << YAML::EndSeq;
-	out << YAML::EndMap;
+	if (init["Window"] && init.IsSequence()) {
+	
 
+		std::cout << "Window" << std::endl;
+		int width = init[0].as<int>();
+		std::cout << width << std::endl;
+	}
 
 	Renderer::Init(m_Window, 1280, 860);
 	GUI::Init(m_Window);
