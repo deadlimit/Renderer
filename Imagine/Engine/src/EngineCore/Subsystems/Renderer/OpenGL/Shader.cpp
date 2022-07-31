@@ -5,6 +5,7 @@
 #include <vector>
 #include "gtc/type_ptr.hpp"
 #include "Subsystems/ResourceManager/ResourceManager.h"
+#include "../Debug.h"
 
 namespace Renderer {
 
@@ -151,8 +152,8 @@ namespace Renderer {
 		GLuint m_VertexShaderID;
 		GLuint m_FragmentShaderID;
 
-		std::cout << "Compiling shader" << file << std::endl;
-
+		Debug::Log("Compiling shader " + file);
+	
 		bool vertexCreateSuccess = CreateShader(m_VertexShaderID, GL_VERTEX_SHADER, vertexCode.c_str());
 		bool fragmentCreateSuccess = CreateShader(m_FragmentShaderID, GL_FRAGMENT_SHADER, fragmentCode.c_str());
 

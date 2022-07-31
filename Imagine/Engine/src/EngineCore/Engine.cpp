@@ -6,12 +6,15 @@
 #include <stdexcept>
 #include <iostream>
 #include <fstream>
+#include "../Utils.h"
 
 void Engine::Init() {
 	
 	glfwInit();
 
-	m_Window = glfwCreateWindow(1280, 860, "OpenGL", nullptr, nullptr);
+	Utils::LoadInitFile();
+
+	m_Window = glfwCreateWindow(Utils::g_InitParams.windowWidth, Utils::g_InitParams.windowHeight, "OpenGL", nullptr, nullptr);
 
 	glfwMakeContextCurrent(m_Window);
 
@@ -20,18 +23,25 @@ void Engine::Init() {
 		return;
 	}
 
+	/*
+	YAML::Emitter out;
+	out << YAML::BeginMap;
+	out << YAML::Key << "Window" << YAML::Value << YAML::BeginMap; 
+	out << YAML::Key << "width" << YAML::Value << 1280;
+	out << YAML::Key << "height" << YAML::Value << 720;
+	out << YAML::EndMap;
+	out << YAML::EndMap;
+
+	std::ofstream outstream("Config/init.yaml");
+
+	outstream << out.c_str();
 	
-	YAML::Node init = YAML::LoadFile("Config/init.yaml");
-
-	if (init["Window"] && init.IsSequence()) {
+	outstream.close();
+	*/
 	
 
-		std::cout << "Window" << std::endl;
-		int width = init[0].as<int>();
-		std::cout << width << std::endl;
-	}
-
-	Renderer::Init(m_Window, 1280, 860);
+	
+	Renderer::Init(m_Window, Utils::g_InitParams.viewportHeight, Utils::g_InitParams.viewportHeight);
 	GUI::Init(m_Window);
 	Renderer::MeshData meshData = Renderer::Square();
 
@@ -69,6 +79,9 @@ void Engine::Run() {
 
 
 void Engine::Clean() {
+
+	Utils::SaveInitParams();
+
 	GUI::Shutdown();
 	glfwDestroyWindow(m_Window);
 	glfwTerminate();

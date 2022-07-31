@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Debug.h" />
     <ClInclude Include="src\EngineCore\Engine.h" />
     <ClInclude Include="src\EngineCore\Subsystems\EntityManager.h" />
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h" />
@@ -95,10 +96,11 @@
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\Renderer.h" />
     <ClInclude Include="src\EngineCore\Subsystems\ResourceManager\ResourceManager.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Serializer.h" />
-    <ClInclude Include="src\EngineCore\System.h" />
+    <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c" />
+    <ClCompile Include="src\Debug.cpp" />
     <ClCompile Include="src\EngineCore\Engine.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\EntityManager.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\GUI\GUI.cpp" />
@@ -110,6 +112,7 @@
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\Renderer.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="src\EngineCore\main.cpp" />
+    <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vendor\GLFW\GLFW.vcxproj">

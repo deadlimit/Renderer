@@ -33,8 +33,8 @@ namespace Renderer {
 	void ResizeViewport(int, int);
 	void SwapBuffers(GLFWwindow&);
 
-	inline uint32_t ViewportWidth;
-	inline uint32_t ViewportHeight;
+	inline uint32_t ViewportWidth_;
+	inline uint32_t ViewportHeight_;
 
 }
 

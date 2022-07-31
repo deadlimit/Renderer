@@ -2,6 +2,7 @@
 #include "../../Subsystems/GUI/GUI.h"
 #include <iostream>
 #include <stdexcept>
+#include "../Utils.h"
 
 static void OpenGLDebugCallback(GLenum source, GLenum type, GLuint ID, GLenum severity, GLsizei length, const GLchar* message, const void* userParams) {
 	std::cout << message << std::endl;
@@ -17,14 +18,15 @@ void Renderer::Init(GLFWwindow* window, uint32_t viewportWidth, uint32_t viewpor
 
 	glViewport(0, 0, viewportWidth, viewportHeight);
 
-	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) { Renderer::ResizeViewport(width, height);});
+	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {	
+		Utils::g_InitParams.windowWidth = width;
+		Utils::g_InitParams.windowHeight = height;
+		Renderer::ResizeViewport(width, height);}
+	);
 
 	glDebugMessageCallback(OpenGLDebugCallback, nullptr);
 
-	ViewportWidth = viewportWidth;
-	ViewportHeight = viewportHeight;
-
-	ResizeViewport(ViewportWidth, ViewportHeight);
+	ResizeViewport(viewportWidth, viewportHeight);
 
 }
 
@@ -40,7 +42,6 @@ void Renderer::Draw(std::unordered_map<uint32_t, Renderer::RenderInformation>& r
 		glDrawElements(GL_TRIANGLES, it->second.indicies, GL_UNSIGNED_INT, 0);
 
 	}
-
 
 	if (framebufferID)
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -58,6 +59,8 @@ void Renderer::Clear(const uint32_t framebufferID) {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
+
+//TODO This runs on window resize, should compensate 
 void Renderer::ResizeViewport(int newWidth, int newHeight) {
 
 	static GLint ViewportSize[4];
@@ -66,12 +69,6 @@ void Renderer::ResizeViewport(int newWidth, int newHeight) {
 
 	if (ViewportSize[2] == newWidth && ViewportSize[3] == newHeight)
 		return;
-
-	ViewportWidth = newWidth;
-	ViewportHeight = newHeight;
-
-	std::cout << ViewportSize[2] << std::endl;
-	std::cout << ViewportSize[3] << std::endl;
 
 	glViewport(0, 0, newWidth, newHeight);
 
@@ -100,6 +97,7 @@ void Renderer::ResizeViewport(int newWidth, int newHeight) {
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 
 }
 

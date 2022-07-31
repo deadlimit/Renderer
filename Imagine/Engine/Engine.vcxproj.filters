@@ -78,9 +78,10 @@
     <ClInclude Include="src\EngineCore\Subsystems\Serializer.h">
       <Filter>src\EngineCore\Subsystems</Filter>
     </ClInclude>
-    <ClInclude Include="src\EngineCore\System.h">
+    <ClInclude Include="src\Utils.h">
       <Filter>src\EngineCore</Filter>
     </ClInclude>
+    <ClInclude Include="src\Debug.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c">
@@ -119,5 +120,9 @@
     <ClCompile Include="src\EngineCore\main.cpp">
       <Filter>src\EngineCore</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utils.cpp">
+      <Filter>src\EngineCore</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Debug.cpp" />
   </ItemGroup>
 </Project>

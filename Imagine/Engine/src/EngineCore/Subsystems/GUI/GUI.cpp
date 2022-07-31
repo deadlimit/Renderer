@@ -8,6 +8,7 @@
 #include "Subsystems/Renderer/Renderer.h"
 #include "Engine.h"
 #include "Subsystems/EntityManager.h"
+#include "../Utils.h"
 
 #define IMGUI_IMPL_OPENGL_ES3
 
@@ -106,6 +107,9 @@ void GUI::Draw() {
 	const ImVec2& viewportWindowSize = ImGui::GetContentRegionAvail();
 	
 	Renderer::ResizeViewport(viewportWindowSize.x, viewportWindowSize.y);
+
+	Utils::g_InitParams.viewportWidth = viewportWindowSize.x;
+	Utils::g_InitParams.viewportHeight = viewportWindowSize.y;
 
 	ImGui::Image((void*)g_ViewportImageID, viewportWindowSize, ImVec2(0, 1), ImVec2(1, 0));
 
