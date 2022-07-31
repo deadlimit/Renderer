@@ -31,20 +31,18 @@ project "Engine"
         "../Renderer",
         "../Renderer/OpenGL",
         "../vendor/IMGUI",
-        "../vendor/YAML/include",
+        "../vendor/yaml/include",
     }
 
     libdirs{
-        --"C:/VulkanSDK/1.3.204.1/Lib",
-        --"../InternalCore/Vulkan/VulkanAPI/bin",
-        --"../InternalCore/OpenGL/OpenGLAPI/bin",
+
+        "../vendor/yaml/bin/Debug/",
+
     }
 
     links {
         "GLFW",
         "IMGUI",
-        "YAML",
-        --"vulkan-1.lib",
-        --"VulkanAPI.lib",
-        --"OpenGLAPI.lib",
+        "YAML.lib",
+        
     }

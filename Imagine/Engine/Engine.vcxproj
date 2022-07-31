@@ -58,12 +58,14 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;src\EngineCore;..\Renderer;..\Renderer\OpenGL;..\vendor\IMGUI;..\vendor\YAML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;src\EngineCore;..\Renderer;..\Renderer\OpenGL;..\vendor\IMGUI;..\vendor\yaml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>YAML.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\vendor\yaml\bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -71,12 +73,14 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;src\EngineCore;..\Renderer;..\Renderer\OpenGL;..\vendor\IMGUI;..\vendor\YAML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;src\EngineCore;..\Renderer;..\Renderer\OpenGL;..\vendor\IMGUI;..\vendor\yaml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>YAML.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\vendor\yaml\bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -117,9 +121,6 @@
     </ProjectReference>
     <ProjectReference Include="..\vendor\IMGUI\IMGUI.vcxproj">
       <Project>{606F530D-CC83-7BBE-9505-1F1E01D977EF}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\vendor\YAML\YAML.vcxproj">
-      <Project>{F8FB8E7C-E432-900D-8D1F-761079350C0F}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

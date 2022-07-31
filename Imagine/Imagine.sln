@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "vendor\GLFW\GLFW.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IMGUI", "vendor\IMGUI\IMGUI.vcxproj", "{606F530D-CC83-7BBE-9505-1F1E01D977EF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "YAML", "vendor\YAML\YAML.vcxproj", "{F8FB8E7C-E432-900D-8D1F-761079350C0F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "YAML", "vendor\yaml\YAML.vcxproj", "{F8FB8E7C-E432-900D-8D1F-761079350C0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

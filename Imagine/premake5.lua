@@ -5,7 +5,7 @@ workspace "Imagine"
     include "Engine"
     include "vendor/IMGUI"
     include "vendor/GLFW"
-    include "vendor/YAML"
+    include "vendor/yaml"
     --include "InternalCore/OpenGL/OpenGLAPI"
     --include "InternalCore/Vulkan/VulkanAPI"
 

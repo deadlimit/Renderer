@@ -27,8 +27,6 @@ void Engine::Init() {
 
 }
 
-
-
 void Engine::Run() {
 
 	while (!glfwWindowShouldClose(m_Window)) {

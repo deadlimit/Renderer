@@ -14,8 +14,6 @@ project "IMGUI"
         "imstb_textedit.h",
         "imstb_truetype.h",
         "imgui_demo.cpp",
-        --"backends/imgui_impl_vulkan.h",
-        --"backends/imgui_impl_vulkan.cpp",
         "backends/imgui_impl_glfw.h",
         "backends/imgui_impl_glfw.cpp",
         "backends/imgui_impl_opengl3.cpp",
@@ -24,7 +22,6 @@ project "IMGUI"
 
     includedirs{
         "../GLFW/include",
-        "C:/VulkanSDK/1.3.204.1/Include",
         "../../vendor/IMGUI",
         "../../vendor/IMGUI/backends"
     }
