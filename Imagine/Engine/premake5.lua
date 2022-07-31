@@ -34,15 +34,8 @@ project "Engine"
         "../vendor/yaml/include",
     }
 
-    libdirs{
-
-        "../vendor/yaml/bin/Debug/",
-
-    }
-
     links {
         "GLFW",
         "IMGUI",
-        "YAML.lib",
-        
+        "YAML",
     }

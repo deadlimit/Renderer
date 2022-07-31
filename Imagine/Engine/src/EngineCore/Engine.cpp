@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include "Subsystems//GUI/GUI.h"
 #include "Subsystems/ResourceManager/ResourceManager.h"
+#include <yaml-cpp/yaml.h>
 #include "Subsystems/EntityManager.h"
 #include <stdexcept>
 #include <iostream>
@@ -17,6 +18,14 @@ void Engine::Init() {
 		throw std::runtime_error("Failed to init GLAD");
 		return;
 	}
+
+
+	YAML::Emitter out;
+	out << YAML::BeginMap;
+	out << YAML::Key << "Window";
+	out << YAML::Value << YAML::BeginSeq << 1280 << 720 << YAML::EndSeq;
+	out << YAML::EndMap;
+
 
 	Renderer::Init(m_Window, 1280, 860);
 	GUI::Init(m_Window);
