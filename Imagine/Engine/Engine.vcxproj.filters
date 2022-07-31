@@ -36,6 +36,9 @@
     <ClInclude Include="src\EngineCore\Engine.h">
       <Filter>src\EngineCore</Filter>
     </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\EntityManager.h">
+      <Filter>src\EngineCore\Subsystems</Filter>
+    </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h">
       <Filter>src\EngineCore\Subsystems\GUI</Filter>
     </ClInclude>
@@ -72,10 +75,12 @@
     <ClInclude Include="src\EngineCore\Subsystems\ResourceManager\ResourceManager.h">
       <Filter>src\EngineCore\Subsystems\ResourceManager</Filter>
     </ClInclude>
+    <ClInclude Include="src\EngineCore\Subsystems\Serializer.h">
+      <Filter>src\EngineCore\Subsystems</Filter>
+    </ClInclude>
     <ClInclude Include="src\EngineCore\System.h">
       <Filter>src\EngineCore</Filter>
     </ClInclude>
-    <ClInclude Include="src\EngineCore\Subsystems\EntityManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c">
@@ -83,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="src\EngineCore\Engine.cpp">
       <Filter>src\EngineCore</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Subsystems\EntityManager.cpp">
+      <Filter>src\EngineCore\Subsystems</Filter>
     </ClCompile>
     <ClCompile Include="src\EngineCore\Subsystems\GUI\GUI.cpp">
       <Filter>src\EngineCore\Subsystems\GUI</Filter>
@@ -111,6 +119,5 @@
     <ClCompile Include="src\EngineCore\main.cpp">
       <Filter>src\EngineCore</Filter>
     </ClCompile>
-    <ClCompile Include="src\EngineCore\Subsystems\EntityManager.cpp" />
   </ItemGroup>
 </Project>

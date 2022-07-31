@@ -58,7 +58,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;src\EngineCore;..\Renderer;..\Renderer\OpenGL;..\vendor\IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;src\EngineCore;..\Renderer;..\Renderer\OpenGL;..\vendor\IMGUI;..\vendor\YAML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -71,7 +71,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OPENGL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;src\EngineCore;..\Renderer;..\Renderer\OpenGL;..\vendor\IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\vendor\GLFW\include\GLFW;..\vendor\GLM\glm\glm;..\vendor\GLAD\include\glad;..\vendor\GLAD\include\KHR;src\EngineCore;..\Renderer;..\Renderer\OpenGL;..\vendor\IMGUI;..\vendor\YAML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -94,11 +94,13 @@
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\stb_image.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\Renderer.h" />
     <ClInclude Include="src\EngineCore\Subsystems\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="src\EngineCore\Subsystems\Serializer.h" />
     <ClInclude Include="src\EngineCore\System.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c" />
     <ClCompile Include="src\EngineCore\Engine.cpp" />
+    <ClCompile Include="src\EngineCore\Subsystems\EntityManager.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\GUI\GUI.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.cpp" />
@@ -108,7 +110,6 @@
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\Renderer.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="src\EngineCore\main.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\EntityManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vendor\GLFW\GLFW.vcxproj">
@@ -116,6 +117,9 @@
     </ProjectReference>
     <ProjectReference Include="..\vendor\IMGUI\IMGUI.vcxproj">
       <Project>{606F530D-CC83-7BBE-9505-1F1E01D977EF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\vendor\YAML\YAML.vcxproj">
+      <Project>{F8FB8E7C-E432-900D-8D1F-761079350C0F}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

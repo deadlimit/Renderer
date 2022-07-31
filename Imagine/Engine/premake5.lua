@@ -20,7 +20,6 @@ project "Engine"
         "src/Subsystems/GUI/Windows/**.h",
         "src/Subsystems/GUI/Windows/**.cpp",
         "../vendor/GLAD/src/glad.c",
-
     }
 
     includedirs {
@@ -31,9 +30,8 @@ project "Engine"
         "src/EngineCore";
         "../Renderer",
         "../Renderer/OpenGL",
-        --"../InternalCore/Vulkan/VulkanAPI/src",
-        --"../InternalCore/OpenGL/OpenGLAPI/src",
-        "../vendor/IMGUI"
+        "../vendor/IMGUI",
+        "../vendor/YAML/include",
     }
 
     libdirs{
@@ -45,6 +43,7 @@ project "Engine"
     links {
         "GLFW",
         "IMGUI",
+        "YAML",
         --"vulkan-1.lib",
         --"VulkanAPI.lib",
         --"OpenGLAPI.lib",

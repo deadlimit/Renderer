@@ -1,8 +1,0 @@
-C:/Imagine/ThirdParty/YAML/build/CMakeFiles/yaml-cpp.dir
-C:/Imagine/ThirdParty/YAML/build/CMakeFiles/INSTALL.dir
-C:/Imagine/ThirdParty/YAML/build/CMakeFiles/ALL_BUILD.dir
-C:/Imagine/ThirdParty/YAML/build/CMakeFiles/ZERO_CHECK.dir
-C:/Imagine/ThirdParty/YAML/build/util/CMakeFiles/yaml-cpp-sandbox.dir
-C:/Imagine/ThirdParty/YAML/build/util/CMakeFiles/yaml-cpp-parse.dir
-C:/Imagine/ThirdParty/YAML/build/util/CMakeFiles/yaml-cpp-read.dir
-C:/Imagine/ThirdParty/YAML/build/util/CMakeFiles/INSTALL.dir
