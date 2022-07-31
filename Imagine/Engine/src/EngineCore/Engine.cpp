@@ -23,7 +23,7 @@ void Engine::Init() {
 	Renderer::MeshData meshData = Renderer::Square();
 
 	EntityManager::CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", "Square 1", glm::vec3(-1.5f, 1.0f, 2.0f));
-	EntityManager::CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", "Square 2", glm::vec3(1.5f, -1.0f, 0.5f));
+	EntityManager::CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall2.jpg", "Square 2", glm::vec3(1.5f, -1.0f, 0.5f));
 
 }
 

@@ -9,8 +9,8 @@ namespace EntityManager {
 		Renderer::RenderInformation renderInfo = {};
 		renderInfo.transform = glm::translate(glm::mat4(1.0f), defaultPosition);
 		Renderer::CreateVertexArrayObject(vertices, indicies, renderInfo.VAO);
-		Renderer::CreateTexture("wall.jpg", renderInfo.textureID);
-		Renderer::CreateShaderProgram("Triangle1.shader", renderInfo.shader);
+		Renderer::CreateTexture(texture, renderInfo.textureID);
+		Renderer::CreateShaderProgram(shader, renderInfo.shader);
 
 		renderInfo.indicies = indicies.size();
 
