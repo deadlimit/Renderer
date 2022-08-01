@@ -3,15 +3,13 @@
 
 namespace Renderer {
 
-	class Camera {
+	class EditorCamera {
 
 	public:
 
-		Camera(glm::mat4 matrix) : m_ViewMatrix(matrix) {}
+		EditorCamera(glm::mat4 matrix);
 
 		glm::mat4 GetViewMatrix() const { return m_ViewMatrix; }
-
-		void Move(glm::vec3);
 
 	private:
 

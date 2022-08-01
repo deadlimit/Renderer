@@ -84,11 +84,11 @@
     <ClInclude Include="src\EngineCore\Engine.h" />
     <ClInclude Include="src\EngineCore\Subsystems\EntityManager.h" />
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.h" />
+    <ClInclude Include="src\EngineCore\Subsystems\InputManager.h" />
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\EditorCamera.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Image.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\OpenGLCore.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\RenderViewport.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Texture.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\VertexArrayObject.h" />
@@ -104,7 +104,8 @@
     <ClCompile Include="src\EngineCore\Engine.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\EntityManager.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\GUI\GUI.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.cpp" />
+    <ClCompile Include="src\EngineCore\Subsystems\InputManager.cpp" />
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\EditorCamera.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Texture.cpp" />

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "OpenGL/OpenGLCore.h"
-#include "OpenGL/Camera.h"
+#include "OpenGL/EditorCamera.h"
 #include "OpenGL/Primitives.h"
 #include "OpenGL/Texture.h"
 #include "OpenGL/Shader.h"
@@ -33,8 +33,6 @@ namespace Renderer {
 	void ResizeViewport(int, int);
 	void SwapBuffers(GLFWwindow&);
 
-	inline uint32_t ViewportWidth_;
-	inline uint32_t ViewportHeight_;
 
 }
 

@@ -42,7 +42,7 @@
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h">
       <Filter>src\EngineCore\Subsystems\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.h">
+    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\EditorCamera.h">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Image.h">
@@ -52,9 +52,6 @@
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.h">
-      <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\RenderViewport.h">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.h">
@@ -82,6 +79,7 @@
       <Filter>src\EngineCore</Filter>
     </ClInclude>
     <ClInclude Include="src\Debug.h" />
+    <ClInclude Include="src\EngineCore\Subsystems\InputManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c">
@@ -96,7 +94,7 @@
     <ClCompile Include="src\EngineCore\Subsystems\GUI\GUI.cpp">
       <Filter>src\EngineCore\Subsystems\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Camera.cpp">
+    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\EditorCamera.cpp">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.cpp">
@@ -125,5 +123,6 @@
     </ClCompile>
     <ClCompile Include="src\Debug.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Serializer.cpp" />
+    <ClCompile Include="src\EngineCore\Subsystems\InputManager.cpp" />
   </ItemGroup>
 </Project>

@@ -63,7 +63,7 @@ namespace Serializer {
 				const std::string& texture = node["Texture"].as<std::string>();
 				glm::vec3 position = glm::vec3(node["Position"][0].as<float>(), node["Position"][1].as<float>(), node["Position"][2].as<float>());
 
-				EntityManager::CreateEntity(Renderer::Square().vertices, Renderer::Square().indicies, shader, texture, name, position);
+				EntityManager::CreateEntity(Renderer::Square.vertices, Renderer::Square.indicies, shader, texture, name, position);
 
 			}
 

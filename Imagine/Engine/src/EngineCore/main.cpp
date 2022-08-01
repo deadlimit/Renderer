@@ -3,11 +3,9 @@
 
 int main() {
 
-	Engine engine;
-
-	engine.Init();
-	engine.Run();
-	engine.Clean();
+	Engine::Init();
+	Engine::Run();
+	Engine::Clean();
 
 	return 0;
 }
