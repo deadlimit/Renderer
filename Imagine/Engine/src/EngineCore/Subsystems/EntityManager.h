@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <fstream>
 #include "Renderer/Renderer.h"
 
 namespace EntityManager {
@@ -13,12 +14,16 @@ namespace EntityManager {
 	struct Entity {
 		uint32_t ID;
 		std::string Name;
+		std::string Texture;
+		std::string Shader;
+		glm::mat4 Transform;
 	};
+
 
 	inline RenderData RenderingData;
 	inline std::vector<Entity> Entities;
 	
 	void CreateEntity(const std::vector<Vertex>&, const std::vector<uint32_t>&, const std::string&, const std::string&, const std::string&, glm::vec3 defaultPosition);
-
+	void SerializeEntities(std::fstream&);
 
 }

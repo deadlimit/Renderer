@@ -1,0 +1,26 @@
+Scene: Untitled
+Objects:
+  - ID: 0
+    Name: Square 1
+    Shader: Triangle1.shader
+    Texture: wall.jpg
+    Position:
+      - -1.5
+      - 1
+      - 2
+  - ID: 1
+    Name: Square 2
+    Shader: Triangle1.shader
+    Texture: wall2.jpg
+    Position:
+      - 1.5
+      - -1
+      - 0.5
+  - ID: 2
+    Name: Square 3
+    Shader: Triangle1.shader
+    Texture: wall2.jpg
+    Position:
+      - 1.5
+      - -1
+      - -10.5

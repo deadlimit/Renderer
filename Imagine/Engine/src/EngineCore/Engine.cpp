@@ -7,7 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include "../Utils.h"
-
+#include "Subsystems/Serializer.h"
 void Engine::Init() {
 	
 	glfwInit();
@@ -22,24 +22,6 @@ void Engine::Init() {
 		throw std::runtime_error("Failed to init GLAD");
 		return;
 	}
-
-	/*
-	YAML::Emitter out;
-	out << YAML::BeginMap;
-	out << YAML::Key << "Window" << YAML::Value << YAML::BeginMap; 
-	out << YAML::Key << "width" << YAML::Value << 1280;
-	out << YAML::Key << "height" << YAML::Value << 720;
-	out << YAML::EndMap;
-	out << YAML::EndMap;
-
-	std::ofstream outstream("Config/init.yaml");
-
-	outstream << out.c_str();
-	
-	outstream.close();
-	*/
-	
-
 	
 	Renderer::Init(m_Window, Utils::g_InitParams.viewportHeight, Utils::g_InitParams.viewportHeight);
 	GUI::Init(m_Window);
@@ -47,6 +29,7 @@ void Engine::Init() {
 
 	EntityManager::CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", "Square 1", glm::vec3(-1.5f, 1.0f, 2.0f));
 	EntityManager::CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall2.jpg", "Square 2", glm::vec3(1.5f, -1.0f, 0.5f));
+	EntityManager::CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall2.jpg", "Square 3", glm::vec3(1.5f, -1.0f, -10.5f));
 
 }
 
@@ -81,6 +64,7 @@ void Engine::Run() {
 void Engine::Clean() {
 
 	Utils::SaveInitParams();
+	Serializer::SerializeScene("Untitled.yaml");
 
 	GUI::Shutdown();
 	glfwDestroyWindow(m_Window);
