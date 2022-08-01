@@ -16,7 +16,6 @@ namespace EntityManager {
 		std::string Name;
 		std::string Texture;
 		std::string Shader;
-		glm::mat4 Transform;
 	};
 
 

@@ -32,7 +32,7 @@ namespace Serializer {
 			out << Key << "Name" << Value << EntityManager::Entities[i].Name;
 			out << Key << "Shader" << Value << EntityManager::Entities[i].Shader;
 			out << Key << "Texture" << Value << EntityManager::Entities[i].Texture;
-			out << Key << "Position" << Value << EntityManager::Entities[i].Transform[3];
+			out << Key << "Position" << Value << EntityManager::RenderingData[EntityManager::Entities[i].ID].transform[3];
 			out << EndMap;
 		}
 
@@ -68,9 +68,6 @@ namespace Serializer {
 			}
 
 		}
-
-
-
 	}
 
 }

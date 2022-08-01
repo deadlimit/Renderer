@@ -8,7 +8,7 @@
 #include <fstream>
 #include "../Utils.h"
 #include "Subsystems/Serializer.h"
-#
+
 void Engine::Init() {
 	
 	glfwInit();
@@ -23,7 +23,7 @@ void Engine::Init() {
 		throw std::runtime_error("Failed to init GLAD");
 		return;
 	}
-	
+
 	Renderer::Init(m_Window, Utils::g_InitParams.viewportHeight, Utils::g_InitParams.viewportHeight);
 	GUI::Init(m_Window);
 	Renderer::MeshData meshData = Renderer::Square();
@@ -42,7 +42,7 @@ void Engine::Run() {
 
 		for (EntityManager::RenderData::iterator& it = EntityManager::RenderingData.begin(); it != EntityManager::RenderingData.end(); ++it) {
 
-			it->second.transform = glm::rotate(it->second.transform, glm::radians(0.05f), glm::vec3(1.0f, 1.0f, 1.0f));
+			//it->second.transform = glm::rotate(it->second.transform, glm::radians(0.05f), glm::vec3(0.0f, 0.0f, 1.0f));
 
 			Renderer::BindShader(it->second.shader.ProgramID);
 			Renderer::SetUniformMatrix4fv(it->second.shader, "model", it->second.transform);

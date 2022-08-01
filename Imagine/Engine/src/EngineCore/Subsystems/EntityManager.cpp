@@ -19,7 +19,7 @@ namespace EntityManager {
 
 		RenderingData.insert({ ID, std::move(renderInfo) });
 
-		EntityManager::Entities.push_back({ ID, name, texture, shader, renderInfo.transform});
+		EntityManager::Entities.push_back({ ID, name, texture, shader});
 	}
 
 }
