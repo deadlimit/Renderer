@@ -8,6 +8,7 @@
 #include <fstream>
 #include "../Utils.h"
 #include "Subsystems/Serializer.h"
+#include "Subsystems/InputManager.h"
 
 namespace Engine {
 
@@ -39,6 +40,8 @@ namespace Engine {
 			Renderer::Clear(Renderer::Framebuffer.ID);
 
 			glfwPollEvents();
+
+			InputManager::HandleInput();
 
 			for (EntityManager::RenderData::iterator& it = EntityManager::RenderingData.begin(); it != EntityManager::RenderingData.end(); ++it) {
 

@@ -3,6 +3,9 @@
 
 namespace InputManager {
 
-	void RegisterKeyCallback(void(*)(struct GLFWwindow, int, int, int, int));
+
+	void HandleInput();
+
+
 
 }
