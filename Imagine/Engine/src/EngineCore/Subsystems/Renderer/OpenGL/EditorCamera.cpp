@@ -14,7 +14,7 @@ namespace Renderer {
 
 	void EditorCamera::Rotate(const glm::vec3& rotation) {
 
-		m_ViewMatrix = glm::rotate(m_ViewMatrix, glm::radians(1.0f), rotation);
+		m_ViewMatrix = glm::rotate(m_ViewMatrix, glm::radians(0.1f), rotation);
 
 	}
 

@@ -27,13 +27,28 @@ namespace InputManager {
 		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_Q)) {
 			direction.y += 0.01f;
 		}
+		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_UP)) {
+			rotation.x = -1.0f;
+		}
+		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_DOWN)) {
+			rotation.x = 1.0f;
+		}
+		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_LEFT)) {
+			rotation.y = -1.0f;
+		}
+		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_RIGHT)) {
+			rotation.y = 1.0f;
+		}
 
 
-		if (direction.length() > 0.0f) 
+		if (glm::sqrt(glm::pow(direction.x, 2) + glm::pow(direction.y, 2) + glm::pow(direction.z, 2)) > 0.0f) {
 			Engine::EditorCamera.Move(direction);
+		}
 		
-	//	if (rotation.length() > 0.0f)
-		//	Engine::EditorCamera.Rotate(rotation);
+		if (glm::sqrt(glm::pow(rotation.x, 2) + glm::pow(rotation.y, 2) + glm::pow(rotation.z, 2)) > 0.0f) {
+			
+			Engine::EditorCamera.Rotate(rotation);
+		}
 
 	}
 }
