@@ -6,7 +6,7 @@ namespace EntityManager {
 
 	void CreateEntity(const std::vector<Vertex>& vertices, const std::vector<uint32_t>& indicies, const std::string& shader, const std::string& texture, const std::string& name, glm::vec3 defaultPosition) {
 
-		Renderer::RenderInformation renderInfo = {};
+		Renderer::RenderInformation renderInfo{};
 		renderInfo.transform = glm::translate(glm::mat4(1.0f), defaultPosition);
 		Renderer::CreateVertexArrayObject(vertices, indicies, renderInfo.VAO);
 		Renderer::CreateTexture(texture, renderInfo.textureID);

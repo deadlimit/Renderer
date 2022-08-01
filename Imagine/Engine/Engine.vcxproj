@@ -112,6 +112,7 @@
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\Renderer.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="src\EngineCore\main.cpp" />
+    <ClCompile Include="src\EngineCore\Subsystems\Serializer.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>

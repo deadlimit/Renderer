@@ -124,5 +124,6 @@
       <Filter>src\EngineCore</Filter>
     </ClCompile>
     <ClCompile Include="src\Debug.cpp" />
+    <ClCompile Include="src\EngineCore\Subsystems\Serializer.cpp" />
   </ItemGroup>
 </Project>

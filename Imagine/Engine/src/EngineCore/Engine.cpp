@@ -8,6 +8,7 @@
 #include <fstream>
 #include "../Utils.h"
 #include "Subsystems/Serializer.h"
+#
 void Engine::Init() {
 	
 	glfwInit();
@@ -27,9 +28,7 @@ void Engine::Init() {
 	GUI::Init(m_Window);
 	Renderer::MeshData meshData = Renderer::Square();
 
-	EntityManager::CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall.jpg", "Square 1", glm::vec3(-1.5f, 1.0f, 2.0f));
-	EntityManager::CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall2.jpg", "Square 2", glm::vec3(1.5f, -1.0f, 0.5f));
-	EntityManager::CreateEntity(meshData.vertices, meshData.indicies, "Triangle1.shader", "wall2.jpg", "Square 3", glm::vec3(1.5f, -1.0f, -10.5f));
+	Serializer::DeserializeScene("Untitled.yaml");
 
 }
 
