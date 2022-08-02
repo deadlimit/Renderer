@@ -31,7 +31,7 @@ namespace Engine {
 		Renderer::Init(MainWindow, Utils::g_InitParams.viewportHeight, Utils::g_InitParams.viewportHeight);
 		GUI::Init(MainWindow);
 
-		EditorCamera::Init({ 0,0,-3}, { 0,0,-1 }, { 0,1,0 });
+		EditorCamera::Init({ 0,0,-3}, { -1,0,-1 }, { 0,1,0 });
 
 		Serializer::DeserializeScene("Untitled.yaml");
 	}

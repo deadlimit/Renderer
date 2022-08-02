@@ -11,34 +11,34 @@ namespace InputManager {
 		glm::vec3 rotation(0.0f);
 
 		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_W)) {
-			direction.z -= 0.01f;
+			direction.z += 1.f;
 		}
 		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_S)) {
-			direction.z += 0.01f;
+			direction.z -= 1.f;
 		}
 		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_A)) {
-			direction.x -= 0.01f;
+			direction.x -= 1.f;
 		}
 		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_D)) {
-			direction.x += 0.01f;
+			direction.x += 1.f;
 		}		
 		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_E)) {
-			direction.y += 0.01f;
+			direction.y += 1.f;
 		}
 		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_Q)) {
-			direction.y -= 0.01f;
+			direction.y -= 1.f;
 		}
 		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_UP)) {
-			rotation.x = -1.0f;
+			rotation.x = 1.f;
 		}
 		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_DOWN)) {
-			rotation.x = 1.0f;
+			rotation.x = -1.f;
 		}
 		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_LEFT)) {
-			rotation.y = -1.0f;
+			rotation.y = 1.f;;
 		}
 		if (glfwGetKey(Engine::MainWindow, GLFW_KEY_RIGHT)) {
-			rotation.y = 1.0f;
+			rotation.y = 1.f;
 		}
 
 
