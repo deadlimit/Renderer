@@ -12,7 +12,6 @@ namespace Engine {
 
 	inline GLFWwindow* MainWindow = nullptr;
 
-	inline Renderer::EditorCamera EditorCamera(glm::mat4(1.0f));
 }
 
 

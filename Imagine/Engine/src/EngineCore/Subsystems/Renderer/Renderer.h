@@ -1,7 +1,6 @@
 #pragma once
 
 #include "OpenGL/OpenGLCore.h"
-#include "OpenGL/EditorCamera.h"
 #include "OpenGL/Primitives.h"
 #include "OpenGL/Texture.h"
 #include "OpenGL/Shader.h"

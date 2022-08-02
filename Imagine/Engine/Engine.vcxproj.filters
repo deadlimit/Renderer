@@ -42,7 +42,7 @@
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h">
       <Filter>src\EngineCore\Subsystems\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\EditorCamera.h">
+    <ClInclude Include="src\EngineCore\Subsystems\EditorCamera\EditorCamera.h">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Image.h">
@@ -94,7 +94,7 @@
     <ClCompile Include="src\EngineCore\Subsystems\GUI\GUI.cpp">
       <Filter>src\EngineCore\Subsystems\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\EditorCamera.cpp">
+    <ClCompile Include="src\EngineCore\Subsystems\EditorCamera\EditorCamera.cpp">
       <Filter>src\EngineCore\Subsystems\Renderer\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.cpp">

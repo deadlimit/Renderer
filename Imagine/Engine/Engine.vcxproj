@@ -85,7 +85,7 @@
     <ClInclude Include="src\EngineCore\Subsystems\EntityManager.h" />
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h" />
     <ClInclude Include="src\EngineCore\Subsystems\InputManager.h" />
-    <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\EditorCamera.h" />
+    <ClInclude Include="src\EngineCore\Subsystems\EditorCamera\EditorCamera.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Image.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\OpenGLCore.h" />
     <ClInclude Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.h" />
@@ -105,7 +105,7 @@
     <ClCompile Include="src\EngineCore\Subsystems\EntityManager.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\GUI\GUI.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\InputManager.cpp" />
-    <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\EditorCamera.cpp" />
+    <ClCompile Include="src\EngineCore\Subsystems\EditorCamera\EditorCamera.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Primitives.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Shader.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Renderer\OpenGL\Texture.cpp" />

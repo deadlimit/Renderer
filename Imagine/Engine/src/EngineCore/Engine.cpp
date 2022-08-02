@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "Subsystems//GUI/GUI.h"
+#include "Subsystems/EditorCamera/EditorCamera.h"
 #include "Subsystems/ResourceManager/ResourceManager.h"
 #include <yaml-cpp/yaml.h>
 #include "Subsystems/EntityManager.h"
@@ -30,6 +31,8 @@ namespace Engine {
 		Renderer::Init(MainWindow, Utils::g_InitParams.viewportHeight, Utils::g_InitParams.viewportHeight);
 		GUI::Init(MainWindow);
 
+		EditorCamera::Init({ 0,0,-3}, { 0,0,-1 }, { 0,1,0 });
+
 		Serializer::DeserializeScene("Untitled.yaml");
 	}
 
@@ -49,7 +52,7 @@ namespace Engine {
 
 				Renderer::BindShader(it->second.shader.ProgramID);
 				Renderer::SetUniformMatrix4fv(it->second.shader, "model", it->second.transform);
-				Renderer::SetUniformMatrix4fv(it->second.shader, "view", glm::translate(EditorCamera.GetViewMatrix(), glm::vec3(0.0f, 0.0f, -5.0f)));
+				Renderer::SetUniformMatrix4fv(it->second.shader, "view", glm::translate(EditorCamera::GetViewMatrix(), glm::vec3(0.0f, 0.0f, -5.0f)));
 				Renderer::SetUniformMatrix4fv(it->second.shader, "projection", glm::perspective(glm::radians(45.0f), (float)3 / (float)2, 0.01f, 100.f));
 			}
 
@@ -65,11 +68,6 @@ namespace Engine {
 
 		Utils::SaveInitParams();
 		Serializer::SerializeScene("Untitled.yaml");
-
-		/*GUI::Shutdown();
-		glfwDestroyWindow(m_Window);
-		glfwTerminate();
-		*/
 	}
 
 
