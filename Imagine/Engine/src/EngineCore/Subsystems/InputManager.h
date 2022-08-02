@@ -3,9 +3,8 @@
 
 namespace InputManager {
 
+	void Init();
 
 	void HandleInput();
-
-
 
 }

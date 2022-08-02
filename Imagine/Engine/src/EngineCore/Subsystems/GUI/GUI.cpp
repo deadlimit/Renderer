@@ -28,7 +28,7 @@ void GUI::Init(GLFWwindow* window) {
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplGlfw_InitForOpenGL(window, false);
 	ImGui_ImplOpenGL3_Init("#version 460");
 
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
@@ -36,6 +36,7 @@ void GUI::Init(GLFWwindow* window) {
 		style.WindowRounding = 0.0f;
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
+
 }
 
 void GUI::PrintToConsole(const std::string& message) {
@@ -104,6 +105,8 @@ void GUI::Draw() {
 		g_ViewportImageID = Renderer::Framebuffer.ColorAttachment;
 
 	ImGui::Begin("Viewport", &Open_Viewport);
+
+
 
 	const ImVec2& viewportWindowSize = ImGui::GetContentRegionAvail();
 	

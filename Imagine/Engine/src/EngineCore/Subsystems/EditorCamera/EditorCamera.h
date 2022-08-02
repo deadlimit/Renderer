@@ -4,12 +4,13 @@
 
 namespace EditorCamera {
 
-	void Init(const glm::vec3&, const glm::vec3&, const glm::vec3&);
+	void Init(const glm::vec3&, const glm::vec3&, const glm::vec3&, const bool&);
 
+	void Activate(const bool&);
+	
 	glm::mat4 GetViewMatrix();
 
 	void Move(const glm::vec3&);
-	void Rotate(const glm::vec3&);
 }
 
 
