@@ -5,72 +5,81 @@
 #include <iostream>
 #include "glfw3.h"
 
-
-namespace EditorCamera {
-
 #define VECTOR_FORWARD glm::vec3( 0, 0, 1)
 #define VECTOR_BACK	   glm::vec3( 0, 0,-1)
 #define VECTOR_RIGHT   glm::vec3( 1, 0, 0)
-#define VECTOR_LEFT	   glm::vec3(-1, 0, 1)
+#define VECTOR_LEFT	   glm::vec3(-1, 0, 0)
 #define VECTOR_UP	   glm::vec3( 0, 1, 0)
 #define VECTOR_DOWN	   glm::vec3( 0,-1, 0)
+
+namespace EditorCamera {
 
 	glm::vec3 Position;
 	glm::vec3 Forward;
 	glm::vec3 Up;
 
-	float pitch = 0;
-	float yaw = -90.f;
-	float roll = 0;
-
-	static float Speed = .005f;
+	static float Speed = .0005f;
 
 	void Init(const glm::vec3& position, const glm::vec3& forward, const glm::vec3& up, const bool& activate) {
 		Position = position;
 		Forward = forward;
 		Up = up;
 
-		InputManager::RegisterCallback(GLFW_KEY_W, []() { Move(VECTOR_FORWARD); });
-		InputManager::RegisterCallback(GLFW_KEY_S, []() { Move(VECTOR_BACK);	});
-		InputManager::RegisterCallback(GLFW_KEY_A, []() { Move(VECTOR_LEFT);	});
-		InputManager::RegisterCallback(GLFW_KEY_D, []() { Move(VECTOR_RIGHT);	});
-		InputManager::RegisterCallback(GLFW_KEY_E, []() { Move(VECTOR_UP);		});
-		InputManager::RegisterCallback(GLFW_KEY_Q, []() { Move(VECTOR_DOWN);	});
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_W, { []() { std::cout << "Hello from start of W" << std::endl; }, []() { Move(VECTOR_FORWARD); }, []() { std::cout << "Hello from end of W" << std::endl; } });
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_S, { nullptr, []() { Move(VECTOR_BACK);},	nullptr });
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_A, { nullptr, []() { Move(VECTOR_LEFT);},	nullptr });
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_D, { nullptr, []() { Move(VECTOR_RIGHT);},	nullptr });
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_E, { nullptr, []() { Move(VECTOR_UP);},		nullptr });
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_Q, { nullptr, []() { Move(VECTOR_DOWN);},	nullptr });
 
+		InputManager::RegisterCallback(InputType::MOUSE, GLFW_MOUSE_BUTTON_2, { nullptr, []() {
+			glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
+			Rotate();
+		}, nullptr });
+		
+		InputManager::RegisterCallback(InputType::MOUSE, GLFW_MOUSE_BUTTON_2, { nullptr, []() {
+			glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL); }, nullptr });
 	}
 
-	static double previousXPosition;
-	static double previousYPosition;
+	static double previousXPosition = 0.0f;
+	static double previousYPosition = -90.f;
 	static float mouse_sensitivity = 0.1f;
 
-	static void Rotate(GLFWwindow* window, double xPos, double yPos) {
 
+
+	void Rotate() {
+
+		double xPos, yPos;
+		glfwGetCursorPos(Engine::MainWindow, &xPos, &yPos);
+	
 		double deltaX = xPos - previousXPosition;
 		double deltaY = previousYPosition - yPos;
 
+		
+		if (deltaX == 0 && deltaY == 0)
+			return;
+		
+		std::cout << deltaX << " " << deltaY << std::endl;
+		
 		previousXPosition = xPos;
 		previousYPosition = yPos;
 
 		deltaX *= mouse_sensitivity;
 		deltaY *= mouse_sensitivity;
 
-		yaw += deltaX;
-		pitch += deltaY;
+		Rotation.y += deltaX;
+		Rotation.x += deltaY;
 
-		pitch = glm::clamp(pitch, -90.f, 90.f);
+		Rotation.x = glm::clamp(Rotation.x, -90.f, 90.f);
 
 		glm::vec3 direction;
 
-		direction.x = glm::cos(glm::radians(yaw)) * glm::cos(glm::radians(pitch));
-		direction.y = glm::sin(glm::radians(pitch));
-		direction.z = glm::sin(glm::radians(yaw)) * glm::cos(glm::radians(pitch));
+		direction.x = glm::cos(glm::radians(Rotation.y)) * glm::cos(glm::radians(Rotation.x));
+		direction.y = glm::sin(glm::radians(Rotation.x));
+		direction.z = glm::sin(glm::radians(Rotation.y)) * glm::cos(glm::radians(Rotation.x));
 
 		Forward = glm::normalize(direction);
-	}
-
-	
-	void Activate() {
-		glfwSetCursorPosCallback(Engine::MainWindow, Rotate);
 	}
 
 	void EditorCamera::Move(const glm::vec3& direction) {

@@ -31,7 +31,7 @@ namespace Engine {
 		Renderer::Init(MainWindow, Utils::g_InitParams.viewportHeight, Utils::g_InitParams.viewportHeight);
 		GUI::Init(MainWindow);
 
-		EditorCamera::Init({ 0,0,-3}, { -1,0,-1 }, { 0,1,0 }, false);
+		EditorCamera::Init({ 0,0,-3}, { 0,0,-1 }, { 0,1,0 }, false);
 		
 		InputManager::Init();
 
@@ -43,8 +43,6 @@ namespace Engine {
 		while (!glfwWindowShouldClose(MainWindow)) {
 
 			Renderer::Clear(Renderer::Framebuffer.ID);
-
-			glfwPollEvents();
 
 			InputManager::HandleInput();
 
@@ -63,9 +61,7 @@ namespace Engine {
 			GUI::Draw();
 			
 			Renderer::SwapBuffers(*MainWindow);
-
-			
-
+			glfwPollEvents();
 		}
 	}
 

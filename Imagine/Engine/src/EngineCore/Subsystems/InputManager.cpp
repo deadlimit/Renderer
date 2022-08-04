@@ -9,7 +9,9 @@
 
 namespace InputManager {
 
+    //IMGUI-key values are not the same as GLFW
     static std::unordered_map<int, int> convertedKeys = {
+
     {GLFW_KEY_W, ImGuiKey_W },
     {GLFW_KEY_TAB, ImGuiKey_Tab},
     {GLFW_KEY_LEFT, ImGuiKey_LeftArrow},
@@ -118,38 +120,84 @@ namespace InputManager {
     {GLFW_KEY_F12, ImGuiKey_F12 },
     };
   
-    std::map<int, void(*)()> callbacks;
-    std::map<int, void(*)()>::const_iterator it = callbacks.begin();
+    std::map<int, InputAction> keyCallbacks;
+    std::map<int, InputAction> mouseCallbacks;
+    std::map<int, InputAction>::iterator it;
 
-
-    void Init() {
-        //
-    }
-
-    void RegisterCallback(const int& key, void(*Callback)()) {
-        callbacks[key] = Callback;
-    }
-
-    void HandleInput() {
-
-        it = callbacks.cbegin();
+    void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mod) {
 
         ImGuiIO& io = ImGui::GetIO();
 
-        while (it != callbacks.end()) {
+        io.AddKeyEvent(convertedKeys[key], action);
 
-            const int& key = it->first;
+        //Do nothing if viewport isn't focused or if key is not a registered callback
+        if (io.WantCaptureKeyboard || keyCallbacks.find(key) == keyCallbacks.end())
+            return; 
 
-            bool pressed = glfwGetKey(Engine::MainWindow, key);
+        if (action == GLFW_PRESS && keyCallbacks[key].status & BUTTON_INACTIVE) {
+            keyCallbacks[key].status &= ~BUTTON_INACTIVE; //Button is no longer cold
+            keyCallbacks[key].status |= BUTTON_INIT | BUTTON_ACTIVE; //Mark button for initilisation
+        } 
+        else if (action == GLFW_RELEASE && keyCallbacks[key].status & BUTTON_ACTIVE)
+            keyCallbacks[key].status |= BUTTON_RELEASED;
+        
+    }
 
-            io.AddKeyEvent(convertedKeys[key], pressed);
+    void Init() {
 
-            if (pressed) {
-                it->second();
+        glfwSetKeyCallback(Engine::MainWindow, KeyCallback);
+    
+    }
+
+    void RegisterCallback(InputType type, const int& key, const InputAction& inputActions) {
+        
+        std::map<int, InputAction>& callbackMap = (type == InputType::KEY ? keyCallbacks : mouseCallbacks);
+        
+        callbackMap[key] = inputActions;
+    }
+
+    void UpdateCallbacks(std::map<int, InputAction>& callbacks) {
+
+        std::map<int, InputAction>::iterator& callbackIterator = callbacks.begin();
+
+        while (callbackIterator != callbacks.end()) {
+
+            if (callbackIterator->second.status & BUTTON_ACTIVE) {
+
+                //If button was released
+                if (callbackIterator->second.status & BUTTON_RELEASED) {
+                    if (callbackIterator->second.end != nullptr)
+                        callbackIterator->second.end();
+
+                    callbackIterator->second.status = BUTTON_INACTIVE;
+                    continue;
+                }
+
+                //If button was pressed for the first time
+                if (callbackIterator->second.status & BUTTON_INACTIVE) {
+                    callbackIterator->second.status &= ~BUTTON_INACTIVE;
+                    if (callbackIterator->second.start != nullptr)
+                        callbackIterator->second.start();
+                }
+
+                callbackIterator->second.run();
+
             }
-
-            it++;
+            callbackIterator++;
         }
+
+    }
+
+
+    void HandleInput() {
+        ImGuiIO& io = ImGui::GetIO();
+
+        if (io.WantCaptureKeyboard) {
+            return;
+        }
+
+        UpdateCallbacks(keyCallbacks);
+        UpdateCallbacks(mouseCallbacks);
     }
 }
 

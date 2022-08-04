@@ -14,4 +14,4 @@ Objects:
     Name: Square 3
     Shader: Triangle1.shader
     Texture: wall2.jpg
-    Position: [1.81500006, 0.189999998, 1.16499996]
+    Position: [2, 0.189999998, 1.16499996]

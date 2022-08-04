@@ -111,7 +111,12 @@ void GUI::Draw() {
 
 	ImGui::Begin("Viewport", &Open_Viewport);
 	
-
+	
+	if (ImGui::IsWindowFocused()) {
+		ImGuiIO& io = ImGui::GetIO();
+		io.WantCaptureKeyboard = false;
+	}
+	
 	const ImVec2& viewportWindowSize = ImGui::GetContentRegionAvail();
 	
 	Renderer::ResizeViewport(viewportWindowSize.x, viewportWindowSize.y);
@@ -132,6 +137,10 @@ void GUI::Draw() {
 		ImGui::Begin("Viewport stats",&open, ImGuiWindowFlags_AlwaysAutoResize);
 
 		ImGui::Text("Viewport IMGUI: %.0f | %.0f", viewportWindowSize.x, viewportWindowSize.y);
+		ImGui::Spacing();
+		ImGui::Text("Camera pitch %.0f", EditorCamera::Rotation.x);
+		ImGui::Text("Camera yaw   %.0f", EditorCamera::Rotation.y);
+		ImGui::Text("Camera roll  %.0f", EditorCamera::Rotation.z);
 
 		ImGui::End();
 
