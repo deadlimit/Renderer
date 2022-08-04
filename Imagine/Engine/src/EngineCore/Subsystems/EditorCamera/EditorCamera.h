@@ -6,7 +6,7 @@ namespace EditorCamera {
 
 	void Init(const glm::vec3&, const glm::vec3&, const glm::vec3&, const bool&);
 
-	void Activate(const bool&);
+	void Activate();
 	
 	glm::mat4 GetViewMatrix();
 

@@ -10,6 +10,7 @@
 #include "Subsystems/EntityManager.h"
 #include "../Utils.h"
 #include <filesystem>
+#include "Subsystems/EditorCamera/EditorCamera.h"
 
 #define IMGUI_IMPL_OPENGL_ES3
 
@@ -28,7 +29,11 @@ void GUI::Init(GLFWwindow* window) {
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-	ImGui_ImplGlfw_InitForOpenGL(window, false);
+	io.WantCaptureKeyboard = true;
+	io.WantCaptureMouse = true;
+
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+
 	ImGui_ImplOpenGL3_Init("#version 460");
 
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
@@ -57,7 +62,7 @@ static bool Open_SceneWindow = true;
 static bool Open_Viewport = true;
 static bool Open_Console = true;
 static bool Open_Stats = true;
-
+static bool g_ViewportIsFocused = false;
 
 void GUI::Draw() {
 
@@ -105,8 +110,7 @@ void GUI::Draw() {
 		g_ViewportImageID = Renderer::Framebuffer.ColorAttachment;
 
 	ImGui::Begin("Viewport", &Open_Viewport);
-
-
+	
 
 	const ImVec2& viewportWindowSize = ImGui::GetContentRegionAvail();
 	

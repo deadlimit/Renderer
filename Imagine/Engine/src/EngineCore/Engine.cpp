@@ -18,7 +18,7 @@ namespace Engine {
 		glfwInit();
 
 		Utils::LoadInitFile();
-
+		
 		MainWindow = glfwCreateWindow(Utils::g_InitParams.windowWidth, Utils::g_InitParams.windowHeight, "OpenGL", nullptr, nullptr);
 
 		glfwMakeContextCurrent(MainWindow);
@@ -32,8 +32,9 @@ namespace Engine {
 		GUI::Init(MainWindow);
 
 		EditorCamera::Init({ 0,0,-3}, { -1,0,-1 }, { 0,1,0 }, false);
-
 		
+		InputManager::Init();
+
 		Serializer::DeserializeScene("Untitled.yaml");
 	}
 
@@ -60,8 +61,11 @@ namespace Engine {
 			Renderer::Draw(EntityManager::RenderingData, Renderer::Framebuffer.ID);
 
 			GUI::Draw();
-
+			
 			Renderer::SwapBuffers(*MainWindow);
+
+			
+
 		}
 	}
 

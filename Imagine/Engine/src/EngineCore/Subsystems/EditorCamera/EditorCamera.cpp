@@ -5,7 +5,15 @@
 #include <iostream>
 #include "glfw3.h"
 
+
 namespace EditorCamera {
+
+#define VECTOR_FORWARD glm::vec3( 0, 0, 1)
+#define VECTOR_BACK	   glm::vec3( 0, 0,-1)
+#define VECTOR_RIGHT   glm::vec3( 1, 0, 0)
+#define VECTOR_LEFT	   glm::vec3(-1, 0, 1)
+#define VECTOR_UP	   glm::vec3( 0, 1, 0)
+#define VECTOR_DOWN	   glm::vec3( 0,-1, 0)
 
 	glm::vec3 Position;
 	glm::vec3 Forward;
@@ -21,7 +29,14 @@ namespace EditorCamera {
 		Position = position;
 		Forward = forward;
 		Up = up;
-		Activate(activate);
+
+		InputManager::RegisterCallback(GLFW_KEY_W, []() { Move(VECTOR_FORWARD); });
+		InputManager::RegisterCallback(GLFW_KEY_S, []() { Move(VECTOR_BACK);	});
+		InputManager::RegisterCallback(GLFW_KEY_A, []() { Move(VECTOR_LEFT);	});
+		InputManager::RegisterCallback(GLFW_KEY_D, []() { Move(VECTOR_RIGHT);	});
+		InputManager::RegisterCallback(GLFW_KEY_E, []() { Move(VECTOR_UP);		});
+		InputManager::RegisterCallback(GLFW_KEY_Q, []() { Move(VECTOR_DOWN);	});
+
 	}
 
 	static double previousXPosition;
@@ -53,10 +68,9 @@ namespace EditorCamera {
 		Forward = glm::normalize(direction);
 	}
 
-	void Activate(const bool& activate) {
-
-		glfwSetCursorPosCallback(Engine::MainWindow, (activate ? Rotate : nullptr));
-
+	
+	void Activate() {
+		glfwSetCursorPosCallback(Engine::MainWindow, Rotate);
 	}
 
 	void EditorCamera::Move(const glm::vec3& direction) {
