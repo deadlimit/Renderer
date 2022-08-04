@@ -174,8 +174,8 @@ namespace InputManager {
                 }
 
                 //If button was pressed for the first time
-                if (callbackIterator->second.status & BUTTON_INACTIVE) {
-                    callbackIterator->second.status &= ~BUTTON_INACTIVE;
+                if (callbackIterator->second.status & BUTTON_INIT) {
+                    callbackIterator->second.status &= ~BUTTON_INIT;
                     if (callbackIterator->second.start != nullptr)
                         callbackIterator->second.start();
                 }
