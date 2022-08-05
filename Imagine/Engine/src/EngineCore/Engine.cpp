@@ -7,9 +7,10 @@
 #include <stdexcept>
 #include <iostream>
 #include <fstream>
-#include "../Utils.h"
+#include "Utils/Utils.h"
 #include "Subsystems/Serializer.h"
 #include "Subsystems/InputManager.h"
+#include "EngineData/EngineData.h"
 
 namespace Engine {
 
@@ -19,7 +20,7 @@ namespace Engine {
 
 		Utils::LoadInitFile();
 		
-		MainWindow = glfwCreateWindow(Utils::g_InitParams.windowWidth, Utils::g_InitParams.windowHeight, "OpenGL", nullptr, nullptr);
+		MainWindow = glfwCreateWindow(EngineData::g_Data.MainWindowSize.x, EngineData::g_Data.MainWindowSize.y, "OpenGL", nullptr, nullptr);
 
 		glfwMakeContextCurrent(MainWindow);
 
@@ -28,7 +29,7 @@ namespace Engine {
 			return;
 		}
 
-		Renderer::Init(MainWindow, Utils::g_InitParams.viewportHeight, Utils::g_InitParams.viewportHeight);
+		Renderer::Init(MainWindow, EngineData::g_Data.ViewportSize.x, EngineData::g_Data.ViewportSize.y);
 		GUI::Init(MainWindow);
 
 		EditorCamera::Init({ 0,0,-3}, { 0,0,-1 }, { 0,1,0 }, false);

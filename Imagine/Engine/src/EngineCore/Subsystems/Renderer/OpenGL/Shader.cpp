@@ -5,7 +5,7 @@
 #include <vector>
 #include "gtc/type_ptr.hpp"
 #include "Subsystems/ResourceManager/ResourceManager.h"
-#include "../Debug.h"
+#include "Utils/Debug.h"
 
 namespace Renderer {
 

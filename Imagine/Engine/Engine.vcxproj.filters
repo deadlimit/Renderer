@@ -75,11 +75,14 @@
     <ClInclude Include="src\EngineCore\Subsystems\Serializer.h">
       <Filter>src\EngineCore\Subsystems</Filter>
     </ClInclude>
-    <ClInclude Include="src\Utils.h">
+    <ClInclude Include="src\EngineCore\Utils\Utils.h">
       <Filter>src\EngineCore</Filter>
     </ClInclude>
-    <ClInclude Include="src\Debug.h" />
+    <ClInclude Include="src\EngineCore\Utils\Debug.h" />
     <ClInclude Include="src\EngineCore\Subsystems\InputManager.h" />
+    <ClInclude Include="src\EngineCore\Subsystems\Header.h" />
+    <ClInclude Include="src\EngineCore\EngineData\EngineData.h" />
+    <ClInclude Include="src\EngineCore\Utils\Math.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c">
@@ -118,10 +121,10 @@
     <ClCompile Include="src\EngineCore\main.cpp">
       <Filter>src\EngineCore</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils.cpp">
+    <ClCompile Include="src\EngineCore\Utils\Utils.cpp">
       <Filter>src\EngineCore</Filter>
     </ClCompile>
-    <ClCompile Include="src\Debug.cpp" />
+    <ClCompile Include="src\EngineCore\Utils\Debug.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\Serializer.cpp" />
     <ClCompile Include="src\EngineCore\Subsystems\InputManager.cpp" />
   </ItemGroup>

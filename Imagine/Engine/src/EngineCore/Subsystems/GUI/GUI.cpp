@@ -8,7 +8,7 @@
 #include "Subsystems/Renderer/Renderer.h"
 #include "Engine.h"
 #include "Subsystems/EntityManager.h"
-#include "../Utils.h"
+#include "EngineData/EngineData.h"
 #include <filesystem>
 #include "Subsystems/EditorCamera/EditorCamera.h"
 
@@ -118,9 +118,8 @@ void GUI::Draw() {
 	vMax.x += ImGui::GetWindowPos().x;
 	vMax.y += ImGui::GetWindowPos().y;
 
-	Utils::g_InitParams.viewportMinPosition = { vMin.x, vMin.y };
-	Utils::g_InitParams.viewportMaxPosition = { vMax.x, vMax.y };
-
+	EngineData::g_Data.ViewportWindowPosition = { vMin.x, vMin.y, vMax.x, vMax.y };
+	
 	if (ImGui::IsWindowFocused()) {
 		io.WantCaptureKeyboard = false;
 		io.WantCaptureMouse = false;
@@ -137,10 +136,10 @@ void GUI::Draw() {
 	//Why initparams, makes no sense
 	//TODO Make a better version
 
-	Utils::g_InitParams.viewportWidth = vMax.x - vMin.x;
-	Utils::g_InitParams.viewportHeight = (vMax.y - vMin.y);
+	EngineData::g_Data.ViewportSize.x = vMax.x - vMin.x;
+	EngineData::g_Data.ViewportSize.y = vMax.y - vMin.y;
 
-	ImGui::Image((void*)g_ViewportImageID, ImVec2(Utils::g_InitParams.viewportWidth, Utils::g_InitParams.viewportHeight), ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Image((void*)g_ViewportImageID, ImVec2(EngineData::g_Data.ViewportSize.x, EngineData::g_Data.ViewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::End();
 
@@ -152,7 +151,7 @@ void GUI::Draw() {
 
 		ImGui::Begin("Viewport stats",&open, ImGuiWindowFlags_AlwaysAutoResize);
 
-		ImGui::Text("Viewport IMGUI: %.0f | %.0f", (float)Utils::g_InitParams.viewportWidth, (float)Utils::g_InitParams.viewportHeight);
+		ImGui::Text("Viewport IMGUI: %.0f | %.0f", (float)EngineData::g_Data.ViewportSize.x, (float)EngineData::g_Data.ViewportSize.y);
 		ImGui::Spacing();
 		ImGui::Text("Camera pitch %.0f", EditorCamera::Rotation.x);
 		ImGui::Text("Camera yaw   %.0f", EditorCamera::Rotation.y);

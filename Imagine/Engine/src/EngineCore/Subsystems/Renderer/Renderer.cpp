@@ -2,7 +2,7 @@
 #include "../../Subsystems/GUI/GUI.h"
 #include <iostream>
 #include <stdexcept>
-#include "../Utils.h"
+#include "Utils/Utils.h"
 
 static void OpenGLDebugCallback(GLenum source, GLenum type, GLuint ID, GLenum severity, GLsizei length, const GLchar* message, const void* userParams) {
 	std::cout << message << std::endl;
