@@ -36,6 +36,9 @@ namespace Engine {
 		InputManager::Init();
 
 		Serializer::DeserializeScene("Untitled.yaml");
+
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_ESCAPE, { nullptr, [](){glfwSetWindowShouldClose(MainWindow, true); }, nullptr});
+
 	}
 
 	void Run() {

@@ -80,7 +80,6 @@
     </ClInclude>
     <ClInclude Include="src\Debug.h" />
     <ClInclude Include="src\EngineCore\Subsystems\InputManager.h" />
-    <ClInclude Include="src\EngineCore\Data.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendor\GLAD\src\glad.c">

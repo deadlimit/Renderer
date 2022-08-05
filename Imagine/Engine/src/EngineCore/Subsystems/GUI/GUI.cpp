@@ -29,10 +29,7 @@ void GUI::Init(GLFWwindow* window) {
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-	io.WantCaptureKeyboard = true;
-	io.WantCaptureMouse = true;
-
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplGlfw_InitForOpenGL(window, false);
 
 	ImGui_ImplOpenGL3_Init("#version 460");
 
@@ -111,20 +108,35 @@ void GUI::Draw() {
 
 	ImGui::Begin("Viewport", &Open_Viewport);
 	
-	
+	ImGuiIO& io = ImGui::GetIO();
+
+	ImVec2& vMin = ImGui::GetWindowContentRegionMin();
+	ImVec2& vMax = ImGui::GetWindowContentRegionMax();
+
+	vMin.x += ImGui::GetWindowPos().x;
+	vMin.y += ImGui::GetWindowPos().y;
+	vMax.x += ImGui::GetWindowPos().x;
+	vMax.y += ImGui::GetWindowPos().y;
+
 	if (ImGui::IsWindowFocused()) {
-		ImGuiIO& io = ImGui::GetIO();
 		io.WantCaptureKeyboard = false;
+		io.WantCaptureMouse = false;
+
+		ImGui::GetForegroundDrawList()->AddRect(vMin, vMax, IM_COL32(255, 255, 0, 255));
+	} else {
+		io.WantCaptureKeyboard = true;
+		io.WantCaptureMouse = true;
 	}
-	
-	const ImVec2& viewportWindowSize = ImGui::GetContentRegionAvail();
-	
-	Renderer::ResizeViewport(viewportWindowSize.x, viewportWindowSize.y);
+		
+	//Renderer::ResizeViewport(viewportWindowSize.x, viewportWindowSize.y);
+	Renderer::ResizeViewport((vMax.x - vMin.x), (vMax.y - vMin.y));
 
-	Utils::g_InitParams.viewportWidth = viewportWindowSize.x;
-	Utils::g_InitParams.viewportHeight = viewportWindowSize.y;
+	//Why initparams, makes no sense
+	//TODO Make a better version
+	Utils::g_InitParams.viewportWidth = (vMax.x - vMin.x);
+	Utils::g_InitParams.viewportHeight = (vMax.y - vMin.y);
 
-	ImGui::Image((void*)g_ViewportImageID, viewportWindowSize, ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Image((void*)g_ViewportImageID, vMax, ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::End();
 
@@ -136,7 +148,7 @@ void GUI::Draw() {
 
 		ImGui::Begin("Viewport stats",&open, ImGuiWindowFlags_AlwaysAutoResize);
 
-		ImGui::Text("Viewport IMGUI: %.0f | %.0f", viewportWindowSize.x, viewportWindowSize.y);
+		ImGui::Text("Viewport IMGUI: %.0f | %.0f", (float)Utils::g_InitParams.viewportWidth, (float)Utils::g_InitParams.viewportHeight);
 		ImGui::Spacing();
 		ImGui::Text("Camera pitch %.0f", EditorCamera::Rotation.x);
 		ImGui::Text("Camera yaw   %.0f", EditorCamera::Rotation.y);

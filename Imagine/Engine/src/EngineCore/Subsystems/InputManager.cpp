@@ -134,8 +134,9 @@ namespace InputManager {
         if (io.WantCaptureKeyboard || keyCallbacks.find(key) == keyCallbacks.end())
             return; 
 
-        if (action == GLFW_PRESS && keyCallbacks[key].status & BUTTON_INACTIVE) {
-            keyCallbacks[key].status &= ~BUTTON_INACTIVE; //Button is no longer cold
+        //TODO move to function
+        if (action == GLFW_PRESS && keyCallbacks[key].status & BUTTON_COLD) {
+            keyCallbacks[key].status &= ~BUTTON_COLD; //Button is no longer cold
             keyCallbacks[key].status |= BUTTON_INIT | BUTTON_ACTIVE; //Mark button for initilisation
         } 
         else if (action == GLFW_RELEASE && keyCallbacks[key].status & BUTTON_ACTIVE)
@@ -143,10 +144,39 @@ namespace InputManager {
         
     }
 
-    void Init() {
+    void CursorCallback(GLFWwindow* window, double xPos, double yPos) {
 
+        ImGuiIO& io = ImGui::GetIO();
+
+        io.AddMousePosEvent(xPos, yPos);
+        
+        if (io.WantCaptureMouse)
+            return;
+    }
+
+    void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+        ImGuiIO& io = ImGui::GetIO();
+
+        io.AddMouseButtonEvent(button, action);
+
+        if (io.WantCaptureMouse || mouseCallbacks.find(button) == mouseCallbacks.end())
+            return;
+
+        //TODO move to function
+        if (action == GLFW_PRESS && mouseCallbacks[button].status & BUTTON_COLD) {
+            mouseCallbacks[button].status &= ~BUTTON_COLD;
+            mouseCallbacks[button].status |= BUTTON_INIT | BUTTON_ACTIVE;
+        }
+        else if (action == GLFW_RELEASE && mouseCallbacks[button].status & BUTTON_ACTIVE) {
+            mouseCallbacks[button].status |= BUTTON_RELEASED;
+        }
+           
+    }
+
+    void Init() {
         glfwSetKeyCallback(Engine::MainWindow, KeyCallback);
-    
+        glfwSetCursorPosCallback(Engine::MainWindow, CursorCallback);
+        glfwSetMouseButtonCallback(Engine::MainWindow, MouseButtonCallback);
     }
 
     void RegisterCallback(InputType type, const int& key, const InputAction& inputActions) {
@@ -169,7 +199,7 @@ namespace InputManager {
                     if (callbackIterator->second.end != nullptr)
                         callbackIterator->second.end();
 
-                    callbackIterator->second.status = BUTTON_INACTIVE;
+                    callbackIterator->second.status = BUTTON_COLD;
                     continue;
                 }
 

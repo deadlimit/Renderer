@@ -2,7 +2,7 @@
 
 #define BUTTON_ACTIVE	0x01
 #define BUTTON_INIT		0x02
-#define BUTTON_INACTIVE	0x04
+#define BUTTON_COLD		0x04
 #define BUTTON_RELEASED	0x08
 
 enum class InputType {
@@ -16,7 +16,7 @@ struct InputAction {
 	Action start;
 	Action run;
 	Action end;
-	unsigned char status = BUTTON_INACTIVE;
+	unsigned char status = BUTTON_COLD;
 };
 
 namespace InputManager {

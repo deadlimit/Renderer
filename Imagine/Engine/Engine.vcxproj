@@ -81,7 +81,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Debug.h" />
-    <ClInclude Include="src\EngineCore\Data.h" />
     <ClInclude Include="src\EngineCore\Engine.h" />
     <ClInclude Include="src\EngineCore\Subsystems\EntityManager.h" />
     <ClInclude Include="src\EngineCore\Subsystems\GUI\GUI.h" />

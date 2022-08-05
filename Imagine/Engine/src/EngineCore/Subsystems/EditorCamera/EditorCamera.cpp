@@ -4,6 +4,7 @@
 #include "Engine.h"
 #include <iostream>
 #include "glfw3.h"
+#include "../Utils.h"
 
 #define VECTOR_FORWARD glm::vec3( 0, 0, 1)
 #define VECTOR_BACK	   glm::vec3( 0, 0,-1)
@@ -25,28 +26,27 @@ namespace EditorCamera {
 		Forward = forward;
 		Up = up;
 
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_W, { []() { std::cout << "Hello from start of W" << std::endl; }, []() { Move(VECTOR_FORWARD); }, []() { std::cout << "Hello from end of W" << std::endl; } });
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_S, { nullptr, []() { Move(VECTOR_BACK);},	nullptr });
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_A, { nullptr, []() { Move(VECTOR_LEFT);},	nullptr });
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_D, { nullptr, []() { Move(VECTOR_RIGHT);},	nullptr });
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_E, { nullptr, []() { Move(VECTOR_UP);},		nullptr });
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_Q, { nullptr, []() { Move(VECTOR_DOWN);},	nullptr });
 
-		InputManager::RegisterCallback(InputType::MOUSE, GLFW_MOUSE_BUTTON_2, { nullptr, []() {
-			glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		//Need to find a way to skip repeating things
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_W, { nullptr, []() { Move(VECTOR_FORWARD);}, nullptr });
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_S, { nullptr, []() { Move(VECTOR_BACK);},	 nullptr });
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_A, { nullptr, []() { Move(VECTOR_LEFT);},	 nullptr });
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_D, { nullptr, []() { Move(VECTOR_RIGHT);},	 nullptr });
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_E, { nullptr, []() { Move(VECTOR_UP);},		 nullptr });
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_Q, { nullptr, []() { Move(VECTOR_DOWN);},	 nullptr });
 
-			Rotate();
-		}, nullptr });
-		
-		InputManager::RegisterCallback(InputType::MOUSE, GLFW_MOUSE_BUTTON_2, { nullptr, []() {
-			glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL); }, nullptr });
+		InputManager::RegisterCallback(InputType::MOUSE, GLFW_MOUSE_BUTTON_2,
+			{
+			[]() { //glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+				   glfwSetCursorPos(Engine::MainWindow, Utils::g_InitParams.viewportWidth / 2, Utils::g_InitParams.viewportHeight / 2); },
+			[]() { Rotate(); }, 
+			[]() { glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);}
+			});
 	}
 
 	static double previousXPosition = 0.0f;
 	static double previousYPosition = -90.f;
 	static float mouse_sensitivity = 0.1f;
-
-
 
 	void Rotate() {
 
@@ -56,7 +56,6 @@ namespace EditorCamera {
 		double deltaX = xPos - previousXPosition;
 		double deltaY = previousYPosition - yPos;
 
-		
 		if (deltaX == 0 && deltaY == 0)
 			return;
 		
