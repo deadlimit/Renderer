@@ -118,6 +118,9 @@ void GUI::Draw() {
 	vMax.x += ImGui::GetWindowPos().x;
 	vMax.y += ImGui::GetWindowPos().y;
 
+	Utils::g_InitParams.viewportMinPosition = { vMin.x, vMin.y };
+	Utils::g_InitParams.viewportMaxPosition = { vMax.x, vMax.y };
+
 	if (ImGui::IsWindowFocused()) {
 		io.WantCaptureKeyboard = false;
 		io.WantCaptureMouse = false;
@@ -133,10 +136,11 @@ void GUI::Draw() {
 
 	//Why initparams, makes no sense
 	//TODO Make a better version
-	Utils::g_InitParams.viewportWidth = (vMax.x - vMin.x);
+
+	Utils::g_InitParams.viewportWidth = vMax.x - vMin.x;
 	Utils::g_InitParams.viewportHeight = (vMax.y - vMin.y);
 
-	ImGui::Image((void*)g_ViewportImageID, vMax, ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Image((void*)g_ViewportImageID, ImVec2(Utils::g_InitParams.viewportWidth, Utils::g_InitParams.viewportHeight), ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::End();
 
@@ -271,7 +275,6 @@ void GUI::Draw() {
 		for (int i = 0; i < g_ConsoleMessages.size(); ++i) {
 			ImGui::Text(g_ConsoleMessages[i].c_str());
 		}
-
 
 		ImGui::End();
 

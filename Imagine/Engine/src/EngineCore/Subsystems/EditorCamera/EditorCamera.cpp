@@ -5,6 +5,7 @@
 #include <iostream>
 #include "glfw3.h"
 #include "../Utils.h"
+#include "imgui.h"
 
 #define VECTOR_FORWARD glm::vec3( 0, 0, 1)
 #define VECTOR_BACK	   glm::vec3( 0, 0,-1)
@@ -20,6 +21,15 @@ namespace EditorCamera {
 	glm::vec3 Up;
 
 	static float Speed = .0005f;
+
+	static void CenterMouseCursor() {
+
+		int centerX = Utils::g_InitParams.viewportMinPosition.x + (Utils::g_InitParams.viewportWidth *  .5f);
+		int centerY = Utils::g_InitParams.viewportMinPosition.y + (Utils::g_InitParams.viewportHeight * .5f);
+
+		glfwSetCursorPos(Engine::MainWindow, centerX, centerY);
+
+	}
 
 	void Init(const glm::vec3& position, const glm::vec3& forward, const glm::vec3& up, const bool& activate) {
 		Position = position;
@@ -37,8 +47,7 @@ namespace EditorCamera {
 
 		InputManager::RegisterCallback(InputType::MOUSE, GLFW_MOUSE_BUTTON_2,
 			{
-			[]() { //glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-				   glfwSetCursorPos(Engine::MainWindow, Utils::g_InitParams.viewportWidth / 2, Utils::g_InitParams.viewportHeight / 2); },
+			[]() { CenterMouseCursor(); },
 			[]() { Rotate(); }, 
 			[]() { glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);}
 			});
@@ -52,15 +61,16 @@ namespace EditorCamera {
 
 		double xPos, yPos;
 		glfwGetCursorPos(Engine::MainWindow, &xPos, &yPos);
-	
+		
+		xPos += Utils::g_InitParams.viewportWidth;
+		yPos += Utils::g_InitParams.viewportHeight;
+
 		double deltaX = xPos - previousXPosition;
 		double deltaY = previousYPosition - yPos;
 
 		if (deltaX == 0 && deltaY == 0)
 			return;
-		
-		std::cout << deltaX << " " << deltaY << std::endl;
-		
+				
 		previousXPosition = xPos;
 		previousYPosition = yPos;
 
