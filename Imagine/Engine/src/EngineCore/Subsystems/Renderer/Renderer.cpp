@@ -2,7 +2,7 @@
 #include "../../Subsystems/GUI/GUI.h"
 #include <iostream>
 #include <stdexcept>
-#include "Utils/Utils.h"
+#include "EngineData/EngineData.h"
 
 static void OpenGLDebugCallback(GLenum source, GLenum type, GLuint ID, GLenum severity, GLsizei length, const GLchar* message, const void* userParams) {
 	std::cout << message << std::endl;
@@ -18,11 +18,10 @@ void Renderer::Init(GLFWwindow* window, uint32_t viewportWidth, uint32_t viewpor
 
 	glViewport(0, 0, viewportWidth, viewportHeight);
 
-	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {	
-		Utils::g_InitParams.windowWidth = width;
-		Utils::g_InitParams.windowHeight = height;
-		Renderer::ResizeViewport(width, height);}
-	);
+	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {
+		EngineData::g_Data.MainWindowSize.x = width;
+		EngineData::g_Data.MainWindowSize.y = height;
+	});
 
 	glDebugMessageCallback(OpenGLDebugCallback, nullptr);
 
