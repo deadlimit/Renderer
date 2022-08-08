@@ -32,7 +32,7 @@ namespace Engine {
 		Renderer::Init(MainWindow, EngineData::g_Data.ViewportSize.x, EngineData::g_Data.ViewportSize.y);
 		GUI::Init(MainWindow);
 
-		EditorCamera::Init({ 0,0,-3}, { 0,0,-1 }, { 0,1,0 }, false);
+		EditorCamera::Init(EngineData::g_Data.EditorCameraPosition, EngineData::g_Data.EditorCameraForward, EngineData::g_Data.EditorCameraUp, EngineData::g_Data.EditorCameraPitch, EngineData::g_Data.EditorCameraYaw,false);
 		
 		InputManager::Init();
 

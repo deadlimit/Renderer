@@ -18,7 +18,6 @@ namespace EntityManager {
 		std::string Shader;
 	};
 
-
 	inline RenderData RenderingData;
 	inline std::vector<Entity> Entities;
 	

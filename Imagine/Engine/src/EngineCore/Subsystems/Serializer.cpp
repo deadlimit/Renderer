@@ -27,12 +27,11 @@ namespace Serializer {
 
 		for (int i = 0; i < EntityManager::Entities.size(); ++i) {
 			out << BeginMap;
-
-			out << Key << "ID" << Value << EntityManager::Entities[i].ID;
-			out << Key << "Name" << Value << EntityManager::Entities[i].Name;
-			out << Key << "Shader" << Value << EntityManager::Entities[i].Shader;
-			out << Key << "Texture" << Value << EntityManager::Entities[i].Texture;
-			out << Key << "Position" << Value << EntityManager::RenderingData[EntityManager::Entities[i].ID].transform[3];
+			out << Key << "ID"		 <<	Value << EntityManager::Entities[i].ID;
+			out << Key << "Name"	 <<	Value << EntityManager::Entities[i].Name;
+			out << Key << "Shader"	 <<	Value << EntityManager::Entities[i].Shader;
+			out << Key << "Texture"	 <<	Value << EntityManager::Entities[i].Texture;
+			out << Key << "Position" <<	Value << EntityManager::RenderingData[EntityManager::Entities[i].ID].transform[3];
 			out << EndMap;
 		}
 

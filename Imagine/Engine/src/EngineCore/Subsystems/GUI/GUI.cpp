@@ -153,8 +153,8 @@ void GUI::Draw() {
 
 		ImGui::Text("Viewport IMGUI: %.0f | %.0f", (float)EngineData::g_Data.ViewportSize.x, (float)EngineData::g_Data.ViewportSize.y);
 		ImGui::Spacing();
-		ImGui::Text("Camera pitch %.0f", EditorCamera::pitch);
-		ImGui::Text("Camera yaw   %.0f", EditorCamera::yaw);
+		ImGui::Text("Camera pitch %.0f", EditorCamera::Pitch);
+		ImGui::Text("Camera yaw   %.0f", EditorCamera::Yaw);
 		
 		ImGui::End();
 

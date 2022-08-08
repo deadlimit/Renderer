@@ -1,7 +1,14 @@
 Window:
-  width: 1920
-  height: 1057
+  Width: 1920
+  Height: 1057
 ---
 Viewport:
-  width: 1350
-  height: 790
+  Width: 1350
+  Height: 790
+---
+EditorCamera:
+  Position: [-4.16191626, -0.0671590567, 1.92816091]
+  Forward: [0.769068599, 0.301016569, -0.563846171]
+  Up: [0, 1, 0]
+  Pitch: 18.400486
+  Yaw: -38.2002296

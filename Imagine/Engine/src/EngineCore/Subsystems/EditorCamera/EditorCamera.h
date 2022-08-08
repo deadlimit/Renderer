@@ -1,13 +1,16 @@
 #pragma once
+#include "Utils/Math.h"
 #include "glm.hpp"
-#include "gtc/matrix_transform.hpp"
-
 namespace EditorCamera {
 	
-	inline float pitch = 0;
-	inline float yaw = -90.f;
+	inline float Pitch;
+	inline float Yaw;
 
-	void Init(const glm::vec3&, const glm::vec3&, const glm::vec3&, const bool&);
+	inline glm::vec3 Position;
+	inline glm::vec3 Forward;
+	inline glm::vec3 Up;
+
+	void Init(const Vector3&, const Vector3&, const Vector3&, const float&, const float&, const bool&);
 	
 	glm::mat4 GetViewMatrix();
 

@@ -7,6 +7,7 @@
 #include "EngineData/EngineData.h"
 #include "imgui.h"
 
+
 #define VECTOR_FORWARD glm::vec3( 0, 0, 1)
 #define VECTOR_BACK	   glm::vec3( 0, 0,-1)
 #define VECTOR_RIGHT   glm::vec3( 1, 0, 0)
@@ -15,10 +16,6 @@
 #define VECTOR_DOWN	   glm::vec3( 0,-1, 0)
 
 namespace EditorCamera {
-
-	glm::vec3 Position;
-	glm::vec3 Forward;
-	glm::vec3 Up;
 
 	static float Speed = 0.005f;
 	static double previousXPosition;
@@ -38,11 +35,12 @@ namespace EditorCamera {
 		glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);		
 	}
 
-
-	void Init(const glm::vec3& position, const glm::vec3& forward, const glm::vec3& up, const bool& activate) {
-		Position = position;
-		Forward = forward;
-		Up = up;
+	void Init(const Vector3& position, const Vector3& forward, const Vector3& up, const float& pitch, const float& yaw, const bool& activate) {
+		Position = { position.x, position.y, position.z };
+		Forward = { forward.x, forward.y, forward.z };
+		Up = { up.x, up.y, up.z };
+		Pitch = pitch;
+		Yaw = yaw;
 
 		//Need to find a way to skip repeating things
 		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_W, { nullptr, []() { Move(VECTOR_FORWARD);}, nullptr });
@@ -80,24 +78,24 @@ namespace EditorCamera {
 		//deltaX /= length;
 	//	deltaY /= length;
 
-		pitch += (deltaY * mouse_sensitivity);
-		yaw += (deltaX * mouse_sensitivity);
+		Pitch += (deltaY * mouse_sensitivity);
+		Yaw += (deltaX * mouse_sensitivity);
 
-		if (pitch > 89.f)
-			pitch = 89.f;
-		if (pitch < -89.f)
-			pitch = -89.f;
-		if (yaw > 360.f)
-			yaw -= 360.f;
-		if(yaw < -360.f)
-			yaw += 360.f;
+		if (Pitch > 89.f)
+			Pitch = 89.f;
+		if (Pitch < -89.f)
+			Pitch = -89.f;
+		if (Yaw > 360.f)
+			Yaw -= 360.f;
+		if(Yaw < -360.f)
+			Yaw += 360.f;
 
 		
 		glm::vec3 direction;
-		direction.x = glm::cos(glm::radians(yaw));
-		direction.y = glm::sin(glm::radians(pitch));
-		direction.z = glm::sin(glm::radians(yaw) * glm::cos(glm::radians(pitch)));
-
+		direction.x = glm::cos(glm::radians(Yaw) * glm::cos(glm::radians(Pitch)));
+		direction.y = glm::sin(glm::radians(Pitch));
+		direction.z = glm::sin(glm::radians(Yaw) * glm::cos(glm::radians(Pitch)));
+			
 		Forward = glm::normalize(direction);
 	}
 
