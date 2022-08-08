@@ -18,18 +18,11 @@ void Renderer::Init(GLFWwindow* window, uint32_t viewportWidth, uint32_t viewpor
 
 	glViewport(0, 0, viewportWidth, viewportHeight);
 
-<<<<<<< Updated upstream
-	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {
-		EngineData::g_Data.MainWindowSize.x = width;
-		EngineData::g_Data.MainWindowSize.y = height;
-	});
-=======
 	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {	
 		EngineData::g_Data.ViewportSize.x = width;
 		EngineData::g_Data.ViewportSize.y = height;
 		Renderer::ResizeViewport(width, height);}
 	);
->>>>>>> Stashed changes
 
 	glDebugMessageCallback(OpenGLDebugCallback, nullptr);
 
