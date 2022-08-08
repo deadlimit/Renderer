@@ -20,19 +20,24 @@ namespace EditorCamera {
 	glm::vec3 Forward;
 	glm::vec3 Up;
 
-	static float Speed = .0005f;
+	static float Speed = 0.005f;
+	static double previousXPosition;
+	static double previousYPosition;
 
 	static void CenterAndHideMouseCursor() {
 
-		int centerX = EngineData::g_Data.ViewportWindowPosition.x + (EngineData::g_Data.ViewportSize.x * .5f);
+		int centerX = EngineData::g_Data.ViewportWindowPosition.x + (EngineData::g_Data.ViewportSize.x * .5f); 
 		int centerY = EngineData::g_Data.ViewportWindowPosition.y + (EngineData::g_Data.ViewportSize.y * .5f);
 
-		glfwSetCursorPos(Engine::MainWindow, centerX, centerY);
-		glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		double xPosition, yPosition;
+		glfwGetCursorPos(Engine::MainWindow, &xPosition, &yPosition);
+
+		previousXPosition = xPosition;
+		previousYPosition = yPosition;
+
+		glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);		
 	}
 
-	static double previousXPosition = 0.0f;
-	static double previousYPosition = -90.f;
 
 	void Init(const glm::vec3& position, const glm::vec3& forward, const glm::vec3& up, const bool& activate) {
 		Position = position;
@@ -49,41 +54,51 @@ namespace EditorCamera {
 
 		InputManager::RegisterCallback(InputType::MOUSE, GLFW_MOUSE_BUTTON_2,
 			{
-			[]() { CenterAndHideMouseCursor(); previousXPosition = 0; previousYPosition = 0; },
-			[]() { Rotate(); }, 
+			[]() { CenterAndHideMouseCursor(); },
+			[]() { Rotate(); },
 			[]() { glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);}
 			});
 	}
 
 
-	static float mouse_sensitivity = 0.1f;
+	static float mouse_sensitivity = 0.2f;
 
 	void Rotate() {
 		
-		double xPos, yPos;
-		glfwGetCursorPos(Engine::MainWindow, &xPos, &yPos);
+		double xPosition, yPosition;
+		glfwGetCursorPos(Engine::MainWindow, &xPosition, &yPosition);
 
-		double deltaX = xPos - previousXPosition;
-		double deltaY = previousYPosition - yPos;
+		float deltaX = xPosition - previousXPosition;
+		float deltaY = previousYPosition - yPosition;
 
-		if (deltaX == 0 && deltaY == 0)
-			return;
+		previousXPosition = xPosition;
+		previousYPosition = yPosition;
 
-		previousXPosition = xPos;
-		previousYPosition = yPos;
+		//float length = glm::sqrt(glm::pow(deltaX, 2) + glm::pow(deltaY, 2));
 
-		std::cout << deltaX << std::endl;
+		//Normalize
+		//deltaX /= length;
+	//	deltaY /= length;
 
+		pitch += (deltaY * mouse_sensitivity);
+		yaw += (deltaX * mouse_sensitivity);
+
+		if (pitch > 89.f)
+			pitch = 89.f;
+		if (pitch < -89.f)
+			pitch = -89.f;
+		if (yaw > 360.f)
+			yaw -= 360.f;
+		if(yaw < -360.f)
+			yaw += 360.f;
+
+		
 		glm::vec3 direction;
+		direction.x = glm::cos(glm::radians(yaw));
+		direction.y = glm::sin(glm::radians(pitch));
+		direction.z = glm::sin(glm::radians(yaw) * glm::cos(glm::radians(pitch)));
 
-
-		direction.x = glm::clamp(Rotation.x, -90.f, 90.f);
-
-		//direction.x = glm::cos(glm::radians(Rotation.y)) * glm::cos(glm::radians(Rotation.x));
-		direction.y = glm::sin(glm::radians(Rotation.x));
-		//direction.z = glm::sin(glm::radians(Rotation.y)) * glm::cos(glm::radians(Rotation.x));
-
-		Forward = glm::normalize(Rotation);
+		Forward = glm::normalize(direction);
 	}
 
 	void EditorCamera::Move(const glm::vec3& direction) {
