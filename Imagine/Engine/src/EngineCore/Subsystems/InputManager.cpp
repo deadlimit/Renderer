@@ -141,7 +141,6 @@ namespace InputManager {
         } 
         else if (action == GLFW_RELEASE && keyCallbacks[key].status & BUTTON_ACTIVE)
             keyCallbacks[key].status |= BUTTON_RELEASED;
-        
     }
 
     void CursorCallback(GLFWwindow* window, double xPos, double yPos) {

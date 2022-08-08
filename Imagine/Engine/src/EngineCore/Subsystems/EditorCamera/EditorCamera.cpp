@@ -72,12 +72,6 @@ namespace EditorCamera {
 		previousXPosition = xPosition;
 		previousYPosition = yPosition;
 
-		//float length = glm::sqrt(glm::pow(deltaX, 2) + glm::pow(deltaY, 2));
-
-		//Normalize
-		//deltaX /= length;
-	//	deltaY /= length;
-
 		Pitch += (deltaY * mouse_sensitivity);
 		Yaw += (deltaX * mouse_sensitivity);
 

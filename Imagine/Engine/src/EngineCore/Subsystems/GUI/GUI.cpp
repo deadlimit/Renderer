@@ -19,7 +19,14 @@ static uint32_t g_ViewportImageID;
 
 static void BeginFrame();
 static void EndFrame();
- 
+
+static bool Open_SceneWindow = true;
+static bool Open_Viewport = true;
+static bool Open_Console = true;
+static bool Open_Stats = true;
+static bool g_ViewportIsFocused = false;
+static int32_t selected_entity_ID = -1;
+
 void GUI::Init(GLFWwindow* window) {
 
 	IMGUI_CHECKVERSION();
@@ -55,19 +62,9 @@ void GUI::PrintToConsole(const std::string& message) {
 	g_ConsoleMessages.push_back(timeString);
 
 }
-static bool Open_SceneWindow = true;
-static bool Open_Viewport = true;
-static bool Open_Console = true;
-static bool Open_Stats = true;
-static bool g_ViewportIsFocused = false;
 
-void GUI::Draw() {
 
-	BeginFrame();
-
-	ImGui::DockSpaceOverViewport();
-
-	#pragma region TopMenuBar
+void Draw_Toolbar() {
 	ImGui::BeginMainMenuBar();
 
 	if (ImGui::BeginMenu("File")) {
@@ -99,15 +96,14 @@ void GUI::Draw() {
 	}
 
 	ImGui::EndMainMenuBar();
-#pragma endregion
+}
+void Draw_Viewport() {
 
-	#pragma region Viewport 
-	
 	if (!g_ViewportImageID)
 		g_ViewportImageID = Renderer::Framebuffer.ColorAttachment;
 
 	ImGui::Begin("Viewport", &Open_Viewport);
-	
+
 	ImGuiIO& io = ImGui::GetIO();
 
 	ImVec2& vMin = ImGui::GetWindowContentRegionMin();
@@ -119,7 +115,7 @@ void GUI::Draw() {
 	vMax.y += ImGui::GetWindowPos().y;
 
 	EngineData::g_Data.ViewportWindowPosition = { vMin.x, vMin.y, vMax.x, vMax.y };
-	
+
 	if (ImGui::IsWindowFocused()) {
 		io.WantCaptureKeyboard = false;
 		io.WantCaptureMouse = false;
@@ -129,8 +125,7 @@ void GUI::Draw() {
 		io.WantCaptureKeyboard = true;
 		io.WantCaptureMouse = true;
 	}
-		
-	//Renderer::ResizeViewport(viewportWindowSize.x, viewportWindowSize.y);
+
 	Renderer::ResizeViewport((vMax.x - vMin.x), (vMax.y - vMin.y));
 
 	//Why initparams, makes no sense
@@ -142,173 +137,111 @@ void GUI::Draw() {
 	ImGui::Image((void*)g_ViewportImageID, ImVec2(EngineData::g_Data.ViewportSize.x, EngineData::g_Data.ViewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::End();
+}
+void Draw_Stats() {
 
-	#pragma endregion
+	static bool open = true;
 
-	#pragma region Stats
+	ImGui::Begin("Viewport stats", &open, ImGuiWindowFlags_AlwaysAutoResize);
 
-		static bool open = true;
+	ImGui::Text("Viewport IMGUI: %.0f | %.0f", (float)EngineData::g_Data.ViewportSize.x, (float)EngineData::g_Data.ViewportSize.y);
+	ImGui::Spacing();
+	ImGui::Text("Camera pitch %.0f", EditorCamera::Pitch);
+	ImGui::Text("Camera yaw   %.0f", EditorCamera::Yaw);
 
-		ImGui::Begin("Viewport stats",&open, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::End();
+}
+void Draw_SceneHeirarchy() {
 
-		ImGui::Text("Viewport IMGUI: %.0f | %.0f", (float)EngineData::g_Data.ViewportSize.x, (float)EngineData::g_Data.ViewportSize.y);
-		ImGui::Spacing();
-		ImGui::Text("Camera pitch %.0f", EditorCamera::Pitch);
-		ImGui::Text("Camera yaw   %.0f", EditorCamera::Yaw);
-		
-		ImGui::End();
-
-	#pragma endregion
-
-	#pragma region Scene 
-		
-		static ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_Leaf;
-		static uint32_t clicked_ID = 0;
-		static bool fold_out = 1;
-		static int32_t selected_entity_ID = -1;
-		ImGui::Begin("Scene", &Open_SceneWindow);
-
-		ImGui::SetNextItemOpen(fold_out);
-
-		if(ImGui::TreeNode("Scene name")) {
-			   
-			ImGui::Indent(10);
-
-			for (int i = 0; i < EntityManager::Entities.size(); ++i) {
-				ImGui::Selectable(EntityManager::Entities[i].Name.c_str(), false);
-
-				if (ImGui::IsItemClicked()) {
-					selected_entity_ID = EntityManager::Entities[i].ID;
-				}
-					
-			}
+	static ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_Leaf;
+	static uint32_t clicked_ID = 0;
+	static bool fold_out = 1;
 	
-			ImGui::TreePop();
-		}
+	ImGui::Begin("Scene", &Open_SceneWindow);
 
+	ImGui::SetNextItemOpen(fold_out);
 
-		ImGui::End();
+	if (ImGui::TreeNode("Scene name")) {
 
-	#pragma endregion
+		ImGui::Indent(10);
 
-#pragma region ContentBrowser
+		for (int i = 0; i < EntityManager::Entities.size(); ++i) {
+			ImGui::Selectable(EntityManager::Entities[i].Name.c_str(), false);
 
-		ImGui::Begin("Content browser");
-		/*
-		
-		static const float TEXT_BASE_WIDTH = ImGui::CalcTextSize("A").x;
-		static ImGuiTableFlags tableflags = ImGuiTableFlags_BordersV | ImGuiTableFlags_BordersOuterH | ImGuiTableFlags_Resizable | ImGuiTableFlags_RowBg | ImGuiTableFlags_NoBordersInBody;
-		
-		ImGui::BeginTable("Table", 3);
-
-		// The first column will use the default _WidthStretch when ScrollX is Off and _WidthFixed when ScrollX is On
-		ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_NoHide);
-		ImGui::TableSetupColumn("Size", ImGuiTableColumnFlags_WidthFixed, TEXT_BASE_WIDTH * 12.0f);
-		ImGui::TableSetupColumn("Type", ImGuiTableColumnFlags_WidthFixed, TEXT_BASE_WIDTH * 18.0f);
-		ImGui::TableHeadersRow();
-
-		// Simple storage to output a dummy file-system.
-		struct MyTreeNode {
-			const char* Name;
-			const char* Type;
-			int			Size;
-			int         ChildIdx;
-			int         ChildCount;
-			static void DisplayNode(const MyTreeNode* node, const MyTreeNode* all_nodes) {
-				ImGui::TableNextRow();
-				ImGui::TableNextColumn();
-				const bool is_folder = (node->ChildCount > 0);
-				if (is_folder) {
-					bool open = ImGui::TreeNodeEx(node->Name, ImGuiTreeNodeFlags_SpanFullWidth);
-					ImGui::TableNextColumn();
-					ImGui::TextDisabled("--");
-					ImGui::TableNextColumn();
-					ImGui::TextUnformatted(node->Type);
-					if (open) {
-						for (int child_n = 0; child_n < node->ChildCount; child_n++)
-							DisplayNode(&all_nodes[node->ChildIdx + child_n], all_nodes);
-						ImGui::TreePop();
-					}
-				} else {
-					ImGui::TreeNodeEx(node->Name, ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_Bullet | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_SpanFullWidth);
-					ImGui::TableNextColumn();
-					ImGui::Text("%d", node->Size);
-					ImGui::TableNextColumn();
-					ImGui::TextUnformatted(node->Type);
-				}
+			if (ImGui::IsItemClicked()) {
+				selected_entity_ID = EntityManager::Entities[i].ID;
 			}
-		};
-		static const MyTreeNode nodes[] =
-		{
-			{ "Root",                         "Folder",       -1,       1, 3    }, // 0
-			{ "Music",                        "Folder",       -1,       4, 2    }, // 1
-			{ "Textures",                     "Folder",       -1,       6, 3    }, // 2
-			{ "desktop.ini",                  "System file",  1024,    -1,-1    }, // 3
-			{ "File1_a.wav",                  "Audio file",   123000,  -1,-1    }, // 4
-			{ "File1_b.wav",                  "Audio file",   456000,  -1,-1    }, // 5
-			{ "Image001.png",                 "Image file",   203128,  -1,-1    }, // 6
-			{ "Copy of Image001.png",         "Image file",   203256,  -1,-1    }, // 7
-			{ "Copy of Image001 (Final2).png","Image file",   203512,  -1,-1    }, // 8
-		};
 
-		MyTreeNode::DisplayNode(&nodes[0], nodes);
+		}
 
-		ImGui::EndTable();
-		*/
-		ImGui::End();
+		ImGui::TreePop();
+	}
 
 
-#pragma endregion
+	ImGui::End();
 
-	#pragma region ConsoleWindow
+}
+void Draw_ContentBrowser() {
+	ImGui::Begin("Content browser");
 
-		ImGui::Begin("Console", &Open_Console);
+	ImGui::End();
+}
+void Draw_ConsoleWindow() {
+	ImGui::Begin("Console", &Open_Console);
 
-		if (ImGui::Button("Clear console"))
-			g_ConsoleMessages.clear();
+	if (ImGui::Button("Clear console"))
+		g_ConsoleMessages.clear();
+	ImGui::SameLine();
+	if (ImGui::Button("Test button"))
+		GUI::PrintToConsole("Test message");
+
+	for (int i = 0; i < g_ConsoleMessages.size(); ++i) {
+		ImGui::Text(g_ConsoleMessages[i].c_str());
+	}
+
+	ImGui::End();
+}
+void Draw_Inspector() {
+
+	ImGui::Begin("Inspector");
+
+	if (selected_entity_ID >= 0) {
+		ImGui::Text(EntityManager::Entities[selected_entity_ID].Name.c_str());
+		ImGui::Text("Transform");
 		ImGui::SameLine();
-		if (ImGui::Button("Test button"))
-			PrintToConsole("Test message");
+		float transform[3] = {
+		EntityManager::RenderingData[selected_entity_ID].transform[3][0],
+		EntityManager::RenderingData[selected_entity_ID].transform[3][1],
+		EntityManager::RenderingData[selected_entity_ID].transform[3][2]
+		};
+		ImGui::DragFloat3("Transform", transform, 0.005f, -200.0f, 200.0f, "%.3f", 0);
 
-		for (int i = 0; i < g_ConsoleMessages.size(); ++i) {
-			ImGui::Text(g_ConsoleMessages[i].c_str());
-		}
-
-		ImGui::End();
-
-	#pragma endregion
-
-#pragma region Inspector
+		EntityManager::RenderingData[selected_entity_ID].transform[3][0] = transform[0];
+		EntityManager::RenderingData[selected_entity_ID].transform[3][1] = transform[1];
+		EntityManager::RenderingData[selected_entity_ID].transform[3][2] = transform[2];
 
 
-		ImGui::Begin("Inspector");
+		//ImGui::DragFloat4("Transform", );
 
-		if (selected_entity_ID >= 0) {
-			ImGui::Text(EntityManager::Entities[selected_entity_ID].Name.c_str());
-			ImGui::Text("Transform");
-			ImGui::SameLine();
-			float transform[3] = {
-			EntityManager::RenderingData[selected_entity_ID].transform[3][0],
-			EntityManager::RenderingData[selected_entity_ID].transform[3][1],
-			EntityManager::RenderingData[selected_entity_ID].transform[3][2] 
-			};
-			ImGui::DragFloat3("Transform", transform, 0.005f, -200.0f, 200.0f,"%.3f", 0);
-			
+	}
 
 
-			EntityManager::RenderingData[selected_entity_ID].transform[3][0] = transform[0];
-			EntityManager::RenderingData[selected_entity_ID].transform[3][1] = transform[1];
-			EntityManager::RenderingData[selected_entity_ID].transform[3][2] = transform[2];
+	ImGui::End();
+}
 
+void GUI::Draw() {
 
-			//ImGui::DragFloat4("Transform", );
+	BeginFrame();
 
-		}
-		
+	ImGui::DockSpaceOverViewport();
 
-		ImGui::End();
-
-#pragma endregion
+	Draw_Toolbar();
+	Draw_Viewport();
+	Draw_Stats();
+	Draw_SceneHeirarchy();
+	Draw_ContentBrowser();
+	Draw_ConsoleWindow();
+	Draw_Inspector();
 
 
 	EndFrame();
@@ -323,6 +256,8 @@ void GUI::Draw() {
 	}
 
 }
+
+
 
 
 static void BeginFrame() {

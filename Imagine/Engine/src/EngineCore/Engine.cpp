@@ -52,8 +52,7 @@ namespace Engine {
 
 			for (EntityManager::RenderData::iterator& it = EntityManager::RenderingData.begin(); it != EntityManager::RenderingData.end(); ++it) {
 
-				//it->second.transform = glm::rotate(it->second.transform, glm::radians(0.05f), glm::vec3(0.0f, 0.0f, 1.0f));
-
+				
 				Renderer::BindShader(it->second.shader.ProgramID);
 				Renderer::SetUniformMatrix4fv(it->second.shader, "model", it->second.transform);
 				Renderer::SetUniformMatrix4fv(it->second.shader, "view", glm::translate(EditorCamera::GetViewMatrix(), glm::vec3(0.0f, 0.0f, -5.0f)));

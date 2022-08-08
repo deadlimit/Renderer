@@ -4,7 +4,7 @@ Objects:
     Name: Square 1
     Shader: Triangle1.shader
     Texture: wall.jpg
-    Position: [5.73999977, 3.2249999, 5.95499992]
+    Position: [0, 0, 0]
   - ID: 1
     Name: Square 2
     Shader: Triangle1.shader
@@ -14,4 +14,4 @@ Objects:
     Name: Square 3
     Shader: Triangle1.shader
     Texture: wall2.jpg
-    Position: [1.53999996, 0.560000002, 1.16499996]
+    Position: [1.89499998, 0.495000005, 0.245000005]
