@@ -11,7 +11,7 @@
 #include "Subsystems/Serializer.h"
 #include "Subsystems/InputManager.h"
 #include "EngineData/EngineData.h"
-
+#include "Subsystems/EditorCamera/EditorCamera.h"
 namespace Engine {
 
 	void Init() {
@@ -20,7 +20,7 @@ namespace Engine {
 
 		Utils::LoadInitFile();
 		
-		MainWindow = glfwCreateWindow(EngineData::g_Data.MainWindowSize.x, EngineData::g_Data.MainWindowSize.y, "OpenGL", nullptr, nullptr);
+		MainWindow = glfwCreateWindow(EngineData::g_MainWindow.Size.x, EngineData::g_MainWindow.Size.y, "OpenGL", nullptr, nullptr);
 
 		glfwMakeContextCurrent(MainWindow);
 
@@ -29,10 +29,11 @@ namespace Engine {
 			return;
 		}
 
-		Renderer::Init(MainWindow, EngineData::g_Data.ViewportSize.x, EngineData::g_Data.ViewportSize.y);
+		Renderer::Init(MainWindow, EngineData::g_ViewportData.Size.x, EngineData::g_ViewportData.Size.y);
+
 		GUI::Init(MainWindow);
 
-		EditorCamera::Init(EngineData::g_Data.EditorCameraPosition, EngineData::g_Data.EditorCameraForward, EngineData::g_Data.EditorCameraUp, EngineData::g_Data.EditorCameraPitch, EngineData::g_Data.EditorCameraYaw,false);
+		EditorCamera::Init(ViewMode::Mode_2D);
 		
 		InputManager::Init();
 
@@ -51,12 +52,11 @@ namespace Engine {
 			InputManager::HandleInput();
 
 			for (EntityManager::RenderData::iterator& it = EntityManager::RenderingData.begin(); it != EntityManager::RenderingData.end(); ++it) {
-
-				
 				Renderer::BindShader(it->second.shader.ProgramID);
 				Renderer::SetUniformMatrix4fv(it->second.shader, "model", it->second.transform);
 				Renderer::SetUniformMatrix4fv(it->second.shader, "view", glm::translate(EditorCamera::GetViewMatrix(), glm::vec3(0.0f, 0.0f, -5.0f)));
-				Renderer::SetUniformMatrix4fv(it->second.shader, "projection", glm::perspective(glm::radians(45.0f), (float)3 / (float)2, 0.01f, 100.f));
+				//Renderer::SetUniformMatrix4fv(it->second.shader, "projection", glm::perspective(glm::radians(45.0f), (float)EngineData::g_Data.ViewportSize.x / (float)EngineData::g_Data.ViewportSize.y, 0.01f, 100.f));
+				Renderer::SetUniformMatrix4fv(it->second.shader, "projection", glm::ortho(0.0f, EngineData::g_ViewportData.Size.x, 0.0f, EngineData::g_ViewportData.Size.y, 0.01f, 100.0f));
 			}
 
 			Renderer::Draw(EntityManager::RenderingData, Renderer::Framebuffer.ID);
@@ -64,6 +64,7 @@ namespace Engine {
 			GUI::Draw();
 			
 			Renderer::SwapBuffers(*MainWindow);
+
 			glfwPollEvents();
 		}
 	}

@@ -114,7 +114,7 @@ void Draw_Viewport() {
 	vMax.x += ImGui::GetWindowPos().x;
 	vMax.y += ImGui::GetWindowPos().y;
 
-	EngineData::g_Data.ViewportWindowPosition = { vMin.x, vMin.y, vMax.x, vMax.y };
+	EngineData::g_ViewportData.Position = { vMin.x, vMin.y, vMax.x, vMax.y };
 
 	if (ImGui::IsWindowFocused()) {
 		io.WantCaptureKeyboard = false;
@@ -126,15 +126,15 @@ void Draw_Viewport() {
 		io.WantCaptureMouse = true;
 	}
 
+	float x = vMax.x - vMin.x;
+	float y = vMax.y - vMin.y;
+
+	//TODO MOVE THIS TO RENDERER, SO IT CAN CHECK ITSELF
 	Renderer::ResizeViewport((vMax.x - vMin.x), (vMax.y - vMin.y));
 
-	//Why initparams, makes no sense
-	//TODO Make a better version
+	EngineData::g_ViewportData.Size = { x, y };
 
-	EngineData::g_Data.ViewportSize.x = vMax.x - vMin.x;
-	EngineData::g_Data.ViewportSize.y = vMax.y - vMin.y;
-
-	ImGui::Image((void*)g_ViewportImageID, ImVec2(EngineData::g_Data.ViewportSize.x, EngineData::g_Data.ViewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Image((void*)g_ViewportImageID, ImVec2(x, y), ImVec2(0, 1), ImVec2(1, 0));
 
 	ImGui::End();
 }
@@ -144,7 +144,7 @@ void Draw_Stats() {
 
 	ImGui::Begin("Viewport stats", &open, ImGuiWindowFlags_AlwaysAutoResize);
 
-	ImGui::Text("Viewport IMGUI: %.0f | %.0f", (float)EngineData::g_Data.ViewportSize.x, (float)EngineData::g_Data.ViewportSize.y);
+	ImGui::Text("Viewport IMGUI: %.0f | %.0f", (float)EngineData::g_ViewportData.Size.x, (float)EngineData::g_ViewportData.Size.y);
 	ImGui::Spacing();
 	ImGui::Text("Camera pitch %.0f", EditorCamera::Pitch);
 	ImGui::Text("Camera yaw   %.0f", EditorCamera::Yaw);

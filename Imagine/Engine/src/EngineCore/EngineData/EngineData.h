@@ -3,20 +3,27 @@
 
 namespace EngineData {
 
-	struct Data {
-
-		Vector2 MainWindowSize;
-		Vector2 ViewportSize;
-		Vector4 ViewportWindowPosition;
-		//Below should be a struct
-		Vector3 EditorCameraPosition;
-		float EditorCameraPitch;
-		Vector3 EditorCameraForward;
-		float EditorCameraYaw;
-		Vector3 EditorCameraUp;
+	struct Viewport {
+		Vector2 Size;
+		Vector4 Position;
 	};
 
-	inline Data g_Data;
+	struct EditorCamera {
+		Vector3 Position;
+		Vector3 Forward;
+		Vector3 Up;
+		float Pitch;
+		float Yaw;
+		unsigned int ViewMode;
+	};
+
+	struct MainWindow {
+		Vector2 Size;		
+	};
+
+	inline Viewport g_ViewportData;
+	inline EditorCamera g_EditorCameraData;
+	inline MainWindow g_MainWindow;
 
 }
 

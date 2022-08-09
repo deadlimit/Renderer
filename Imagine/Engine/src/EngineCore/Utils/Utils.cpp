@@ -11,35 +11,38 @@ void Utils::LoadInitFile() {
 	YAML::Node currentNode = initdocs[0]["Window"];
 
 	if (currentNode["Width"]) {
-		EngineData::g_Data.MainWindowSize.x = currentNode["Width"].as<int>();
-		EngineData::g_Data.MainWindowSize.y = currentNode["Height"].as<int>();
+		EngineData::g_MainWindow.Size.x = currentNode["Width"].as<float>();
+		EngineData::g_MainWindow.Size.y = currentNode["Height"].as<float>();
 	}
 
 	currentNode = initdocs[1]["Viewport"];
 
 	
 	if (currentNode["Width"]) {
-		EngineData::g_Data.ViewportSize.x = currentNode["Width"].as<int>();
-		EngineData::g_Data.ViewportSize.y = currentNode["Height"].as<int>();
+		EngineData::g_ViewportData.Size.x = currentNode["Width"].as<float>();
+		EngineData::g_ViewportData.Size.y = currentNode["Height"].as<float>();
 
 	}
 
 	currentNode = initdocs[2]["EditorCamera"];
 	
 	if (currentNode["Position"]) {
-		EngineData::g_Data.EditorCameraPosition = { currentNode["Position"][0].as<float>(), currentNode["Position"][1].as<float>(), currentNode["Position"][2].as<float>() };
+		EngineData::g_EditorCameraData.Position = { currentNode["Position"][0].as<float>(), currentNode["Position"][1].as<float>(), currentNode["Position"][2].as<float>() };
 	}
 	if (currentNode["Forward"]) {
-		EngineData::g_Data.EditorCameraForward = { currentNode["Forward"][0].as<float>(), currentNode["Forward"][1].as<float>(), currentNode["Forward"][2].as<float>() };
+		EngineData::g_EditorCameraData.Forward = { currentNode["Forward"][0].as<float>(), currentNode["Forward"][1].as<float>(), currentNode["Forward"][2].as<float>() };
 	}
 	if (currentNode["Up"]) {
-		EngineData::g_Data.EditorCameraUp = { currentNode["Up"][0].as<float>(), currentNode["Up"][1].as<float>(), currentNode["Up"][2].as<float>() };
+		EngineData::g_EditorCameraData.Up  = { currentNode["Up"][0].as<float>(), currentNode["Up"][1].as<float>(), currentNode["Up"][2].as<float>() };
 	}
 	if (currentNode["Pitch"]) {
-		EngineData::g_Data.EditorCameraPitch = currentNode["Pitch"].as<float>();
+		EngineData::g_EditorCameraData.Pitch = currentNode["Pitch"].as<float>();
 	}
 	if (currentNode["Yaw"]) {
-		EngineData::g_Data.EditorCameraYaw = currentNode["Yaw"].as<float>();
+		EngineData::g_EditorCameraData.Yaw = currentNode["Yaw"].as<float>();
+	}
+	if (currentNode["ViewMode"]) {
+		EngineData::g_EditorCameraData.ViewMode = currentNode["ViewMode"].as<unsigned int>();
 	}
 
 }
@@ -51,16 +54,16 @@ void Utils::SaveInitParams() {
 	saveParams << YAML::BeginMap;
 	saveParams << YAML::Key << "Window";
 	saveParams << YAML::BeginMap; // Values
-	saveParams << YAML::Key << "Width" << YAML::Value << EngineData::g_Data.MainWindowSize.x;
-	saveParams << YAML::Key << "Height" << YAML::Value << EngineData::g_Data.MainWindowSize.y;
+	saveParams << YAML::Key << "Width" << YAML::Value << EngineData::g_MainWindow.Size.x;
+	saveParams << YAML::Key << "Height" << YAML::Value << EngineData::g_MainWindow.Size.y;
 	saveParams << YAML::EndMap;
 	saveParams << YAML::EndMap;
 
 	saveParams << YAML::BeginMap; //Viewport
 	saveParams << YAML::Key << "Viewport";
 	saveParams << YAML::BeginMap; //Values
-	saveParams << YAML::Key << "Width" << YAML::Value << EngineData::g_Data.ViewportSize.x;
-	saveParams << YAML::Key << "Height" << YAML::Value << EngineData::g_Data.ViewportSize.y;
+	saveParams << YAML::Key << "Width" << YAML::Value << EngineData::g_ViewportData.Size.x;
+	saveParams << YAML::Key << "Height" << YAML::Value << EngineData::g_ViewportData.Size.y;
 	saveParams << YAML::EndMap; //Values
 	saveParams << YAML::EndMap; //Viewport
 
@@ -73,6 +76,7 @@ void Utils::SaveInitParams() {
 	saveParams << YAML::Key << "Up" << YAML::Value << YAML::Flow << YAML::BeginSeq << EditorCamera::Up.x << EditorCamera::Up.y << EditorCamera::Up.z << YAML::EndSeq;
 	saveParams << YAML::Key << "Pitch" << YAML::Value << EditorCamera::Pitch;
 	saveParams << YAML::Key << "Yaw" << YAML::Value << EditorCamera::Yaw;
+	saveParams << YAML::Key << "Mode" << YAML::Value << EngineData::g_EditorCameraData.ViewMode;
 	saveParams << YAML::EndMap;
 	saveParams << YAML::EndMap;
 	

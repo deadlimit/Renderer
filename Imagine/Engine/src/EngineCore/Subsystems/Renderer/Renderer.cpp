@@ -19,8 +19,8 @@ void Renderer::Init(GLFWwindow* window, uint32_t viewportWidth, uint32_t viewpor
 	glViewport(0, 0, viewportWidth, viewportHeight);
 
 	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {	
-		EngineData::g_Data.ViewportSize.x = width;
-		EngineData::g_Data.ViewportSize.y = height;
+		EngineData::g_ViewportData.Size.x = width;
+		EngineData::g_ViewportData.Size.y = height;
 		Renderer::ResizeViewport(width, height);}
 	);
 

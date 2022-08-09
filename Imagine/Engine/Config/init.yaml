@@ -3,12 +3,13 @@ Window:
   Height: 1057
 ---
 Viewport:
-  Width: 1236
+  Width: 1046
   Height: 790
 ---
 EditorCamera:
-  Position: [9.09614944, 4.97565794, 3.44931722]
-  Forward: [-0.610560715, -0.361324072, -0.704741538]
+  Position: [0, 0, -3]
+  Forward: [0, 0, -1]
   Up: [0, 1, 0]
-  Pitch: -22.7992611
-  Yaw: -141.999039
+  Pitch: 0
+  Yaw: 0
+  Mode: 0

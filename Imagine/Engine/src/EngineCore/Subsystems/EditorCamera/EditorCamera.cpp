@@ -23,8 +23,8 @@ namespace EditorCamera {
 
 	static void CenterAndHideMouseCursor() {
 
-		int centerX = EngineData::g_Data.ViewportWindowPosition.x + (EngineData::g_Data.ViewportSize.x * .5f); 
-		int centerY = EngineData::g_Data.ViewportWindowPosition.y + (EngineData::g_Data.ViewportSize.y * .5f);
+		int centerX = EngineData::g_ViewportData.Size.x + (EngineData::g_ViewportData.Size.x * .5f);
+		int centerY = EngineData::g_ViewportData.Size.y + (EngineData::g_ViewportData.Size.y * .5f);
 
 		double xPosition, yPosition;
 		glfwGetCursorPos(Engine::MainWindow, &xPosition, &yPosition);
@@ -35,13 +35,31 @@ namespace EditorCamera {
 		glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);		
 	}
 
-	void Init(const Vector3& position, const Vector3& forward, const Vector3& up, const float& pitch, const float& yaw, const bool& activate) {
-		Position = { position.x, position.y, position.z };
-		Forward = { forward.x, forward.y, forward.z };
-		Up = { up.x, up.y, up.z };
-		Pitch = pitch;
-		Yaw = yaw;
+	void ResetPosition() {
+		Position = { 0.0f, 0.0f, -3.0f };
+		Forward = { 0.0f, 0.0f, -1.0f };
+		Up = { 0.0f, 1.0f, 0.0f };
+		Pitch = 0;
+		Yaw = 0;
+	}
 
+	void Init(const ViewMode view) {
+		Position = { EngineData::g_EditorCameraData.Position.x,  EngineData::g_EditorCameraData.Position.y,  EngineData::g_EditorCameraData.Position.z };
+		Forward = { EngineData::g_EditorCameraData.Forward.x, EngineData::g_EditorCameraData.Forward.y, EngineData::g_EditorCameraData.Forward.z };
+		Up = { EngineData::g_EditorCameraData.Up.x, EngineData::g_EditorCameraData.Up.y, EngineData::g_EditorCameraData.Up.z };
+
+		EngineData::g_EditorCameraData.ViewMode = (int)view;
+
+		if (view == ViewMode::Mode_2D) {
+			Pitch = 0.0f;
+			Yaw	  =	0.0f;
+		}
+		else {
+			Pitch = EngineData::g_EditorCameraData.Pitch;
+			Yaw = EngineData::g_EditorCameraData.Yaw;
+		}
+
+		
 		//Need to find a way to skip repeating things
 		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_W, { nullptr, []() { Move(VECTOR_FORWARD);}, nullptr });
 		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_S, { nullptr, []() { Move(VECTOR_BACK);},	 nullptr });
@@ -49,13 +67,15 @@ namespace EditorCamera {
 		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_D, { nullptr, []() { Move(VECTOR_RIGHT);},	 nullptr });
 		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_E, { nullptr, []() { Move(VECTOR_UP);},		 nullptr });
 		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_Q, { nullptr, []() { Move(VECTOR_DOWN);},	 nullptr });
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_F, { nullptr, []() { ResetPosition();},	 nullptr });
 
-		InputManager::RegisterCallback(InputType::MOUSE, GLFW_MOUSE_BUTTON_2,
+		/*InputManager::RegisterCallback(InputType::MOUSE, GLFW_MOUSE_BUTTON_2,
 			{
 			[]() { CenterAndHideMouseCursor(); },
 			[]() { Rotate(); },
 			[]() { glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);}
 			});
+			*/
 	}
 
 
@@ -84,7 +104,6 @@ namespace EditorCamera {
 		if(Yaw < -360.f)
 			Yaw += 360.f;
 
-		
 		glm::vec3 direction;
 		direction.x = glm::cos(glm::radians(Yaw) * glm::cos(glm::radians(Pitch)));
 		direction.y = glm::sin(glm::radians(Pitch));
