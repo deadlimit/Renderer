@@ -12,6 +12,7 @@
 #include "Subsystems/InputManager.h"
 #include "EngineData/EngineData.h"
 #include "Subsystems/EditorCamera/EditorCamera.h"
+
 namespace Engine {
 
 	void Init() {
@@ -33,7 +34,7 @@ namespace Engine {
 
 		GUI::Init(MainWindow);
 
-		EditorCamera::Init(ViewMode::Mode_2D);
+		EditorCamera::Init(EngineData::g_EditorCameraData);
 		
 		InputManager::Init();
 
@@ -54,9 +55,8 @@ namespace Engine {
 			for (EntityManager::RenderData::iterator& it = EntityManager::RenderingData.begin(); it != EntityManager::RenderingData.end(); ++it) {
 				Renderer::BindShader(it->second.shader.ProgramID);
 				Renderer::SetUniformMatrix4fv(it->second.shader, "model", it->second.transform);
-				Renderer::SetUniformMatrix4fv(it->second.shader, "view", glm::translate(EditorCamera::GetViewMatrix(), glm::vec3(0.0f, 0.0f, -5.0f)));
-				//Renderer::SetUniformMatrix4fv(it->second.shader, "projection", glm::perspective(glm::radians(45.0f), (float)EngineData::g_Data.ViewportSize.x / (float)EngineData::g_Data.ViewportSize.y, 0.01f, 100.f));
-				Renderer::SetUniformMatrix4fv(it->second.shader, "projection", glm::ortho(0.0f, EngineData::g_ViewportData.Size.x, 0.0f, EngineData::g_ViewportData.Size.y, 0.01f, 100.0f));
+				Renderer::SetUniformMatrix4fv(it->second.shader, "view", EditorCamera::GetViewMatrix());
+				Renderer::SetUniformMatrix4fv(it->second.shader, "projection", glm::perspective(glm::radians(45.0f), EngineData::g_ViewportData.Size.x / EngineData::g_ViewportData.Size.y, 0.01f, 100.f));
 			}
 
 			Renderer::Draw(EntityManager::RenderingData, Renderer::Framebuffer.ID);

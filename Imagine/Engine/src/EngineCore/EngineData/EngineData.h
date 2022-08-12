@@ -1,5 +1,7 @@
 #pragma once
 #include "Utils/Math.h"
+#include "glad.h"
+#include "glfw3.h"
 
 namespace EngineData {
 
@@ -18,7 +20,8 @@ namespace EngineData {
 	};
 
 	struct MainWindow {
-		Vector2 Size;		
+		Vector2 Size;
+		GLFWwindow* Handle;
 	};
 
 	inline Viewport g_ViewportData;

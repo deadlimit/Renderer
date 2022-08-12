@@ -42,23 +42,25 @@ namespace EditorCamera {
 		Pitch = 0;
 		Yaw = 0;
 	}
+	
+	//Passing a variable that exist in the same struct that is used to pull transformation from is wierd, fix plz
+	void Init(const EngineData::EditorCamera& data) {
 
-	void Init(const ViewMode view) {
-		Position = { EngineData::g_EditorCameraData.Position.x,  EngineData::g_EditorCameraData.Position.y,  EngineData::g_EditorCameraData.Position.z };
-		Forward = { EngineData::g_EditorCameraData.Forward.x, EngineData::g_EditorCameraData.Forward.y, EngineData::g_EditorCameraData.Forward.z };
-		Up = { EngineData::g_EditorCameraData.Up.x, EngineData::g_EditorCameraData.Up.y, EngineData::g_EditorCameraData.Up.z };
+		Position = { data.Position.x,  data.Position.y,  data.Position.z };
+		Forward = { data.Forward.x, data.Forward.y, data.Forward.z };
+		Up = { data.Up.x, data.Up.y, data.Up.z };
 
-		EngineData::g_EditorCameraData.ViewMode = (int)view;
-
-		if (view == ViewMode::Mode_2D) {
-			Pitch = 0.0f;
-			Yaw	  =	0.0f;
+		switch ((ViewMode)data.ViewMode) {
+			case ViewMode::Mode_2D:
+				Pitch = 0.0f;
+				Yaw = 0.0f;
+				break;
+			case ViewMode::Mode_3D:
+				Pitch = data.Pitch;
+				Yaw = data.Yaw;
 		}
-		else {
-			Pitch = EngineData::g_EditorCameraData.Pitch;
-			Yaw = EngineData::g_EditorCameraData.Yaw;
-		}
 
+		Mode = (ViewMode)data.ViewMode;
 		
 		//Need to find a way to skip repeating things
 		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_W, { nullptr, []() { Move(VECTOR_FORWARD);}, nullptr });
@@ -68,14 +70,6 @@ namespace EditorCamera {
 		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_E, { nullptr, []() { Move(VECTOR_UP);},		 nullptr });
 		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_Q, { nullptr, []() { Move(VECTOR_DOWN);},	 nullptr });
 		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_F, { nullptr, []() { ResetPosition();},	 nullptr });
-
-		/*InputManager::RegisterCallback(InputType::MOUSE, GLFW_MOUSE_BUTTON_2,
-			{
-			[]() { CenterAndHideMouseCursor(); },
-			[]() { Rotate(); },
-			[]() { glfwSetInputMode(Engine::MainWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);}
-			});
-			*/
 	}
 
 

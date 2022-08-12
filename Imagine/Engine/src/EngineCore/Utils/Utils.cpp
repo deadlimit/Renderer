@@ -6,7 +6,7 @@
 
 void Utils::LoadInitFile() {
 
-	std::vector<YAML::Node> initdocs = YAML::LoadAllFromFile("Config/init.yaml");
+	std::vector<YAML::Node> initdocs = YAML::LoadAllFromFile("../Config/init.yaml");
 	
 	YAML::Node currentNode = initdocs[0]["Window"];
 
@@ -17,7 +17,6 @@ void Utils::LoadInitFile() {
 
 	currentNode = initdocs[1]["Viewport"];
 
-	
 	if (currentNode["Width"]) {
 		EngineData::g_ViewportData.Size.x = currentNode["Width"].as<float>();
 		EngineData::g_ViewportData.Size.y = currentNode["Height"].as<float>();
@@ -41,8 +40,9 @@ void Utils::LoadInitFile() {
 	if (currentNode["Yaw"]) {
 		EngineData::g_EditorCameraData.Yaw = currentNode["Yaw"].as<float>();
 	}
-	if (currentNode["ViewMode"]) {
-		EngineData::g_EditorCameraData.ViewMode = currentNode["ViewMode"].as<unsigned int>();
+	if (currentNode["Mode"]) {
+		const std::string& modeString = currentNode["Mode"].as<std::string>();
+		EngineData::g_EditorCameraData.ViewMode = (unsigned int)(modeString == "2D" ? ViewMode::Mode_2D : ViewMode::Mode_3D);
 	}
 
 }
@@ -67,7 +67,6 @@ void Utils::SaveInitParams() {
 	saveParams << YAML::EndMap; //Values
 	saveParams << YAML::EndMap; //Viewport
 
-	
 	saveParams << YAML::BeginMap;
 	saveParams << YAML::Key << "EditorCamera";
 	saveParams << YAML::BeginMap;
@@ -76,11 +75,11 @@ void Utils::SaveInitParams() {
 	saveParams << YAML::Key << "Up" << YAML::Value << YAML::Flow << YAML::BeginSeq << EditorCamera::Up.x << EditorCamera::Up.y << EditorCamera::Up.z << YAML::EndSeq;
 	saveParams << YAML::Key << "Pitch" << YAML::Value << EditorCamera::Pitch;
 	saveParams << YAML::Key << "Yaw" << YAML::Value << EditorCamera::Yaw;
-	saveParams << YAML::Key << "Mode" << YAML::Value << EngineData::g_EditorCameraData.ViewMode;
+	saveParams << YAML::Key << "Mode" << YAML::Value << (((int)EditorCamera::Mode == 0) ? "2D" : "3D");
 	saveParams << YAML::EndMap;
 	saveParams << YAML::EndMap;
 	
-	std::ofstream file("Config/init.yaml");
+	std::ofstream file("../Config/init.yaml");
 
 	file << saveParams.c_str(); 
 

@@ -9,9 +9,8 @@ namespace Engine {
 	void Init();
 	void Run();
 	void Clean();
-
+	
 	inline GLFWwindow* MainWindow = nullptr;
-
 }
 
 

@@ -1,8 +1,6 @@
 #include "yaml-cpp/node/parse.h"
-
 #include <fstream>
 #include <sstream>
-
 #include "nodebuilder.h"
 #include "yaml-cpp/node/impl.h"
 #include "yaml-cpp/node/node.h"

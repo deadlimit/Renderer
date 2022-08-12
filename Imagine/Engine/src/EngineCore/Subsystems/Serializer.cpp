@@ -36,7 +36,7 @@ namespace Serializer {
 		}
 
 		out << EndMap;
-		std::ofstream outstream("../Resources/Scenes/" + savefile);
+		std::ofstream outstream("../../Resources/Scenes/" + savefile);
 
 		outstream << out.c_str();
 
@@ -45,7 +45,7 @@ namespace Serializer {
 
 	void DeserializeScene(const std::string& savefile) {
 
-		YAML::Node scene = YAML::LoadFile("../Resources/Scenes/" + savefile);
+		YAML::Node scene = YAML::LoadFile("../../Resources/Scenes/" + savefile);
 
 		if (scene["Scene"]) {
 

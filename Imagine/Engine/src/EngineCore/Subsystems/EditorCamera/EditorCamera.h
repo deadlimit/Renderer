@@ -1,6 +1,7 @@
 #pragma once
 #include "Utils/Math.h"
 #include "glm.hpp"
+#include "EngineData/EngineData.h"
 
 enum class ViewMode {
 	Mode_2D = 0,
@@ -16,8 +17,8 @@ namespace EditorCamera {
 	inline glm::vec3 Position;
 	inline glm::vec3 Forward;
 	inline glm::vec3 Up;
-
-	void Init(const ViewMode);
+	inline ViewMode Mode;
+	void Init(const EngineData::EditorCamera&);
 	
 	glm::mat4 GetViewMatrix();
 
