@@ -11,14 +11,9 @@ enum class ViewMode {
 
 namespace EditorCamera {
 	
-	inline float Pitch;
-	inline float Yaw;
+	inline EngineData::EditorCameraData Params;
 
-	inline glm::vec3 Position;
-	inline glm::vec3 Forward;
-	inline glm::vec3 Up;
-	inline ViewMode Mode;
-	void Init(const EngineData::EditorCamera&);
+	void Init(const EngineData::EditorCameraData&);
 	
 	glm::mat4 GetViewMatrix();
 

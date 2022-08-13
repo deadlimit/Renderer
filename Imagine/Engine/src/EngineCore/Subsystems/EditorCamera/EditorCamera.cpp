@@ -36,40 +36,41 @@ namespace EditorCamera {
 	}
 
 	void ResetPosition() {
-		Position = { 0.0f, 0.0f, -3.0f };
-		Forward = { 0.0f, 0.0f, -1.0f };
-		Up = { 0.0f, 1.0f, 0.0f };
-		Pitch = 0;
-		Yaw = 0;
+		Params.Position = { 0.0f, 0.0f, -3.0f };
+		Params.Forward = { 0.0f, 0.0f, -1.0f };
+		Params.Up = { 0.0f, 1.0f, 0.0f };
+		Params.Pitch = 0;
+		Params.Yaw = 0;
 	}
 	
 	//Passing a variable that exist in the same struct that is used to pull transformation from is wierd, fix plz
-	void Init(const EngineData::EditorCamera& data) {
+	void Init(const EngineData::EditorCameraData& newParams) {
 
-		Position = { data.Position.x,  data.Position.y,  data.Position.z };
-		Forward = { data.Forward.x, data.Forward.y, data.Forward.z };
-		Up = { data.Up.x, data.Up.y, data.Up.z };
+		Params = std::move(newParams);
 
-		switch ((ViewMode)data.ViewMode) {
+		switch ((ViewMode)Params.ViewMode) {
 			case ViewMode::Mode_2D:
-				Pitch = 0.0f;
-				Yaw = 0.0f;
+				Params.Pitch = 0.0f;
+				Params.Yaw = 0.0f;
+				Params.Projection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f);
+				InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_W, { nullptr, []() { Move(VECTOR_UP); },	 nullptr });
+				InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_S, { nullptr, []() { Move(VECTOR_DOWN); },	 nullptr });
+				InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_A, { nullptr, []() { Move(VECTOR_LEFT); },	 nullptr });
+				InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_D, { nullptr, []() { Move(VECTOR_RIGHT); },	 nullptr });
 				break;
+
 			case ViewMode::Mode_3D:
-				Pitch = data.Pitch;
-				Yaw = data.Yaw;
+				Params.Projection = glm::perspective(glm::radians(Params.FOV), EngineData::g_ViewportData.Size.x / EngineData::g_ViewportData.Size.y, Params.Clipping_Near, Params.Clipping_Far);
+				InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_W, { nullptr, []() { Move(VECTOR_FORWARD); },nullptr });
+				InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_S, { nullptr, []() { Move(VECTOR_BACK); },	 nullptr });
+				InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_A, { nullptr, []() { Move(VECTOR_LEFT); },	 nullptr });
+				InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_D, { nullptr, []() { Move(VECTOR_RIGHT); },	 nullptr });
+				InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_E, { nullptr, []() { Move(VECTOR_UP); },	 nullptr });
+				InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_Q, { nullptr, []() { Move(VECTOR_DOWN); },	 nullptr });
+				break;
 		}
 
-		Mode = (ViewMode)data.ViewMode;
-		
-		//Need to find a way to skip repeating things
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_W, { nullptr, []() { Move(VECTOR_FORWARD);}, nullptr });
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_S, { nullptr, []() { Move(VECTOR_BACK);},	 nullptr });
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_A, { nullptr, []() { Move(VECTOR_LEFT);},	 nullptr });
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_D, { nullptr, []() { Move(VECTOR_RIGHT);},	 nullptr });
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_E, { nullptr, []() { Move(VECTOR_UP);},		 nullptr });
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_Q, { nullptr, []() { Move(VECTOR_DOWN);},	 nullptr });
-		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_F, { nullptr, []() { ResetPosition();},	 nullptr });
+		InputManager::RegisterCallback(InputType::KEY, GLFW_KEY_F, { nullptr, []() { ResetPosition(); }, nullptr });
 	}
 
 
@@ -86,42 +87,42 @@ namespace EditorCamera {
 		previousXPosition = xPosition;
 		previousYPosition = yPosition;
 
-		Pitch += (deltaY * mouse_sensitivity);
-		Yaw += (deltaX * mouse_sensitivity);
+		Params.Pitch += (deltaY * mouse_sensitivity);
+		Params.Yaw += (deltaX * mouse_sensitivity);
 
-		if (Pitch > 89.f)
-			Pitch = 89.f;
-		if (Pitch < -89.f)
-			Pitch = -89.f;
-		if (Yaw > 360.f)
-			Yaw -= 360.f;
-		if(Yaw < -360.f)
-			Yaw += 360.f;
+		if (Params.Pitch > 89.f)
+			Params.Pitch = 89.f;
+		if (Params.Pitch < -89.f)
+			Params.Pitch = -89.f;
+		if (Params.Yaw > 360.f)
+			Params.Yaw -= 360.f;
+		if(Params.Yaw < -360.f)
+			Params.Yaw += 360.f;
 
 		glm::vec3 direction;
-		direction.x = glm::cos(glm::radians(Yaw) * glm::cos(glm::radians(Pitch)));
-		direction.y = glm::sin(glm::radians(Pitch));
-		direction.z = glm::sin(glm::radians(Yaw) * glm::cos(glm::radians(Pitch)));
+		direction.x = glm::cos(glm::radians(Params.Yaw) * glm::cos(glm::radians(Params.Pitch)));
+		direction.y = glm::sin(glm::radians(Params.Pitch));
+		direction.z = glm::sin(glm::radians(Params.Yaw) * glm::cos(glm::radians(Params.Pitch)));
 			
-		Forward = glm::normalize(direction);
+		Params.Forward = glm::normalize(direction);
 	}
 
 	void EditorCamera::Move(const glm::vec3& direction) {
 
 		if (glm::abs(direction.z))
-			Position += Forward * direction.z * Speed;
+			Params.Position += Params.Forward * direction.z * Speed;
 
 		if (glm::abs(direction.y))
-			Position += Up * direction.y * Speed;
+			Params.Position += Params.Up * direction.y * Speed;
 
 		if(glm::abs(direction.x))
-			Position += glm::normalize(glm::cross(Forward, Up) * direction.x) * Speed;
+			Params.Position += glm::normalize(glm::cross(Params.Forward, Params.Up) * direction.x) * Speed;
 		
 	}
 
 	glm::mat4 GetViewMatrix() {
 
-		return glm::lookAt(Position, Position + Forward, Up);
+		return glm::lookAt(Params.Position, Params.Position + Params.Forward, Params.Up);
 	}
 
 

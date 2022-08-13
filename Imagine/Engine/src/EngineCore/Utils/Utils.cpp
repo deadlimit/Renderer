@@ -70,12 +70,13 @@ void Utils::SaveInitParams() {
 	saveParams << YAML::BeginMap;
 	saveParams << YAML::Key << "EditorCamera";
 	saveParams << YAML::BeginMap;
-	saveParams << YAML::Key << "Position" << YAML::Value << YAML::Flow << YAML::BeginSeq << EditorCamera::Position.x << EditorCamera::Position.y << EditorCamera::Position.z << YAML::EndSeq;
-	saveParams << YAML::Key << "Forward" << YAML::Value << YAML::Flow << YAML::BeginSeq << EditorCamera::Forward.x << EditorCamera::Forward.y << EditorCamera::Forward.z << YAML::EndSeq;
-	saveParams << YAML::Key << "Up" << YAML::Value << YAML::Flow << YAML::BeginSeq << EditorCamera::Up.x << EditorCamera::Up.y << EditorCamera::Up.z << YAML::EndSeq;
-	saveParams << YAML::Key << "Pitch" << YAML::Value << EditorCamera::Pitch;
-	saveParams << YAML::Key << "Yaw" << YAML::Value << EditorCamera::Yaw;
-	saveParams << YAML::Key << "Mode" << YAML::Value << (((int)EditorCamera::Mode == 0) ? "2D" : "3D");
+	saveParams << YAML::Key << "Position" << YAML::Value << YAML::Flow << YAML::BeginSeq << EditorCamera::Params.Position.x << EditorCamera::Params.Position.y << EditorCamera::Params.Position.z << YAML::EndSeq;
+	saveParams << YAML::Key << "Forward" << YAML::Value << YAML::Flow << YAML::BeginSeq << EditorCamera::Params.Forward.x << EditorCamera::Params.Forward.y << EditorCamera::Params.Forward.z << YAML::EndSeq;
+	saveParams << YAML::Key << "Up" << YAML::Value << YAML::Flow << YAML::BeginSeq << EditorCamera::Params.Up.x << EditorCamera::Params.Up.y << EditorCamera::Params.Up.z << YAML::EndSeq;
+	saveParams << YAML::Key << "Pitch" << YAML::Value << EditorCamera::Params.Pitch;
+	saveParams << YAML::Key << "Yaw" << YAML::Value << EditorCamera::Params.Yaw;
+	saveParams << YAML::Key << "Mode" << YAML::Value << (((int)EditorCamera::Params.ViewMode == 0) ? "2D" : "3D");
+	saveParams << YAML::Key << "FOV" << YAML::Value << EditorCamera::Params.FOV;
 	saveParams << YAML::EndMap;
 	saveParams << YAML::EndMap;
 	

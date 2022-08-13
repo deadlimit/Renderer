@@ -3,13 +3,14 @@ Window:
   Height: 1057
 ---
 Viewport:
-  Width: 1268
+  Width: 1260
   Height: 914
 ---
 EditorCamera:
-  Position: [-1.18499899, -1.93999827, -12.9752283]
-  Forward: [0, 0, 1]
+  Position: [0.0149999028, 0, 1.02002001]
+  Forward: [0, 0, -1]
   Up: [0, 1, 0]
   Pitch: 0
   Yaw: 0
   Mode: 3D
+  FOV: 0

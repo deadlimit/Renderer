@@ -146,8 +146,11 @@ void Draw_Stats() {
 
 	ImGui::Text("Viewport IMGUI: %.0f | %.0f", (float)EngineData::g_ViewportData.Size.x, (float)EngineData::g_ViewportData.Size.y);
 	ImGui::Spacing();
-	ImGui::Text("Camera pitch %.0f", EditorCamera::Pitch);
-	ImGui::Text("Camera yaw   %.0f", EditorCamera::Yaw);
+	ImGui::Text("Camera position   %.2f, %.2f, %.2f", EditorCamera::Params.Position.x, EditorCamera::Params.Position.y, EditorCamera::Params.Position.z);
+	ImGui::Text("Camera forward   %.2f, %.2f, %.2f", EditorCamera::Params.Forward.x, EditorCamera::Params.Forward.y, EditorCamera::Params.Forward.z);
+	ImGui::Text("Camera up   %.2f, %.2f, %.2f", EditorCamera::Params.Up.x, EditorCamera::Params.Up.y, EditorCamera::Params.Up.z);
+	ImGui::Text("Camera pitch %.0f", EditorCamera::Params.Pitch);
+	ImGui::Text("Camera yaw   %.0f", EditorCamera::Params.Yaw);
 
 	ImGui::End();
 }

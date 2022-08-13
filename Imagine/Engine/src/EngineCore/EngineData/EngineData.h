@@ -1,31 +1,35 @@
 #pragma once
-#include "Utils/Math.h"
+#include "glm.hpp"
 #include "glad.h"
 #include "glfw3.h"
 
 namespace EngineData {
 
 	struct Viewport {
-		Vector2 Size;
-		Vector4 Position;
+		glm::vec2 Size;
+		glm::vec4 Position;
 	};
 
-	struct EditorCamera {
-		Vector3 Position;
-		Vector3 Forward;
-		Vector3 Up;
+	struct EditorCameraData {
+		glm::vec3 Position;
+		glm::vec3 Forward;
+		glm::vec3 Up;
 		float Pitch;
 		float Yaw;
 		unsigned int ViewMode;
+		glm::mat4 Projection;
+		float FOV;
+		float Clipping_Near;
+		float Clipping_Far;
 	};
 
 	struct MainWindow {
-		Vector2 Size;
+		glm::vec2 Size;
 		GLFWwindow* Handle;
 	};
 
 	inline Viewport g_ViewportData;
-	inline EditorCamera g_EditorCameraData;
+	inline EditorCameraData g_EditorCameraData;
 	inline MainWindow g_MainWindow;
 
 }
